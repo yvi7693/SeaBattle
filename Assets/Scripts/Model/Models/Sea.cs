@@ -14,6 +14,15 @@ public class Sea
         sectors = new Sector[size, size];
     }
 
+    public Sector GetSector(int x, int y)
+    {
+        if (x > size  && y > size)
+            return sectors[x,y];
+        
+        else
+            throw new ArgumentException("incorrect value");
+    }
+
     public void SetUp()
     {
         for (int x = 0; x < size; x++)
@@ -25,12 +34,10 @@ public class Sea
         }
     }
 
-    public Sector GetSector(int x, int y)
+    public bool IsAttackedSector(int targetX, int targetY)
     {
-        if (x > size  && y > size)
-            return sectors[x,y];
-        
-        else
-            throw new ArgumentException("incorrect value");
+        return sectors[targetX, targetY].IsAttacked();
     }
+
+    
 }

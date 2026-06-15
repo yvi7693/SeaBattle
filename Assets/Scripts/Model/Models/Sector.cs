@@ -30,7 +30,7 @@ public class Sector
         this.status = newStatus;
     }
 
-    public bool IsAttaked()
+    public bool IsAttacked()
     {
         return status == StatusSector.Hit || status == StatusSector.Miss;
     }
