@@ -11,4 +11,23 @@ public class BattleController
         this.fleet1 = fleet1;
         this.fleet2 = fleet2;
     }
+
+    public bool IsDeclareWinner()
+    {
+        if (!(fleet1.HasSurvivors()))
+            {
+                winner = fleet1;
+                return true;
+            }
+
+        else if (!(fleet2.HasSurvivors()))
+        {
+            winner = fleet2;
+            return true;
+        }
+            
+
+        return false;
+
+    }
 }

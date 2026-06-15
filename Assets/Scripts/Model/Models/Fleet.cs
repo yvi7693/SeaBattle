@@ -19,4 +19,9 @@ public class Fleet
 
         ships[9] = new Ship(4);
     }
+
+    public bool HasSurvivors()
+    {
+        return ships.Length != 0;
+    }
 }

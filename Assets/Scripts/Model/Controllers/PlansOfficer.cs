@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-class PlansOfficer
+public class PlansOfficer
 {
     private TurnRecon turnRecon;
 

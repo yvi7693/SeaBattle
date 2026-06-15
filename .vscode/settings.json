@@ -70,7 +70,11 @@
     "dotnet.defaultSolution": "SeaBattle.slnx",
     "dotnet.enableWorkspaceBasedDevelopment": false,
     "editor.inlineSuggest.enabled": false,
-    "editor.quickSuggestions": false,
+    "editor.quickSuggestions": {
+        "comments": "off",
+        "strings": "off",
+        "other": "off"
+    },
     "editor.suggestOnTriggerCharacters": false,
     "editor.acceptSuggestionOnCommitCharacter": false
 }
