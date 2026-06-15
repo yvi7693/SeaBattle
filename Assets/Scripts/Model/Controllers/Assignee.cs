@@ -5,7 +5,13 @@ public class Assignee
     private AttackResolver attackResolver;
     private Sinker sinker;
 
-    public void AttackSector(Sector target)
+    public Assignee(AttackResolver attackResolver, Sinker sinker)
+    {
+        this.attackResolver  = attackResolver;
+        this.sinker = sinker;
+    }
+
+    public void AttackOrder(Sector target)
     {
         StatusSector newStatus = attackResolver.Resolve(target);
         target.Attack(newStatus);

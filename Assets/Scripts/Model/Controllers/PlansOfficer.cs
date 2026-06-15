@@ -4,6 +4,11 @@ class PlansOfficer
 {
     private TurnRecon turnRecon;
 
+    public PlansOfficer(TurnRecon turnRecon)
+    {
+        this.turnRecon = turnRecon;
+    }
+
     public (bool, Sector) PlanOrder(int targetX, int targetY)
     {
         
