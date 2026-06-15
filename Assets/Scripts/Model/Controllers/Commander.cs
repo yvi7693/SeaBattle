@@ -4,6 +4,6 @@ public class Commander
 
     public bool TryAssignMission()
     {
-        return true;
+        
     }
 }
