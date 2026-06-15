@@ -68,5 +68,9 @@
         "*.slnx": "*.csproj"
     },
     "dotnet.defaultSolution": "SeaBattle.slnx",
-    "dotnet.enableWorkspaceBasedDevelopment": false
+    "dotnet.enableWorkspaceBasedDevelopment": false,
+    "editor.inlineSuggest.enabled": false,
+    "editor.quickSuggestions": false,
+    "editor.suggestOnTriggerCharacters": false,
+    "editor.acceptSuggestionOnCommitCharacter": false
 }
