@@ -21,17 +21,21 @@ public class Sector
 
     }
 
+    public Ship GetShip() {return ship;}
+
+    public StatusSector GetStatus() {return status;}
+
     public void Attack(StatusSector newStatus)
     {
         this.status = newStatus;
     }
 
-    public Boolean IsAttaked()
+    public bool IsAttaked()
     {
         return status == StatusSector.Hit || status == StatusSector.Miss;
     }
 
-    public Boolean HaveShip()
+    public bool HaveShip()
     {
         return !(ship is null);
     }
