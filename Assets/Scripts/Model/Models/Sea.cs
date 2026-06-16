@@ -6,7 +6,7 @@ public class Sea
     private int size;
     private Sector[,] sectors;
 
-    public Sea(int size)
+    public Sea(int size = 10)
     {
         if (size < 10)
             throw new ArgumentException("incorrect value");

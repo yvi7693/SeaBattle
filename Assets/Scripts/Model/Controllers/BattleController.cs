@@ -6,10 +6,10 @@ public class BattleController
     private Fleet fleet2;
     private Fleet winner;
 
-    public BattleController(Fleet fleet1, Fleet fleet2)
+    public BattleController()
     {
-        this.fleet1 = fleet1;
-        this.fleet2 = fleet2;
+        this.fleet1 = new Fleet();
+        this.fleet2 = new Fleet();
     }
 
     public bool IsDeclareWinner()

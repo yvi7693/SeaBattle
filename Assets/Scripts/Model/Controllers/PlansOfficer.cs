@@ -40,6 +40,12 @@ public class PlansOfficer
         }  
 
         return false;
+    }
+
+    public void DeployFleet(Fleet fleet)
+    {
+        
+    }
         
 
             
