@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public class Assignee
 {
@@ -28,7 +29,7 @@ public class Assignee
         sinker.FloodShip();
     }
 
-    public void DeployOrder()
+    public void DeployOrder(List<Sector> station, Ship ship)
     {
         
     }

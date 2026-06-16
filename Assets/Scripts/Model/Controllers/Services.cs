@@ -1,4 +1,13 @@
 using System;
+using System.Collections.Generic;
+
+public class DeploymentOfficer
+{
+    public bool ValidateDeploy(List<Sector> station, Sea sea)
+    {
+        return true;
+    }
+}
 
 public class AttackResolver
 {

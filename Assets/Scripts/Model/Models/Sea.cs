@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public class Sea
 {
@@ -21,6 +22,20 @@ public class Sea
         
         else
             throw new ArgumentException("incorrect value");
+    }
+
+    public List<Sector> CollectSectors(List <(int x, int y)> positions)
+    {
+        List<Sector> sectors = new List<Sector>();
+
+        for (int i = 0; i < positions.Count; i++)
+        {
+            (int targetX, int targetY) = positions[i];
+
+            sectors.Add(this.GetSector(targetX, targetY));
+        }
+
+        return sectors;
     }
 
     public void SetUp()
