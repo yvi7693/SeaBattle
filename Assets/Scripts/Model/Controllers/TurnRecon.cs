@@ -28,4 +28,9 @@ public class TurnRecon
             return sea2;
         }
     }
+
+    public void KeepTurn()
+    {
+        this.ReconOrder();
+    }
 }
