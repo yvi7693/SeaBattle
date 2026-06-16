@@ -31,7 +31,10 @@ public class Assignee
 
     public void DeployOrder(List<Sector> station, Ship ship)
     {
-        
+        for (int i = 0; i < station.Count; i++)
+        {
+            station[i].Occupy(ship);
+        }
     }
 
 }
