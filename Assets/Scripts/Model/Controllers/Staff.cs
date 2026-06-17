@@ -22,17 +22,14 @@ public class Staff
         commander = new Commander(plansOfficer, assignee);
     }
 
-    public bool TacticalDirective(int targetX, int targetY)
+    public MissionResult TacticalDirective(int targetX, int targetY)
     {
-        return commander.TryAssignMission(targetX, targetY);
+        return commander.AssignMission(targetX, targetY);
 
     }
-
-
-    
 }
 
-public enum MoveResult
+public enum MissionResult
 {
     HaveWinner,
     Hit,

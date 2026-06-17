@@ -9,13 +9,21 @@ public class Commander
         this.assignee = assignee;
     }
 
-    public bool TryAssignMission(int targetX, int targetY)
+    public MissionResult AssignMission(int targetX, int targetY)
     {
         (bool permission, Sector targetSector) = plansOfficer.PlanOrder(targetX, targetY);
 
         if (permission)
-            assignee.AttackOrder(targetSector);
+        {
+            StatusSector newStatus = assignee.AttackOrder(targetSector);
+            
+            if (newStatus == StatusSector.Hit)
+                return MissionResult.Hit;
 
-        return permission;
+            else
+                return MissionResult.Miss;
+        }
+
+        return MissionResult.UnsucessfulShot;
     }
 }

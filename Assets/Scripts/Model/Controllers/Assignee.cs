@@ -12,21 +12,25 @@ public class Assignee
         this.sinker = sinker;
     }
 
-    public void AttackOrder(Sector target)
+    public StatusSector AttackOrder(Sector target)
     {
         StatusSector newStatus = attackResolver.Resolve(target);
         target.Attack(newStatus);
 
         if (!(target.HaveShip()))
-            return;
+            return newStatus;
 
         Ship ship = target.GetShip();
         ship.Damage();
 
         if (!(ship.IsSunken()))
-            return;
+            return newStatus;
 
         sinker.FloodShip();
+
+        return newStatus;
+
+
     }
 
     public void DeployOrder(List<Sector> station, Ship ship)

@@ -11,7 +11,7 @@ public class BattlePresenter : MonoBehaviour
         this.sectorView = sectorView;
     }
 
-    public bool AttackSector(int targetX, int targetY)
+    public MissionResult AttackSector(int targetX, int targetY)
     {
         return staff.TacticalDirective(targetX, targetY);
     }
