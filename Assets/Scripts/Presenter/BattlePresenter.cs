@@ -3,17 +3,23 @@ using UnityEngine;
 public class BattlePresenter : MonoBehaviour
 {
     private Staff staff;
-    private SectorView sectorView;
+    [SerializeField] private BoardView boardView;
 
-    public BattlePresenter(Staff staff, SectorView sectorView)
+    public void AttackSector(SectorView sectorView, int targetX, int targetY)
     {
-        this.staff = staff;
-        this.sectorView = sectorView;
+        MissionResult result = staff.TacticalDirective(targetX, targetY);
+
+        if (result == MissionResult.Miss)
+
+            sectorView.DisplayMiss();
+
+        else if(result == MissionResult.Hit)
+            sectorView.DisplayHit();
     }
 
-    public MissionResult AttackSector(int targetX, int targetY)
+    private void Start()
     {
-        return staff.TacticalDirective(targetX, targetY);
+        boardView.Init(this);
     }
 }
 

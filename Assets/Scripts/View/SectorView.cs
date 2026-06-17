@@ -13,6 +13,16 @@ public class SectorView : MonoBehaviour
         this.y = y;
         this.battlePresenter = battlePresenter;
     }
+
+    public void DisplayMiss()
+    {
+        spriteRenderer.color = Color.white;
+    }
+
+    public void DisplayHit()
+    {
+        spriteRenderer.color = Color.red;
+    }
    
     private void Awake()
     {
@@ -21,7 +31,7 @@ public class SectorView : MonoBehaviour
 
     private void OnMouseDown()
     {   
-        battlePresenter.AttackSector(x, y);
+        battlePresenter.AttackSector(this, x, y);
     }
     
 }
