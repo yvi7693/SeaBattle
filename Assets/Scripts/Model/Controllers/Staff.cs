@@ -32,3 +32,10 @@ public class Staff
     
 }
 
+public enum MoveResult
+{
+    HaveWinner,
+    Hit,
+    Miss,
+    UnsucessfulShot
+}

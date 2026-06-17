@@ -16,3 +16,4 @@ public class BattlePresenter : MonoBehaviour
         return staff.TacticalDirective(targetX, targetY);
     }
 }
+
