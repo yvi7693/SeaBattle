@@ -29,8 +29,6 @@ public class Assignee
         sinker.FloodShip();
 
         return newStatus;
-
-
     }
 
     public void DeployOrder(List<Sector> station, Ship ship)

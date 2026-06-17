@@ -10,10 +10,7 @@ public class BoardView : MonoBehaviour
     public void Init(BattlePresenter battlePresenter)
     {
         this.battlePresenter = battlePresenter;
-    }
-
-    void Start()
-    {
+        
         CreateBoard();
     }
 

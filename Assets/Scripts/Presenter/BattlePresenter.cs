@@ -3,7 +3,8 @@ using UnityEngine;
 public class BattlePresenter : MonoBehaviour
 {
     private Staff staff;
-    [SerializeField] private BoardView boardView;
+    [SerializeField] private BoardView playerBoard;
+    [SerializeField] private BoardView opponentBoard;
 
     public void AttackSector(SectorView sectorView, int targetX, int targetY)
     {
@@ -19,7 +20,10 @@ public class BattlePresenter : MonoBehaviour
 
     private void Start()
     {
-        boardView.Init(this);
+        staff = new Staff();
+
+        playerBoard.Init(this);
+        opponentBoard.Init(this);
     }
 }
 
