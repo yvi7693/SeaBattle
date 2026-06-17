@@ -46,6 +46,7 @@ public class Sector
             throw new Exception("The ship is already there");
 
         this.ship = ship;
+        status = StatusSector.Ship;
 
     }
 }

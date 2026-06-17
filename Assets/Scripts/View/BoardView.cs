@@ -17,8 +17,13 @@ public class BoardView : MonoBehaviour
         {
             for (int y = 0; y < sizeSea; y++)
             {
-                GameObject sector = Instantiate(sectorPrefab, transform);
-                sector.transform.localPosition = new Vector3(x * spacing, y * spacing, 0);
+                GameObject sectorObject = Instantiate(sectorPrefab, transform);
+                sectorObject.transform.localPosition = new Vector3(x * spacing, y * spacing, 0);
+
+                SectorView sectorView = sectorObject.GetComponent<SectorView>();
+                sectorView.Init(x, y);
+
+                sectorObject.name = $"Sector_{x}_{y}";
             }
         }
     }

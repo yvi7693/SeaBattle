@@ -13,15 +13,17 @@ public class Sea
 
         this.size = size;
         sectors = new Sector[size, size];
+
+        SetUp();
     }
 
     public Sector GetSector(int x, int y)
     {
-        if (x > size  && y > size)
-            return sectors[x,y];
-        
-        else
+        if ((x > size || y > size) || (x < 0 || y < 0))
             throw new ArgumentException("incorrect value");
+        
+        return sectors[x,y];
+            
     }
 
     public List<Sector> CollectSectors(List <(int x, int y)> positions)
@@ -38,7 +40,12 @@ public class Sea
         return sectors;
     }
 
-    public void SetUp()
+    public bool IsAttackedSector(int targetX, int targetY)
+    {
+        return sectors[targetX, targetY].IsAttacked();
+    }
+
+    private void SetUp()
     {
         for (int x = 0; x < size; x++)
         {
@@ -47,11 +54,6 @@ public class Sea
                 sectors[x,y] = new Sector(x,y);
             }
         }
-    }
-
-    public bool IsAttackedSector(int targetX, int targetY)
-    {
-        return sectors[targetX, targetY].IsAttacked();
     }
 
     

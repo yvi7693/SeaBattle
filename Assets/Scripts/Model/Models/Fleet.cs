@@ -22,6 +22,12 @@ public class Fleet
 
     public bool HasSurvivors()
     {
-        return ships.Length != 0;
+        for (int i = 0; i > ships.Length; i++)
+        {
+            if (!(ships[i].IsSunken()))
+                return true;
+        }
+
+        return false;
     }
 }

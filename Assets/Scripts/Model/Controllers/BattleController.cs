@@ -16,13 +16,13 @@ public class BattleController
     {
         if (!(fleet1.HasSurvivors()))
             {
-                winner = fleet1;
+                winner = fleet2;
                 return true;
             }
 
         else if (!(fleet2.HasSurvivors()))
         {
-            winner = fleet2;
+            winner = fleet1;
             return true;
         }
             
