@@ -5,11 +5,13 @@ public class Assignee
 {
     private AttackResolver attackResolver;
     private Sinker sinker;
+    private TurnRecon turnRecon;
 
-    public Assignee(AttackResolver attackResolver, Sinker sinker)
+    public Assignee(AttackResolver attackResolver, Sinker sinker, TurnRecon turnRecon)
     {
         this.attackResolver  = attackResolver;
         this.sinker = sinker;
+        this.turnRecon = turnRecon;
     }
 
     public StatusSector AttackOrder(Sector target)
@@ -26,7 +28,7 @@ public class Assignee
         if (!(ship.IsSunken()))
             return newStatus;
 
-        sinker.FloodShip();
+        sinker.FloodShip(ship, turnRecon.GetQueue());
 
         return newStatus;
     }

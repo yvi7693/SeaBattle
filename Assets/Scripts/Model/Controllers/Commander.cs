@@ -3,6 +3,7 @@ public class Commander
     private PlansOfficer plansOfficer;
     private Assignee assignee;
     private TurnRecon turnRecon;
+    
 
     public Commander(PlansOfficer plansOfficer, Assignee assignee, TurnRecon turnRecon)
     {

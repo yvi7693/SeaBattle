@@ -21,6 +21,11 @@ public class Sector
 
     }
 
+    public (int, int) GetCoord()
+    {
+        return (x,y);
+    }
+
     public Ship GetShip() {return ship;}
 
     public StatusSector GetStatus() {return status;}

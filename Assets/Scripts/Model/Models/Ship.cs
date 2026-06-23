@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 
 public class Ship
 {
     private int durability;
     private bool deployed;
+    private List<Sector> place;
 
     public Ship(int durability, bool deployed = false)
     {
@@ -12,6 +14,12 @@ public class Ship
             
         this.durability = durability;
         this.deployed = deployed;
+        place = new List<Sector>();
+    }
+
+    public List<Sector> GetPlace()
+    {
+        return place;
     }
 
     public int GetDurability()
@@ -24,9 +32,10 @@ public class Ship
         return deployed;
     }
 
-    public void Deploy()
+    public void Deploy(List<Sector> place)
     {
-        this.deployed = true;
+        this.place = place;
+        deployed = true;
     }
 
     public void Damage()

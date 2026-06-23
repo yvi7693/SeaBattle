@@ -17,9 +17,9 @@ public class Staff
         battleController = new BattleController();
         attackResolver = new AttackResolver();
         sinker = new Sinker();
-        assignee = new Assignee(attackResolver, sinker);
-        deploymentOfficer = new DeploymentOfficer();
         turnRecon = new TurnRecon(battleController.GetFleet1(), battleController.GetFleet2());
+        assignee = new Assignee(attackResolver, sinker, turnRecon);
+        deploymentOfficer = new DeploymentOfficer();
         plansOfficer = new PlansOfficer(turnRecon, assignee, deploymentOfficer);
         commander = new Commander(plansOfficer, assignee, turnRecon);
 

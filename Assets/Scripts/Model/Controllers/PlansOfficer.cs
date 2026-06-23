@@ -11,7 +11,6 @@ public class PlansOfficer
         this.turnRecon = turnRecon;
         this.assignee = assignee;
         this.deploymentOfficer = deploymentOfficer;
-
     }
 
     public (bool, Sector) PlanOrder(int targetX, int targetY)
@@ -36,7 +35,7 @@ public class PlansOfficer
         {
             assignee.DeployOrder(sectors, ship);
 
-            ship.Deploy();
+            ship.Deploy(sectors);
 
             return true;
         }  

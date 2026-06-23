@@ -28,8 +28,27 @@ public class AttackResolver
 public class Sinker
 {
 
-    public void FloodShip()
+    public void FloodShip(Ship ship, Sea sea)
     {
+        List<Sector> place = ship.GetPlace();
+
+        for(int i = 0; i < place.Count; i++)
+        {
+            (int xt, int yt) = place[i].GetCoord();
+
+            for(int x = -1; x <= 1; x++)
+        {
+            for(int y = -1; y <= 1; y++)
+            {
+                Sector checkSector = sea.GetSector(xt+x, yt+y);
+
+                if (checkSector.GetStatus() == StatusSector.Empty)
+                    checkSector.Attack(StatusSector.Miss);
+
+            }
+        }
+        }
+
         
     }
     
