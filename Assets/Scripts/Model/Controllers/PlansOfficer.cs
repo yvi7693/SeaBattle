@@ -15,7 +15,7 @@ public class PlansOfficer
 
     public (bool, Sector) PlanOrder(int targetX, int targetY)
     {
-       Sea sea = turnRecon.ReconOrder();
+       Sea sea = turnRecon.GetQueue();
 
        Sector targetSector = sea.GetSector(targetX, targetY);
 

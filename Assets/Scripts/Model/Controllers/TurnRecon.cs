@@ -41,27 +41,16 @@ public class TurnRecon
         
     }
 
-    public Sea ReconOrder()
+    public void SwitchQueue()
     {
         if (queue == sea1)
         {
             queue = sea2;
-            return sea1;
         }
 
         else
         {
             queue = sea1;
-            return sea2;
         }
-
-        // временный код
-
-        // return sea1;
-    }
-
-    public void KeepTurn()
-    {
-        this.ReconOrder();
     }
 }

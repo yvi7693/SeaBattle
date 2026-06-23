@@ -19,19 +19,25 @@ public class Sea
         SetUp();
     }
 
-    public bool IsShipsDeploy()
-    {
-        return fleet.IsDeployed();
-    }
-
     public Sector GetSector(int x, int y)
     {
-        if ((x > size || y > size) || (x < 0 || y < 0))
+        if (!(ValidateBorder(x,y)))
             throw new ArgumentException("incorrect value");
         
         return sectors[x,y];
             
     }
+
+    public bool ValidateBorder(int x, int y)
+    {
+        return ((x > size || y > size) || (x < 0 || y < 0));
+    }
+
+    public bool IsShipsDeploy()
+    {
+        return fleet.IsDeployed();
+    }
+
 
     public List<Sector> CollectSectors(List <(int x, int y)> positions)
     {

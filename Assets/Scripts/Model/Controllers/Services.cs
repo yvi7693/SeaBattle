@@ -40,6 +40,9 @@ public class Sinker
         {
             for(int y = -1; y <= 1; y++)
             {
+                if (sea.ValidateBorder(xt+x, yt+y))
+                    continue;
+
                 Sector checkSector = sea.GetSector(xt+x, yt+y);
 
                 if (checkSector.GetStatus() == StatusSector.Empty)

@@ -21,13 +21,15 @@ public class Commander
             StatusSector newStatus = assignee.AttackOrder(targetSector);
             
             if (newStatus == StatusSector.Hit)
-            {
-                turnRecon.KeepTurn();
                 return MissionResult.Hit;
+
+            else
+            {
+                turnRecon.SwitchQueue();
+                
+                return MissionResult.Miss;
             }
                 
-            else
-                return MissionResult.Miss;
         }
 
         return MissionResult.UnsucessfulShot;
