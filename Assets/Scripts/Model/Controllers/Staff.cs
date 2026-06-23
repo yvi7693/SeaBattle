@@ -21,7 +21,7 @@ public class Staff
         deploymentOfficer = new DeploymentOfficer();
         turnRecon = new TurnRecon(battleController.GetFleet1(), battleController.GetFleet2());
         plansOfficer = new PlansOfficer(turnRecon, assignee, deploymentOfficer);
-        commander = new Commander(plansOfficer, assignee);
+        commander = new Commander(plansOfficer, assignee, turnRecon);
 
         // временный код
 
@@ -51,6 +51,11 @@ public class Staff
         plansOfficer.TryDeployShip(fleet2.GetShip(0), new List<(int, int)> { (6, 6) });
 
         
+    }
+
+    public TurnRecon GetTurnRecon()
+    {
+        return turnRecon;
     }
 
     public MissionResult TacticalDirective(int targetX, int targetY)

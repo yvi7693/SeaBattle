@@ -2,11 +2,13 @@ public class Commander
 {
     private PlansOfficer plansOfficer;
     private Assignee assignee;
+    private TurnRecon turnRecon;
 
-    public Commander(PlansOfficer plansOfficer, Assignee assignee)
+    public Commander(PlansOfficer plansOfficer, Assignee assignee, TurnRecon turnRecon)
     {
         this.plansOfficer = plansOfficer;
         this.assignee = assignee;
+        this.turnRecon = turnRecon;
     }
 
     public MissionResult AssignMission(int targetX, int targetY)
@@ -18,8 +20,11 @@ public class Commander
             StatusSector newStatus = assignee.AttackOrder(targetSector);
             
             if (newStatus == StatusSector.Hit)
+            {
+                turnRecon.KeepTurn();
                 return MissionResult.Hit;
-
+            }
+                
             else
                 return MissionResult.Miss;
         }

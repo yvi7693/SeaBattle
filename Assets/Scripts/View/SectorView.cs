@@ -25,7 +25,7 @@ public class SectorView : MonoBehaviour
         spriteRenderer.color = Color.red;
     }
 
-    public void SetClick(bool value)
+    public void SetClicked(bool value)
     {
         boxCollider2D.enabled = value;
     }
