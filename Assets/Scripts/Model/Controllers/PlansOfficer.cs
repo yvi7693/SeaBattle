@@ -28,13 +28,15 @@ public class PlansOfficer
 
     public bool TryDeployShip(Ship ship, List <(int x, int y)> positions)
     {
-        Sea sea = turnRecon.ReconOrder();
+        Sea sea = turnRecon.GetSeaDeploy();
 
         List<Sector> sectors = sea.CollectSectors(positions);
 
         if (deploymentOfficer.ValidateDeploy(sectors, sea))
         {
-             assignee.DeployOrder(sectors, ship);
+            assignee.DeployOrder(sectors, ship);
+
+            ship.Deploy();
 
             return true;
         }  

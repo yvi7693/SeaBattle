@@ -12,6 +12,17 @@ public class BattleController
         this.fleet2 = new Fleet();
     }
 
+
+    public Fleet GetFleet1()
+    {
+        return fleet1;
+    }
+
+    public Fleet GetFleet2()
+    {
+        return fleet2;
+    }
+    
     public bool IsDeclareWinner()
     {
         if (!(fleet1.HasSurvivors()))

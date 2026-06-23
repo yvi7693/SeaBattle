@@ -6,6 +6,7 @@ public class SectorView : MonoBehaviour
     private int y;
     private BattlePresenter battlePresenter;
     private SpriteRenderer spriteRenderer;
+    private BoxCollider2D boxCollider2D;
 
     public void Init(int x, int y, BattlePresenter battlePresenter)
     {
@@ -23,15 +24,22 @@ public class SectorView : MonoBehaviour
     {
         spriteRenderer.color = Color.red;
     }
+
+    public void SetClick(bool value)
+    {
+        boxCollider2D.enabled = value;
+    }
    
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        boxCollider2D = GetComponent<BoxCollider2D>();
     }
 
     private void OnMouseDown()
     {   
         battlePresenter.AttackSector(this, x, y);
     }
+
     
 }

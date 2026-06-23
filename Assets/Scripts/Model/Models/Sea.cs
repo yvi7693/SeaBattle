@@ -4,17 +4,24 @@ using System.Collections.Generic;
 public class Sea
 {
     private int size;
+    private Fleet fleet;
     private Sector[,] sectors;
 
-    public Sea(int size = 10)
+    public Sea(Fleet fleet, int size = 10)
     {
         if (size < 10)
             throw new ArgumentException("incorrect value");
 
         this.size = size;
+        this.fleet = fleet;
         sectors = new Sector[size, size];
 
         SetUp();
+    }
+
+    public bool IsShipsDeploy()
+    {
+        return fleet.IsDeployed();
     }
 
     public Sector GetSector(int x, int y)

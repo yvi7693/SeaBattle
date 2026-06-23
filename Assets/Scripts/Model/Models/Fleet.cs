@@ -20,6 +20,22 @@ public class Fleet
         ships[9] = new Ship(4);
     }
 
+    public Ship GetShip(int index)
+    {
+        return ships[index];
+    }
+
+    public bool IsDeployed()
+    {
+        for (int i = 0; i < ships.Length; i++)
+        {
+            if (!(ships[i].IsDeploy()))
+                return false;
+        }
+
+        return true;
+    }
+
     public bool HasSurvivors()
     {
         for (int i = 0; i > ships.Length; i++)
