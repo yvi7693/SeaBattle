@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BoardView : MonoBehaviour
@@ -28,6 +29,11 @@ public class BoardView : MonoBehaviour
         return clicked;
     }
 
+    public SectorView[,] GetSectors()
+    {
+        return sectors;
+    }
+
     public void SetClicked(bool value)
     {
         for (int x = 0; x < sizeSea; x++)
@@ -40,7 +46,7 @@ public class BoardView : MonoBehaviour
 
         activeFrame.SetActive(value);
         clicked = value;
-    }
+    } 
 
     void CreateBoard()
     {

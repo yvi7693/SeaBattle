@@ -19,6 +19,14 @@ public class TurnRecon
         return queue;
     }
 
+    public Sea GetOutTurn()
+    {
+        if (queue == sea1)
+        return sea2;
+
+    return sea1;
+    }
+
     public Sea GetSea1()
     {
         return sea1;

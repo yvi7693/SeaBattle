@@ -14,8 +14,20 @@ public class BattlePresenter : MonoBehaviour
         SwitchMove();
     }
 
+    public BoardView GetActiveBoard()
+    {
+        if (playerBoard.GetClicked())
+            return playerBoard;
+        
+        else
+            return opponentBoard;
+    }
+
     public void AttackSector(SectorView sectorView, int targetX, int targetY)
     {
+        BoardView activeBoard = GetActiveBoard();
+        Sea activeSea = staff.GetTurnRecon().GetQueue();
+
         MissionResult result = staff.TacticalDirective(targetX, targetY);
 
         if (result == MissionResult.Miss)
@@ -24,8 +36,24 @@ public class BattlePresenter : MonoBehaviour
 
         else if(result == MissionResult.Hit)
             sectorView.DisplayHit();
+
+        UpdateMiss(activeSea, activeBoard.GetSectors());
         
         SwitchMove();
+    }
+
+    public void UpdateMiss(Sea sea, SectorView[,] sectors)
+    {
+        for(int x = 0; x < 10; x++)
+        {
+            for(int y = 0; y < 10; y++)
+            {
+                Sector sector = sea.GetSector(x,y);
+                
+                if (sector.GetStatus() == StatusSector.Miss)
+                    sectors[x,y].DisplayMiss();
+            }
+        }
     }
 
      public void SwitchMove()

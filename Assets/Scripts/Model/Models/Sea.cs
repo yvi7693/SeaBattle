@@ -30,7 +30,7 @@ public class Sea
 
     public bool ValidateBorder(int x, int y)
     {
-        return ((x > size || y > size) || (x < 0 || y < 0));
+        return x >= 0 && x < size && y >= 0 && y < size;
     }
 
     public bool IsShipsDeploy()
