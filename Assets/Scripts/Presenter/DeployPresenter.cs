@@ -26,11 +26,9 @@ public class DeployPresenter : MonoBehaviour
       int x = place[i].GetX();
       int y = place[i].GetY();
 
-      coords[i] = (x, y);
+      coords.Add((x, y));
     }
 
     staff.DeployDirective(coords);
-
-
   }
 }
