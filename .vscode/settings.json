@@ -76,5 +76,19 @@
         "other": "off"
     },
     "editor.suggestOnTriggerCharacters": false,
-    "editor.acceptSuggestionOnCommitCharacter": false
+    "editor.acceptSuggestionOnCommitCharacter": false,
+    "editor.acceptSuggestionOnEnter": "off",
+    "editor.wordBasedSuggestions": "off",
+    "editor.snippetSuggestions": "none",
+    "editor.tabCompletion": "off",
+    "editor.parameterHints.enabled": false,
+    "editor.hover.enabled": "off",
+    "editor.codeLens": false,
+    "editor.inlayHints.enabled": "off",
+    "csharp.referencesCodeLens.enabled": false,
+    "csharp.testsCodeLens.enabled": false,
+    "dotnet.codeLens.enableReferencesCodeLens": false,
+    "dotnet.codeLens.enableTestsCodeLens": false,
+    "dotnet.completion.showCompletionItemsFromUnimportedNamespaces": false,
+    "dotnet.completion.showNameCompletionSuggestions": false
 }

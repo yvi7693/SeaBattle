@@ -48,7 +48,7 @@ public class BoardView : MonoBehaviour
         clicked = value;
     } 
 
-    void CreateBoard()
+    public void CreateBoard()
     {
         for (int x = 0; x < sizeSea; x++)
         {
