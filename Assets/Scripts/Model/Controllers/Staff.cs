@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 public class Staff
@@ -60,8 +61,15 @@ public class Staff
 
     public MissionResult TacticalDirective(int targetX, int targetY)
     {
+        if (targetX < 0 || targetY < 0) throw new ArgumentException("incorrect value");
+
         return commander.AssignMission(targetX, targetY);
 
+    }
+
+    public void DeployDirective(Ship ship, List <(int x, int y)> positions)
+    {
+        plansOfficer.TryDeployShip(ship, positions);
     }
 }
 
