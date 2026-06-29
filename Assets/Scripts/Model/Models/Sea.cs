@@ -19,6 +19,11 @@ public class Sea
         SetUp();
     }
 
+    public Fleet GetFleet()
+    {
+        return fleet;
+    }
+
     public Sector GetSector(int x, int y)
     {
         if (!(ValidateBorder(x,y)))

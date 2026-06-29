@@ -11,6 +11,7 @@ public class DeployPresenter : MonoBehaviour
     public void Start()
     {
       staff = GameSession.Instance.staff;
+      deployBoard.CreateBoard();
     }
 
 

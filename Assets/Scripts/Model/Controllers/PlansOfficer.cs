@@ -25,9 +25,13 @@ public class PlansOfficer
         return (true, targetSector);
     }
 
-    public bool TryDeployShip(Ship ship, List <(int x, int y)> positions)
+    public bool TryDeployShip( List <(int x, int y)> positions)
     {
         Sea sea = turnRecon.GetSeaDeploy();
+
+        Fleet fleet = sea.GetFleet();
+
+        Ship ship = fleet.GetShip(positions.Count);
 
         List<Sector> sectors = sea.CollectSectors(positions);
 

@@ -24,7 +24,7 @@ public class Fleet
     {
         for (int i = 0; i < 10; i++)
         {
-            if (ships[i].GetDurability() == durability)
+            if (ships[i].GetDurability() == durability && !(ships[i].IsDeploy())) 
                 return ships[i];
         }
 
