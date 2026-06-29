@@ -67,9 +67,11 @@ public class Staff
 
     }
 
-    public void DeployDirective(Ship ship, List <(int x, int y)> positions)
+    public void DeployDirective( List <(int x, int y)> positions)
     {
-        plansOfficer.TryDeployShip(ship, positions);
+        Ship ship = battleController.GetShip(positions.Count);
+
+        plansOfficer.TryDeployShip(ship,positions);
     }
 }
 

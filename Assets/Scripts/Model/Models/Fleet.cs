@@ -20,9 +20,15 @@ public class Fleet
         ships[9] = new Ship(4);
     }
 
-    public Ship GetShip(int index)
+    public Ship GetShip(int durability)
     {
-        return ships[index];
+        for (int i = 0; i < 10; i++)
+        {
+            if (ships[i].GetDurability() == durability)
+                return ships[i];
+        }
+
+        throw new ArgumentException("dont have ship with the durability");
     }
 
     public bool IsDeployed()
