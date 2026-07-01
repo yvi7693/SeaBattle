@@ -57,11 +57,9 @@ public class DeployShip : MonoBehaviour
 
             transform.position += offsetSnap;
 
-            if (deployPresenter.ValidateDeploy())
-            {
-                lastValidPosition = transform.position;
-                hasValidPosition = true;
-            }
+            
+            lastValidPosition = transform.position;
+            hasValidPosition = true;
             
         }
 
@@ -86,7 +84,7 @@ public class DeployShip : MonoBehaviour
         return mainCamera.ScreenToWorldPoint(mousePosition);
     }
 
-    private void Deploy()
+    public void Deploy()
     {
         List<DeploySector> coord = new List<DeploySector>();
 
@@ -97,8 +95,9 @@ public class DeployShip : MonoBehaviour
             DeploySector deploySector = cell.GetComponent<DeploySector>();
 
             coord.Add(deploySector);
-
         }
+
+        deployPresenter.DeployShip(coord);
             
     }
 }

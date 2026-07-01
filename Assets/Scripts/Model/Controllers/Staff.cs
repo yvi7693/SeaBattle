@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public class Staff
 {
@@ -26,29 +27,27 @@ public class Staff
 
         // временный код
 
-        
+        // plansOfficer.TryDeployShip(new List<(int, int)> { (0, 0), (1, 0), (2, 0), (3, 0) });
+        // plansOfficer.TryDeployShip(new List<(int, int)> { (0, 2), (1, 2), (2, 2) });
+        // plansOfficer.TryDeployShip(new List<(int, int)> { (5, 0), (5, 1), (5, 2) });
+        // plansOfficer.TryDeployShip( new List<(int, int)> { (0, 4), (1, 4) });
+        // plansOfficer.TryDeployShip(new List<(int, int)> { (3, 4), (4, 4) });
+        // plansOfficer.TryDeployShip( new List<(int, int)> { (7, 0), (8, 0) });
+        // plansOfficer.TryDeployShip(new List<(int, int)> { (0, 6) });
+        // plansOfficer.TryDeployShip(new List<(int, int)> { (2, 6) });
+        // plansOfficer.TryDeployShip( new List<(int, int)> { (4, 6) });
+        // plansOfficer.TryDeployShip( new List<(int, int)> { (6, 6) });
 
-        plansOfficer.TryDeployShip(new List<(int, int)> { (0, 0), (1, 0), (2, 0), (3, 0) });
-        plansOfficer.TryDeployShip(new List<(int, int)> { (0, 2), (1, 2), (2, 2) });
-        plansOfficer.TryDeployShip(new List<(int, int)> { (5, 0), (5, 1), (5, 2) });
-        plansOfficer.TryDeployShip( new List<(int, int)> { (0, 4), (1, 4) });
-        plansOfficer.TryDeployShip(new List<(int, int)> { (3, 4), (4, 4) });
-        plansOfficer.TryDeployShip( new List<(int, int)> { (7, 0), (8, 0) });
-        plansOfficer.TryDeployShip(new List<(int, int)> { (0, 6) });
-        plansOfficer.TryDeployShip(new List<(int, int)> { (2, 6) });
-        plansOfficer.TryDeployShip( new List<(int, int)> { (4, 6) });
-        plansOfficer.TryDeployShip( new List<(int, int)> { (6, 6) });
-
-        plansOfficer.TryDeployShip(new List<(int, int)> { (0, 0), (1, 0), (2, 0), (3, 0) });
-        plansOfficer.TryDeployShip( new List<(int, int)> { (0, 2), (1, 2), (2, 2) });
-        plansOfficer.TryDeployShip( new List<(int, int)> { (5, 0), (5, 1), (5, 2) });
-        plansOfficer.TryDeployShip(new List<(int, int)> { (0, 4), (1, 4) });
-        plansOfficer.TryDeployShip( new List<(int, int)> { (3, 4), (4, 4) });
-        plansOfficer.TryDeployShip( new List<(int, int)> { (7, 0), (8, 0) });
-        plansOfficer.TryDeployShip( new List<(int, int)> { (0, 6) });
-        plansOfficer.TryDeployShip(new List<(int, int)> { (2, 6) });
-        plansOfficer.TryDeployShip( new List<(int, int)> { (4, 6) });
-        plansOfficer.TryDeployShip( new List<(int, int)> { (6, 6) });
+        // plansOfficer.TryDeployShip(new List<(int, int)> { (0, 0), (1, 0), (2, 0), (3, 0) });
+        // plansOfficer.TryDeployShip( new List<(int, int)> { (0, 2), (1, 2), (2, 2) });
+        // plansOfficer.TryDeployShip( new List<(int, int)> { (5, 0), (5, 1), (5, 2) });
+        // plansOfficer.TryDeployShip(new List<(int, int)> { (0, 4), (1, 4) });
+        // plansOfficer.TryDeployShip( new List<(int, int)> { (3, 4), (4, 4) });
+        // plansOfficer.TryDeployShip( new List<(int, int)> { (7, 0), (8, 0) });
+        // plansOfficer.TryDeployShip( new List<(int, int)> { (0, 6) });
+        // plansOfficer.TryDeployShip(new List<(int, int)> { (2, 6) });
+        // plansOfficer.TryDeployShip( new List<(int, int)> { (4, 6) });
+        // plansOfficer.TryDeployShip( new List<(int, int)> { (6, 6) });
 
         
     }
@@ -68,9 +67,8 @@ public class Staff
 
     public void DeployDirective( List <(int x, int y)> positions)
     {
-        Ship ship = battleController.GetShip(positions.Count);
-
         plansOfficer.TryDeployShip(positions);
+        
     }
 }
 

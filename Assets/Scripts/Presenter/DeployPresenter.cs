@@ -8,15 +8,24 @@ public class DeployPresenter : MonoBehaviour
     [SerializeField] private GameObject parentShip;
     private Staff staff;
     private DeploymentOfficer deploymentOfficer;
+    private DeployShip[] deployShips;
 
 
-    public void Start()
+  public void Start()
+  {
+    staff = GameSession.Instance.staff;
+    deployBoard.CreateBoard();
+
+    InitShips();
+  }
+
+  public void DeployAllShips()
+  {
+    for (int i = 0; i < deployShips.Length; i++)
     {
-      staff = GameSession.Instance.staff;
-      deployBoard.CreateBoard();
-
-      InitShips();
+      deployShips[i].Deploy();
     }
+  }
 
 
   public void DeployShip(List<DeploySector> place)
@@ -34,7 +43,15 @@ public class DeployPresenter : MonoBehaviour
     }
 
     staff.DeployDirective(coords);
+
+    // Временный код
+
+    for (int i = 0; i < coords.Count; i++)
+    {
+        Debug.Log($"Позиция {i}: {coords[i]}");
+    }
   }
+
 
   public bool ValidateDeploy()
   {
@@ -43,11 +60,15 @@ public class DeployPresenter : MonoBehaviour
 
   private void InitShips()
   {
-    DeployShip[] ships = parentShip.GetComponentsInChildren<DeployShip>();
 
-    for(int i = 0; i < 0; i++)
+    DeployShip[] ships = parentShip.GetComponentsInChildren<DeployShip>();
+    deployShips = ships;
+
+    for(int i = 0; i < ships.Length; i++)
     {
       ships[i].Init(this);
+
+      
     }
   }
 }
