@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class DeployShip : MonoBehaviour
 {
     [SerializeField] private Camera mainCamera;
     [SerializeField] private LayerMask cellLayer;
-    [SerializeField] private Transform snapPoint;
+    [SerializeField] private LayerMask shipLayer;
+    [SerializeField] private Transform[] deckPoints;
     [SerializeField] private int durability;
     private Vector3 lastValidPosition;
     private bool hasValidPosition;
@@ -46,16 +48,21 @@ public class DeployShip : MonoBehaviour
 
         transform.position = shipPosition;
 
-        Collider2D target = Physics2D.OverlapPoint(snapPoint.position, cellLayer);
+        Collider2D target = Physics2D.OverlapPoint(deckPoints[0].position, cellLayer);
 
         if (target != null)
         {
-            Vector3 offsetSnap = target.transform.position - snapPoint.position;
+            Vector3 offsetSnap = target.transform.position - deckPoints[0].position;
             offsetSnap.z = 0;
 
             transform.position += offsetSnap;
-            lastValidPosition = transform.position;
-            hasValidPosition = true;
+
+            if (deployPresenter.ValidateDeploy())
+            {
+                lastValidPosition = transform.position;
+                hasValidPosition = true;
+            }
+            
         }
 
         else
@@ -77,5 +84,21 @@ public class DeployShip : MonoBehaviour
     {
         Vector3 mousePosition = Mouse.current.position.ReadValue();
         return mainCamera.ScreenToWorldPoint(mousePosition);
+    }
+
+    private void Deploy()
+    {
+        List<DeploySector> coord = new List<DeploySector>();
+
+        for (int i = 0; i < deckPoints.Length; i++)
+        {
+            Collider2D cell = Physics2D.OverlapPoint(deckPoints[i].position, cellLayer);
+
+            DeploySector deploySector = cell.GetComponent<DeploySector>();
+
+            coord.Add(deploySector);
+
+        }
+            
     }
 }

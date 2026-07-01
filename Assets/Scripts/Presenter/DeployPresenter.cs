@@ -7,6 +7,7 @@ public class DeployPresenter : MonoBehaviour
     [SerializeField] private DeployBoard deployBoard;
     [SerializeField] private GameObject parentShip;
     private Staff staff;
+    private DeploymentOfficer deploymentOfficer;
 
 
     public void Start()
@@ -33,6 +34,11 @@ public class DeployPresenter : MonoBehaviour
     }
 
     staff.DeployDirective(coords);
+  }
+
+  public bool ValidateDeploy()
+  {
+    return deploymentOfficer.ValidateDeploy();
   }
 
   private void InitShips()

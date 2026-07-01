@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class DeploymentOfficer
 {
-    public bool ValidateDeploy(List<Sector> station, Sea sea)
+    public bool ValidateDeploy()
     {
         return true;
     }

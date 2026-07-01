@@ -4,8 +4,6 @@ public class DeploySector : MonoBehaviour
 {
     private int x;
     private int y;
-   
-    [SerializeField] private LayerMask shipLayer;
 
     public void Init(int x, int y)
     {
