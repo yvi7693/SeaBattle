@@ -6,10 +6,22 @@ public class DeployShip : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private LayerMask cellLayer;
     [SerializeField] private Transform snapPoint;
+    [SerializeField] private int durability;
     private Vector3 lastValidPosition;
     private bool hasValidPosition;
     private Vector3 offset;
     private bool isClicked;
+    private DeployPresenter deployPresenter;
+
+    public void Init(DeployPresenter deployPresenter)
+    {
+        this.deployPresenter = deployPresenter;
+    }
+
+    public int GetDurability()
+    {
+        return durability;
+    }
 
     private void Start()
     {

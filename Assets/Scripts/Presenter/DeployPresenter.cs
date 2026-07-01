@@ -5,6 +5,7 @@ using UnityEngine;
 public class DeployPresenter : MonoBehaviour
 {
     [SerializeField] private DeployBoard deployBoard;
+    [SerializeField] private GameObject parentShip;
     private Staff staff;
 
 
@@ -12,10 +13,12 @@ public class DeployPresenter : MonoBehaviour
     {
       staff = GameSession.Instance.staff;
       deployBoard.CreateBoard();
+
+      InitShips();
     }
 
 
-    public void DeployShip(List<DeploySector> place)
+  public void DeployShip(List<DeploySector> place)
   {
     if (place.Count <= 0 || place.Count > 4) throw new Exception("an uncomparable number of sectors");
 
@@ -30,5 +33,15 @@ public class DeployPresenter : MonoBehaviour
     }
 
     staff.DeployDirective(coords);
+  }
+
+  private void InitShips()
+  {
+    DeployShip[] ships = parentShip.GetComponentsInChildren<DeployShip>();
+
+    for(int i = 0; i < 0; i++)
+    {
+      ships[i].Init(this);
+    }
   }
 }

@@ -23,7 +23,7 @@ public class DeployBoard : MonoBehaviour
                 sectorObject.transform.localPosition = new Vector3(x * spacing, y * spacing, 0);
 
                 DeploySector deploySector = sectorObject.GetComponent<DeploySector>();
-                deploySector.Init(x ,y, deployPresenter);
+                deploySector.Init(x ,y);
 
                 sectors[x,y] = deploySector;
 

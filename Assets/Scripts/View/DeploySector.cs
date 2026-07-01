@@ -4,13 +4,13 @@ public class DeploySector : MonoBehaviour
 {
     private int x;
     private int y;
-    private DeployPresenter deployPresenter;
+   
+    [SerializeField] private LayerMask shipLayer;
 
-    public void Init(int x, int y, DeployPresenter deployPresenter)
+    public void Init(int x, int y)
     {
         this.x = x;
         this.y = y;
-        this.deployPresenter = deployPresenter;
     }
 
     public int GetX()
