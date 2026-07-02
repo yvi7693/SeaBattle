@@ -63,9 +63,14 @@ public class DeployPresenter : MonoBehaviour
   }
 
 
-  public bool ValidateDeploy()
+  public bool ValidateDeploy(List<DeploySector> positions)
   {
-    return deploymentOfficer.ValidateDeploy();
+    TurnRecon turnRecon = staff.GetTurnRecon();
+    Sea sea = turnRecon.GetSeaDeploy();
+
+    List<(int, int)> coord = ConvertSectors(positions);
+
+    return deploymentOfficer.ValidateDeploy(sea, coord);
   }
 
   private void InitShips()
@@ -80,5 +85,20 @@ public class DeployPresenter : MonoBehaviour
 
       
     }
+  }
+
+  private List<(int, int)> ConvertSectors(List<DeploySector> sectors)
+  {
+    List<(int, int)> coords = new List<(int, int)>();
+
+    for (int i = 0; i < sectors.Count; i++)
+    {
+      int x = sectors[i].GetX();
+      int y = sectors[i].GetY();
+
+      coords.Add((x,y));
+    }
+
+    return coords;
   }
 }

@@ -27,19 +27,9 @@ public class DeployShip : MonoBehaviour
 
     public void Deploy()
     {
-        List<DeploySector> coord = new List<DeploySector>();
-
-        for (int i = 0; i < deckPoints.Length; i++)
-        {
-            Collider2D cell = Physics2D.OverlapPoint(deckPoints[i].position, cellLayer);
-
-            DeploySector deploySector = cell.GetComponent<DeploySector>();
-
-            coord.Add(deploySector);
-        }
+        List<DeploySector> coord = SearchSectors();
 
         deployPresenter.DeployShip(coord);
-            
     }
 
     public void Rotate()
@@ -88,17 +78,16 @@ public class DeployShip : MonoBehaviour
 
         else
             hasValidPosition = false;
-
-        
     }
 
     private void OnMouseUp()
     {
         isClicked = false;
 
-        if (!(hasValidPosition))
-            transform.position = lastValidPosition;
+        List<DeploySector> sectors = SearchSectors();
 
+        if (!(hasValidPosition) || !(deployPresenter.ValidateDeploy(sectors)))
+            transform.position = lastValidPosition;
     }
 
     private void OnMouseOver()
@@ -112,6 +101,22 @@ public class DeployShip : MonoBehaviour
     {
         Vector3 mousePosition = Mouse.current.position.ReadValue();
         return mainCamera.ScreenToWorldPoint(mousePosition);
+    }
+
+    private  List<DeploySector> SearchSectors()
+    {
+        List<DeploySector> coord = new List<DeploySector>();
+
+        for (int i = 0; i < deckPoints.Length; i++)
+        {
+            Collider2D cell = Physics2D.OverlapPoint(deckPoints[i].position, cellLayer);
+
+            DeploySector deploySector = cell.GetComponent<DeploySector>();
+
+            coord.Add(deploySector);
+        }
+
+        return coord;
     }
 
     
