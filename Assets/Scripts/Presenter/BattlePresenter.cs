@@ -79,7 +79,7 @@ public class BattlePresenter : MonoBehaviour
 
     private void Start()
     {
-        staff = new Staff();
+        staff = GameSession.Instance.staff;
 
         playerBoard.Init(this);
         opponentBoard.Init(this);

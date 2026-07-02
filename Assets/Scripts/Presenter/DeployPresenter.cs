@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DeployPresenter : MonoBehaviour
 {
@@ -9,17 +10,26 @@ public class DeployPresenter : MonoBehaviour
     private Staff staff;
     private DeploymentOfficer deploymentOfficer;
     private DeployShip[] deployShips;
+    
 
 
   public void Start()
   {
+    
     staff = GameSession.Instance.staff;
     deployBoard.CreateBoard();
 
     InitShips();
   }
 
-  public void DeployAllShips()
+  public void Next()
+  {
+    DeployAllShips();
+    GameSession.Instance.Next();
+  }
+
+  
+  private void DeployAllShips()
   {
     for (int i = 0; i < deployShips.Length; i++)
     {
