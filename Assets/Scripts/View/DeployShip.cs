@@ -44,7 +44,8 @@ public class DeployShip : MonoBehaviour
 
     public void Rotate()
     {
-        transform.Rotate(0,0,90);
+        Vector3 deckPosition = deckPoints[0].position;
+        transform.RotateAround(deckPosition, Vector3.forward, 90);
     }
 
     private void Start()
