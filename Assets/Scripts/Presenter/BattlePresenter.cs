@@ -37,6 +37,9 @@ public class BattlePresenter : MonoBehaviour
         else if(result == MissionResult.Hit)
             sectorView.DisplayHit();
 
+        else if(result == MissionResult.HaveWinner)
+            GameSession.Instance.End();
+
         UpdateMiss(activeSea, activeBoard.GetSectors());
         
         SwitchMove();

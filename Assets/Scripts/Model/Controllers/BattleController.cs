@@ -51,14 +51,12 @@ public class BattleController
                 return true;
             }
 
-        else if (!(fleet2.HasSurvivors()))
+        if (!(fleet2.HasSurvivors()))
         {
             winner = fleet1;
             return true;
         }
             
-
         return false;
-
     }
 }

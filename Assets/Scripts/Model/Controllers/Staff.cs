@@ -40,6 +40,9 @@ public class Staff
     {
         if (targetX < 0 || targetY < 0) throw new ArgumentException("incorrect value");
 
+        if (battleController.IsDeclareWinner())
+            return MissionResult.HaveWinner;
+
         return commander.AssignMission(targetX, targetY);
 
     }

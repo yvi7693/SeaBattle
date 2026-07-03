@@ -21,15 +21,20 @@ public class GameSession : MonoBehaviour
     }
 
     public void Next()
-  {
-
-    if (playerDeploy == 1)
     {
-      playerDeploy = 2;
-      SceneManager.LoadScene("DeployScene");
+
+        if (playerDeploy == 1)
+        {
+        playerDeploy = 2;
+        SceneManager.LoadScene("DeployScene");
+        }
+        
+        else if (playerDeploy == 2)
+        SceneManager.LoadScene("BattleScene");
     }
-      
-    else if (playerDeploy == 2)
-      SceneManager.LoadScene("BattleScene");
-  }
+
+    public void End()
+    {
+        SceneManager.LoadScene("WinnerScene");
+    }
 }

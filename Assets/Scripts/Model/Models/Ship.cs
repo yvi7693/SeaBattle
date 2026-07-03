@@ -46,7 +46,7 @@ public class Ship
         durability -= 1;
     }
 
-    public Boolean IsSunken()
+    public bool IsSunken()
     {
         return durability == 0;
     }
