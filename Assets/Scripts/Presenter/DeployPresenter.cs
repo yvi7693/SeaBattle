@@ -17,6 +17,8 @@ public class DeployPresenter : MonoBehaviour
   {
     
     staff = GameSession.Instance.staff;
+    deploymentOfficer = staff.GetDeploymentOfficer();
+
     deployBoard.CreateBoard();
 
     InitShips();
@@ -63,15 +65,54 @@ public class DeployPresenter : MonoBehaviour
   }
 
 
-  public bool ValidateDeploy(List<DeploySector> positions)
+  public bool ValidateDeploy(List<DeploySector> sectors)
   {
-    TurnRecon turnRecon = staff.GetTurnRecon();
-    Sea sea = turnRecon.GetSeaDeploy();
+    List<(int, int)> positions = ConvertSectors(sectors);
 
-    List<(int, int)> coord = ConvertSectors(positions);
+     for (int i = 0; i < positions.Count; i++)
+        {
+            (int x, int y) = positions[i];
 
-    return deploymentOfficer.ValidateDeploy(sea, coord);
+            DeploySector sector = deployBoard.GetSector(x, y);
+
+            if (!(sector.IsEmpty()))
+              return false;
+                
+
+            List<DeploySector> nearbySectors = GetNearbySector(sector);
+
+            for (int j = 0; j < nearbySectors.Count; j++)
+            {
+                if (!(nearbySectors[j].IsEmpty()))
+                  return false;   
+            }
+        }
+      
+        return true;
   }
+
+
+  public List<DeploySector> GetNearbySector(DeploySector sector)
+    {
+
+        List<DeploySector> sectors = new List<DeploySector>();
+
+        (int xt, int yt) = sector.GetCoord();
+
+        for(int x = -1; x <= 1; x++)
+            {
+                for(int y = -1; y <= 1; y++)
+                {
+                    if (!(deployBoard.ValidateBorder(xt+x, yt+y)))
+                        continue;
+
+                    DeploySector checkSector = deployBoard.GetSector(xt+x, yt+y);
+                    sectors.Add(checkSector);
+                }
+            }
+        return sectors;
+    }
+
 
   private void InitShips()
   {
@@ -87,6 +128,7 @@ public class DeployPresenter : MonoBehaviour
     }
   }
 
+
   private List<(int, int)> ConvertSectors(List<DeploySector> sectors)
   {
     List<(int, int)> coords = new List<(int, int)>();
@@ -101,4 +143,7 @@ public class DeployPresenter : MonoBehaviour
 
     return coords;
   }
+
+
+ 
 }

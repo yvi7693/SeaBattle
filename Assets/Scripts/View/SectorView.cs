@@ -13,6 +13,7 @@ public class SectorView : MonoBehaviour
         this.x = x;
         this.y = y;
         this.battlePresenter = battlePresenter;
+        
     }
 
     public void DisplayMiss()

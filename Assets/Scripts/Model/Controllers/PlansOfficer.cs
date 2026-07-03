@@ -35,7 +35,7 @@ public class PlansOfficer
 
         List<Sector> sectors = sea.CollectSectors(positions);
 
-        if (deploymentOfficer.ValidateDeploy())
+        if (deploymentOfficer.ValidateDeploy(sea, positions))
         {
             assignee.DeployOrder(sectors, ship);
 

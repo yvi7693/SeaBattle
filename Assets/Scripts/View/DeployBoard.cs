@@ -9,6 +9,14 @@ public class DeployBoard : MonoBehaviour
     private DeploySector [,] sectors;
     private DeployPresenter deployPresenter;
 
+    public DeploySector GetSector(int x, int y)
+    {
+        if (!(ValidateBorder(x,y)))
+            throw new ArgumentException("incorrect value");
+        
+        return sectors[x,y];
+    }
+
     public void CreateBoard()
     {
         if (sizeSea < 5) throw new ArgumentException("incorrect value");
@@ -32,4 +40,11 @@ public class DeployBoard : MonoBehaviour
         }
 
     }
+
+    public bool ValidateBorder(int x, int y)
+    {
+        return x >= 0 && x < sizeSea && y >= 0 && y < sizeSea;
+    }
+
+    
 }

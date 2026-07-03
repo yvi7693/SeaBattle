@@ -11,6 +11,7 @@ public class DeployShip : MonoBehaviour
     [SerializeField] private int durability;
     private Vector3 lastValidPosition;
     private bool hasValidPosition;
+    private bool isDeploy;
     private Vector3 offset;
     private bool isClicked;
     private DeployPresenter deployPresenter;
@@ -41,6 +42,7 @@ public class DeployShip : MonoBehaviour
     private void Start()
     {
         lastValidPosition = transform.position;
+        isDeploy = false;
     }
 
     private void OnMouseDown()
@@ -49,6 +51,9 @@ public class DeployShip : MonoBehaviour
 
         Vector3 mousePosition = GetMouseWorldPosition();
         offset = transform.position - mousePosition;
+
+        if (isDeploy)
+            SetStatusPlace(StatusSector.Empty);
     }
 
     private void OnMouseDrag()
@@ -70,10 +75,12 @@ public class DeployShip : MonoBehaviour
 
             transform.position += offsetSnap;
 
-            
-            lastValidPosition = transform.position;
-            hasValidPosition = true;
-            
+            List<DeploySector> sectors = SearchSectors();
+
+            if (deployPresenter.ValidateDeploy(sectors))
+            {
+                hasValidPosition = true;
+            }
         }
 
         else
@@ -87,7 +94,19 @@ public class DeployShip : MonoBehaviour
         List<DeploySector> sectors = SearchSectors();
 
         if (!(hasValidPosition) || !(deployPresenter.ValidateDeploy(sectors)))
+        {
             transform.position = lastValidPosition;
+            Debug.Log($"Validation: {deployPresenter.ValidateDeploy(sectors)}");
+        }
+
+
+        else
+        {
+            lastValidPosition = transform.position;
+            SetStatusPlace(StatusSector.Ship); 
+            isDeploy = true;
+        }
+            
     }
 
     private void OnMouseOver()
@@ -119,5 +138,14 @@ public class DeployShip : MonoBehaviour
         return coord;
     }
 
+    private void SetStatusPlace(StatusSector newStatus)
+    {
+        List<DeploySector> sectors = SearchSectors();
+
+        for(int i = 0; i < sectors.Count; i++)
+        {
+            sectors[i].SetStatus(newStatus);
+        }
+    }
     
 }

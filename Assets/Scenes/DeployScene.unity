@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 166124239}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deck_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224169314}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deck_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 237951570}
   - component: {fileID: 237951569}
   - component: {fileID: 237951572}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ship_1_deck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +352,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 267632400}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deck_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -809,7 +809,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 698759009}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deck_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -840,7 +840,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 831709670}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deck_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -874,7 +874,7 @@ GameObject:
   - component: {fileID: 917469049}
   - component: {fileID: 917469048}
   - component: {fileID: 917469047}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ship_2_deck (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1035,7 +1035,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 922104894}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deck_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1191,7 +1191,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1062579276}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deck_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1225,7 +1225,7 @@ GameObject:
   - component: {fileID: 1074089679}
   - component: {fileID: 1074089678}
   - component: {fileID: 1074089677}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ship_2_deck (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1386,7 +1386,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1106809023}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deck_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1420,7 +1420,7 @@ GameObject:
   - component: {fileID: 1123758567}
   - component: {fileID: 1123758566}
   - component: {fileID: 1123758569}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ship_3_deck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1583,7 +1583,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1219476561}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deck_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1614,7 +1614,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1227580297}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deck_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1648,7 +1648,7 @@ GameObject:
   - component: {fileID: 1241908265}
   - component: {fileID: 1241908268}
   - component: {fileID: 1241908267}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ship_4_deck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1813,7 +1813,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1252369768}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deck_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1844,7 +1844,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1359598563}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deck_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1878,7 +1878,7 @@ GameObject:
   - component: {fileID: 1442713196}
   - component: {fileID: 1442713195}
   - component: {fileID: 1442713194}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ship_1_deck (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2040,7 +2040,7 @@ GameObject:
   - component: {fileID: 1470638508}
   - component: {fileID: 1470638507}
   - component: {fileID: 1470638506}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ship_1_deck (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2199,7 +2199,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1484816269}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deck_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2233,7 +2233,7 @@ GameObject:
   - component: {fileID: 1535869454}
   - component: {fileID: 1535869453}
   - component: {fileID: 1535869452}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ship_3_deck (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2396,7 +2396,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1554379158}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deck_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2427,7 +2427,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1605345415}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deck_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2458,7 +2458,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1654429545}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deck_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2492,7 +2492,7 @@ GameObject:
   - component: {fileID: 1688946626}
   - component: {fileID: 1688946625}
   - component: {fileID: 1688946628}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ship_2_deck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2653,7 +2653,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1781899057}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deck_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2684,7 +2684,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1848311561}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deck_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2851,7 +2851,7 @@ GameObject:
   - component: {fileID: 1956711145}
   - component: {fileID: 1956711144}
   - component: {fileID: 1956711143}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ship_1_deck (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3051,7 +3051,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2041792359}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deck_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3082,7 +3082,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2093412158}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: deck_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
