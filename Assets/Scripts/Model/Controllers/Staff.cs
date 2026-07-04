@@ -36,6 +36,11 @@ public class Staff
         return deploymentOfficer;
     }
 
+    public BattleController GetBattleController()
+    {
+        return battleController;
+    }
+
     public MissionResult TacticalDirective(int targetX, int targetY)
     {
         if (targetX < 0 || targetY < 0) throw new ArgumentException("incorrect value");

@@ -6,6 +6,7 @@ public class BattlePresenter : MonoBehaviour
     private Staff staff;
     [SerializeField] private BoardView playerBoard;
     [SerializeField] private BoardView opponentBoard;
+    [SerializeField] private GameUI gameUi;
      private TurnRecon turnRecon;
 
     public void Init(TurnRecon turnRecon)
@@ -38,6 +39,7 @@ public class BattlePresenter : MonoBehaviour
             sectorView.DisplayHit();
 
         else if(result == MissionResult.HaveWinner)
+            
             GameSession.Instance.End();
 
         UpdateMiss(activeSea, activeBoard.GetSectors());

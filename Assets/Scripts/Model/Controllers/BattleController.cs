@@ -4,12 +4,17 @@ public class BattleController
 {
     private Fleet fleet1;
     private Fleet fleet2;
-    private Fleet winner;
+    private int winnerNumber;
 
     public BattleController()
     {
         this.fleet1 = new Fleet();
         this.fleet2 = new Fleet();
+    }
+
+    public int GetWinnerNumber()
+    {
+        return winnerNumber;
     }
 
     public Fleet GetFleet1()
@@ -47,13 +52,13 @@ public class BattleController
     {
         if (!(fleet1.HasSurvivors()))
             {
-                winner = fleet2;
+                winnerNumber = 2;
                 return true;
             }
 
         if (!(fleet2.HasSurvivors()))
         {
-            winner = fleet1;
+            winnerNumber = 1;
             return true;
         }
             
