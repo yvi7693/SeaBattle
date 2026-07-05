@@ -7,6 +7,7 @@ public class GameSession : MonoBehaviour
     public static GameSession Instance { get; private set; }
     public Staff staff { get; private set; }
     public int playerDeploy { get; private set; }
+    private Mode mode;
 
     private void Awake()
     {
@@ -20,17 +21,25 @@ public class GameSession : MonoBehaviour
 
     }
 
+    public void SetMode(Mode mode)
+    {
+        this.mode = mode;
+    }
+
     public void Next()
     {
 
-        if (playerDeploy == 1)
+        if (mode == Mode.Classic)
         {
-        playerDeploy = 2;
-        SceneManager.LoadScene("DeployScene");
+            playerDeploy = 2;
+            SceneManager.LoadScene("DeployScene");
         }
+
+        else if (mode == Mode.Ai)
+            SceneManager.LoadScene("BattleScene");
         
         else if (playerDeploy == 2)
-        SceneManager.LoadScene("BattleScene");
+            SceneManager.LoadScene("BattleScene");
     }
 
     public void End()
