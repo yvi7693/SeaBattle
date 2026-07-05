@@ -75,4 +75,15 @@ public class BoardView : MonoBehaviour
             }
         }
     }
+
+    public void ShowShips(Sea sea){
+        for (int i = 0; i < sizeSea; i++)
+        {
+            for (int j = 0; j < sizeSea; j++)
+            {
+                if (sea.GetSector(i, j).GetStatus() == StatusSector.Ship)
+                    sectors[i, j].ShowShip();
+            }
+        }
+    }
 }

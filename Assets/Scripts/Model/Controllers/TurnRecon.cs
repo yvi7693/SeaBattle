@@ -11,7 +11,7 @@ public class TurnRecon
         this.sea1 = new Sea(fleet1);
         this.sea2 = new Sea(fleet2);
 
-        this.queue = sea1;
+        this.queue = sea2;
     }
 
     public Sea GetQueue()

@@ -24,6 +24,10 @@ public class BattlePresenter : MonoBehaviour
     {
         this.turnRecon = turnRecon;
         SwitchMove();
+
+        if (GameSession.Instance.GetMode() == Mode.Ai)
+            playerBoard.ShowShips(turnRecon.GetSea1());
+        
     }
 
 

@@ -70,17 +70,17 @@ public class DeployShip : MonoBehaviour
 
         if (target != null)
         {
-            Vector3 offsetSnap = target.transform.position - deckPoints[0].position;
-            offsetSnap.z = 0;
-
-            transform.position += offsetSnap;
+            Magnet(target);
 
             List<DeploySector> sectors = SearchSectors();
 
+            Debug.Log(deployPresenter.ValidateDeploy(sectors));
+
             if (deployPresenter.ValidateDeploy(sectors))
-            {
                 hasValidPosition = true;
-            }
+        
+            else
+                hasValidPosition = false;
         }
 
         else
@@ -91,21 +91,16 @@ public class DeployShip : MonoBehaviour
     {
         isClicked = false;
 
-        List<DeploySector> sectors = SearchSectors();
-
-        if (!(hasValidPosition) || !(deployPresenter.ValidateDeploy(sectors)))
-        {
-            transform.position = lastValidPosition;
-            Debug.Log($"Validation: {deployPresenter.ValidateDeploy(sectors)}");
-        }
-
-
-        else
+        if (hasValidPosition)
         {
             lastValidPosition = transform.position;
             SetStatusPlace(StatusSector.Ship); 
             isDeploy = true;
         }
+        
+        else
+            transform.position = lastValidPosition;
+        
             
     }
 
@@ -146,6 +141,14 @@ public class DeployShip : MonoBehaviour
         {
             sectors[i].SetStatus(newStatus);
         }
+    }
+
+    private void Magnet(Collider2D target)
+    {
+        Vector3 offsetSnap = target.transform.position - deckPoints[0].position;
+        offsetSnap.z = 0;
+
+        transform.position += offsetSnap;
     }
     
 }
