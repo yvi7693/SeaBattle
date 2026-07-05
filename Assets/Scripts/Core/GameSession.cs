@@ -34,7 +34,10 @@ public class GameSession : MonoBehaviour
     public void Next()
     {
 
-        if (mode == Mode.Classic)
+        if (playerDeploy == 2)
+            SceneManager.LoadScene("BattleScene");
+
+        else if (mode == Mode.Classic)
         {
             playerDeploy = 2;
             SceneManager.LoadScene("DeployScene");
@@ -43,8 +46,7 @@ public class GameSession : MonoBehaviour
         else if (mode == Mode.Ai)
             SceneManager.LoadScene("BattleScene");
         
-        else if (playerDeploy == 2)
-            SceneManager.LoadScene("BattleScene");
+        
     }
 
     public void End()
