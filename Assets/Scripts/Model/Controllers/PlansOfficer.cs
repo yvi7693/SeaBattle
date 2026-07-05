@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 public class PlansOfficer
@@ -25,10 +26,8 @@ public class PlansOfficer
         return (true, targetSector);
     }
 
-    public bool TryDeployShip( List <(int x, int y)> positions)
+    public bool TryDeployShip(Sea sea, List <(int x, int y)> positions)
     {
-        Sea sea = turnRecon.GetSeaDeploy();
-
         Fleet fleet = sea.GetFleet();
 
         Ship ship = fleet.GetShip(positions.Count);
@@ -50,6 +49,32 @@ public class PlansOfficer
 
     public void DeployFleet(Fleet fleet)
     {
-        
+        Sea sea = turnRecon.GetSeaDeploy();
+        Ship[] ships = fleet.GetShips();
+
+        Random random = new Random();
+
+        for (int i = 0; i < ships.Length; i++)
+        {
+            bool isWork = true;
+
+            while (isWork)
+            {
+                List<(int, int)> coords = new List<(int, int)>();
+
+                int durability = ships[i].GetDurability();
+
+                int x = random.Next(0, 10);
+                int y = random.Next(0, 10);
+
+                for (int j = 0; j < durability + 1; j++)
+                {
+                    coords.Add((x, y+j));
+                }
+
+                if (TryDeployShip(sea, coords))
+                    isWork = false;
+            }
+        }
     }  
-    }
+}

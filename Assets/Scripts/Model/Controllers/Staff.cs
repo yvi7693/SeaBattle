@@ -60,7 +60,8 @@ public class Staff
 
     public void DeployDirective( List <(int x, int y)> positions)
     {
-        plansOfficer.TryDeployShip(positions);
+        Sea sea = turnRecon.GetSeaDeploy();
+        plansOfficer.TryDeployShip(sea, positions);
         
     }
 }

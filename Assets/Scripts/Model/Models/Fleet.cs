@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public class Fleet
 {
@@ -20,6 +21,7 @@ public class Fleet
         ships[9] = new Ship(4);
     }
 
+
     public Ship GetShip(int durability)
     {
         for (int i = 0; i < 10; i++)
@@ -29,6 +31,11 @@ public class Fleet
         }
 
         throw new ArgumentException("dont have ship with the durability");
+    }
+
+    public Ship[] GetShips()
+    {
+        return ships;
     }
 
     public bool IsDeployed()

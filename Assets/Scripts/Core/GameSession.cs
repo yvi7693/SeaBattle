@@ -51,9 +51,6 @@ public class GameSession : MonoBehaviour
 
     public void End()
     {
-        BattleController battleController = staff.GetBattleController();
-
         SceneManager.LoadScene("WinnerScene");
-        
     }
 }
