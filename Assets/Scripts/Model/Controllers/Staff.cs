@@ -22,7 +22,7 @@ public class Staff
         sinker = new Sinker(deploymentOfficer);
         turnRecon = new TurnRecon(battleController.GetFleet1(), battleController.GetFleet2());
         assignee = new Assignee(attackResolver, sinker, turnRecon);
-        plansOfficer = new PlansOfficer(turnRecon, assignee, deploymentOfficer);
+        plansOfficer = new PlansOfficer(turnRecon, assignee, deploymentOfficer, battleController);
         commander = new Commander(plansOfficer, assignee, turnRecon);
         homingWeapon = new HomingWeapon();
     }
@@ -63,6 +63,11 @@ public class Staff
         Sea sea = turnRecon.GetSeaDeploy();
         plansOfficer.TryDeployShip(sea, positions);
         
+    }
+
+    public void DeployFleet()
+    {
+        plansOfficer.DeployFleet();
     }
 }
 

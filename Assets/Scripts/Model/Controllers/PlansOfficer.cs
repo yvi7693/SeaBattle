@@ -6,12 +6,17 @@ public class PlansOfficer
     private TurnRecon turnRecon;
     private Assignee assignee;
     private DeploymentOfficer deploymentOfficer;
+    private BattleController battleController;
 
-    public PlansOfficer(TurnRecon turnRecon, Assignee assignee, DeploymentOfficer deploymentOfficer)
+    public PlansOfficer(TurnRecon turnRecon, 
+                        Assignee assignee, 
+                        DeploymentOfficer deploymentOfficer,
+                        BattleController battleController)
     {
         this.turnRecon = turnRecon;
         this.assignee = assignee;
         this.deploymentOfficer = deploymentOfficer;
+        this.battleController = battleController;
     }
 
     public (bool, Sector) PlanOrder(int targetX, int targetY)
@@ -47,8 +52,9 @@ public class PlansOfficer
     }
 
 
-    public void DeployFleet(Fleet fleet)
+    public void DeployFleet()
     {
+        Fleet fleet = battleController.GetFleetNotDeployed();
         Sea sea = turnRecon.GetSeaDeploy();
         Ship[] ships = fleet.GetShips();
 
@@ -67,9 +73,18 @@ public class PlansOfficer
                 int x = random.Next(0, 10);
                 int y = random.Next(0, 10);
 
-                for (int j = 0; j < durability + 1; j++)
+                for (int j = 0; j < durability; j++)
                 {
-                    coords.Add((x, y+j));
+                    if (x + durability < 10)   
+                        coords.Add((x+j, y));
+                    else if (y + durability < 10)
+                        coords.Add((x, y+j));
+
+                    else if (x - durability > 0)
+                        coords.Add((x-j, y));
+                    
+                    else if (y - durability > 0)
+                        coords.Add((x, y-j));
                 }
 
                 if (TryDeployShip(sea, coords))
