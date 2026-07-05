@@ -45,6 +45,11 @@ public class Sector
         return status == StatusSector.Empty;
     }
 
+    public bool IsHit()
+    {
+        return status == StatusSector.Hit;
+    }
+
     public bool HaveShip()
     {
         return !(ship is null);
