@@ -3,17 +3,29 @@ using UnityEngine;
 
 public class BattlePresenter : MonoBehaviour
 {
-    private Staff staff;
+    protected Staff staff;
     [SerializeField] private BoardView playerBoard;
     [SerializeField] private BoardView opponentBoard;
     [SerializeField] private GameUI gameUi;
-     private TurnRecon turnRecon;
+    private TurnRecon turnRecon;
+
+    private void Start()
+    {
+        staff = GameSession.Instance.staff;
+
+        playerBoard.Init(this);
+        opponentBoard.Init(this);
+
+        Init(staff.GetTurnRecon());
+    }
+
 
     public void Init(TurnRecon turnRecon)
     {
         this.turnRecon = turnRecon;
         SwitchMove();
     }
+
 
     public BoardView GetActiveBoard()
     {
@@ -24,30 +36,22 @@ public class BattlePresenter : MonoBehaviour
             return opponentBoard;
     }
 
-    public void AttackSector(SectorView sectorView, int targetX, int targetY)
+
+    public virtual void AttackSector(SectorView sectorView, int targetX, int targetY)
     {
         BoardView activeBoard = GetActiveBoard();
         Sea activeSea = staff.GetTurnRecon().GetQueue();
 
         MissionResult result = staff.TacticalDirective(targetX, targetY);
 
-        if (result == MissionResult.Miss)
-
-            sectorView.DisplayMiss();
-
-        else if(result == MissionResult.Hit)
-            sectorView.DisplayHit();
-
-        else if(result == MissionResult.HaveWinner)
-            
-            GameSession.Instance.End();
-
+        UpdateView(result, sectorView);
         UpdateMiss(activeSea, activeBoard.GetSectors());
-        
+
         SwitchMove();
     }
 
-    public void UpdateMiss(Sea sea, SectorView[,] sectors)
+
+    protected void UpdateMiss(Sea sea, SectorView[,] sectors)
     {
         for(int x = 0; x < 10; x++)
         {
@@ -61,7 +65,8 @@ public class BattlePresenter : MonoBehaviour
         }
     }
 
-     public void SwitchMove()
+
+    protected void SwitchMove()
     {
         Sea queue = turnRecon.GetQueue();
 
@@ -82,14 +87,19 @@ public class BattlePresenter : MonoBehaviour
         
     }
 
-    private void Start()
+
+    protected void UpdateView(MissionResult result, SectorView sectorView)
     {
-        staff = GameSession.Instance.staff;
+        if (result == MissionResult.Miss)
 
-        playerBoard.Init(this);
-        opponentBoard.Init(this);
+            sectorView.DisplayMiss();
 
-        Init(staff.GetTurnRecon());
+        else if(result == MissionResult.Hit)
+            sectorView.DisplayHit();
+
+        else if(result == MissionResult.HaveWinner)
+            
+            GameSession.Instance.End();
     }
 }
 

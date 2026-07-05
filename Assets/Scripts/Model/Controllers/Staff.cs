@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 public class Staff
 {
@@ -13,6 +12,7 @@ public class Staff
     private DeploymentOfficer deploymentOfficer;
     private Sinker sinker;
     private AttackResolver attackResolver;
+    private HomingWeapon homingWeapon;
 
     public Staff()
     {
@@ -24,6 +24,7 @@ public class Staff
         assignee = new Assignee(attackResolver, sinker, turnRecon);
         plansOfficer = new PlansOfficer(turnRecon, assignee, deploymentOfficer);
         commander = new Commander(plansOfficer, assignee, turnRecon);
+        homingWeapon = new HomingWeapon();
     }
 
     public TurnRecon GetTurnRecon()
@@ -39,6 +40,11 @@ public class Staff
     public BattleController GetBattleController()
     {
         return battleController;
+    }
+
+    public HomingWeapon GetHomingWeapon()
+    {
+        return homingWeapon;
     }
 
     public MissionResult TacticalDirective(int targetX, int targetY)

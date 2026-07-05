@@ -5,7 +5,7 @@ public class HomingWeapon
     private int min;
     private int max;
 
-    public HomingWeapon(int min = 0, int max = 9)
+    public HomingWeapon(int min = 0, int max = 10)
     {
         this.min = min;
         this.max = max;
@@ -22,7 +22,7 @@ public class HomingWeapon
 
             Sector sector = sea.GetSector(x, y);
 
-            if (!sector.IsHit())
+            if (!sector.IsAttacked())
                 return (x, y);
         }
     }

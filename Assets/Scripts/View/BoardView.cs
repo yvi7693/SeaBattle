@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,6 +33,14 @@ public class BoardView : MonoBehaviour
     public SectorView[,] GetSectors()
     {
         return sectors;
+    }
+
+    public SectorView GetSector(int x, int y)
+    {
+        if ((x < 0 || x >= 10) || (y < 0 || y >= 10))
+            throw new Exception("incorrect value coord");
+            
+        return sectors[x, y];
     }
 
     public void SetClicked(bool value)

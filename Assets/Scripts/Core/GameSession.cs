@@ -21,6 +21,11 @@ public class GameSession : MonoBehaviour
 
     }
 
+    public Mode GetMode()
+    {
+        return mode;
+    }
+
     public void SetMode(Mode mode)
     {
         this.mode = mode;
