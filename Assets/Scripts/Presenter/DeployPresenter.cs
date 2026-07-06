@@ -30,6 +30,11 @@ public class DeployPresenter : MonoBehaviour
     GameSession.Instance.Next();
   }
 
+
+  public void DeployFleet() 
+  {
+    staff.DeployFleet();
+  }
   
   private void DeployAllShips()
   {

@@ -67,8 +67,9 @@ public class DeployShip : MonoBehaviour
         transform.position = shipPosition;
 
         Collider2D target = Physics2D.OverlapPoint(deckPoints[0].position, cellLayer);
+        Collider2D target2 = Physics2D.OverlapPoint(deckPoints[deckPoints.Length-1].position, cellLayer);       
 
-        if (target != null)
+        if (target != null && target2 != null)
         {
             Magnet(target);
 

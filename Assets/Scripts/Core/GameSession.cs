@@ -45,9 +45,7 @@ public class GameSession : MonoBehaviour
 
         else if (mode == Mode.Ai)
             staff.DeployFleet();
-            SceneManager.LoadScene("BattleScene");
-        
-        
+            SceneManager.LoadScene("BattleScene");   
     }
 
     public void End()
