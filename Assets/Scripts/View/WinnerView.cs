@@ -12,6 +12,9 @@ public class WinnerView : MonoBehaviour
         BattleController battleController = GameSession.Instance.staff.GetBattleController();
         PlayerName winner = battleController.GetWinner();
 
+        if (GameSession.Instance.GetMode() == Mode.Ai && winner == PlayerName.Player2)
+            winner = PlayerName.Ai;
+
         ShowWinner(winner);
     }
 
