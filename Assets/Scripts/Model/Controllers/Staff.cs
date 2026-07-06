@@ -24,7 +24,7 @@ public class Staff
         assignee = new Assignee(attackResolver, sinker, turnRecon);
         plansOfficer = new PlansOfficer(turnRecon, assignee, deploymentOfficer, battleController);
         commander = new Commander(plansOfficer, assignee, turnRecon);
-        homingWeapon = new HomingWeapon();
+        homingWeapon = new HomingWeapon(deploymentOfficer);
     }
 
     public TurnRecon GetTurnRecon()

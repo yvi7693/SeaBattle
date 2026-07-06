@@ -5,11 +5,11 @@ using TMPro;
 public class BattlePresenter : MonoBehaviour
 {
     protected Staff staff;
-    [SerializeField] private BoardView RightBoard;
-    [SerializeField] private BoardView LeftBoard;
-    [SerializeField] private GameUI gameUi;
-    [SerializeField] private TMP_Text player2;
-    private TurnRecon turnRecon;
+    [SerializeField] protected BoardView RightBoard;
+    [SerializeField] protected BoardView LeftBoard;
+    [SerializeField] protected GameUI gameUi;
+    [SerializeField] protected TMP_Text player2;
+    protected TurnRecon turnRecon;
 
     private void Start()
     {
@@ -19,20 +19,16 @@ public class BattlePresenter : MonoBehaviour
         LeftBoard.Init(this);
 
         Init(staff.GetTurnRecon());
-
-        if (GameSession.Instance.GetMode() == Mode.Ai)
-            player2.text = "AI";
     }
 
 
     public void Init(TurnRecon turnRecon)
     {
         this.turnRecon = turnRecon;
-        SwitchMove();
+        SwitchMove();  
 
         if (GameSession.Instance.GetMode() == Mode.Ai)
-            RightBoard.ShowShips(turnRecon.GetSea1());
-        
+            RightBoard.ShowShips(turnRecon.GetSea1());      
     }
 
 

@@ -10,6 +10,8 @@ public class AiBattlePresenter : BattlePresenter
     private void Awake()
     {
         homingWeapon = GameSession.Instance.staff.GetHomingWeapon();
+        player2.text = "AI";
+       
     }
 
     public override void AttackSector(SectorView sectorView, int targetX, int targetY)
