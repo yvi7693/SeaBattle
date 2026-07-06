@@ -66,26 +66,10 @@ public class DeployShip : MonoBehaviour
 
         transform.position = shipPosition;
 
-        Collider2D target = Physics2D.OverlapPoint(deckPoints[0].position, cellLayer);
-        Collider2D target2 = Physics2D.OverlapPoint(deckPoints[deckPoints.Length-1].position, cellLayer);       
+        Collider2D targetLeft = Physics2D.OverlapPoint(deckPoints[0].position, cellLayer);
+        Collider2D targetRight = Physics2D.OverlapPoint(deckPoints[deckPoints.Length-1].position, cellLayer);       
 
-        if (target != null && target2 != null)
-        {
-            Magnet(target);
-
-            List<DeploySector> sectors = SearchSectors();
-
-            Debug.Log(deployPresenter.ValidateDeploy(sectors));
-
-            if (deployPresenter.ValidateDeploy(sectors))
-                hasValidPosition = true;
-        
-            else
-                hasValidPosition = false;
-        }
-
-        else
-            hasValidPosition = false;
+        DefineValid(targetLeft, targetRight);
     }
 
     private void OnMouseUp()
@@ -100,9 +84,7 @@ public class DeployShip : MonoBehaviour
         }
         
         else
-            transform.position = lastValidPosition;
-        
-            
+            transform.position = lastValidPosition;     
     }
 
     private void OnMouseOver()
@@ -150,6 +132,27 @@ public class DeployShip : MonoBehaviour
         offsetSnap.z = 0;
 
         transform.position += offsetSnap;
+    }
+
+    private void DefineValid(Collider2D targetLeft, Collider2D targetRight)
+    {
+        if (targetLeft != null && targetRight != null)
+        {
+            Magnet(targetLeft);
+
+            List<DeploySector> sectors = SearchSectors();
+
+            Debug.Log(deployPresenter.ValidateDeploy(sectors));
+
+            if (deployPresenter.ValidateDeploy(sectors))
+                hasValidPosition = true;
+        
+            else
+                hasValidPosition = false;
+        }
+
+        else
+            hasValidPosition = false;
     }
     
 }
