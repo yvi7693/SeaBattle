@@ -21,11 +21,11 @@ public class PlansOfficer
 
     public (bool, Sector) PlanOrder(int targetX, int targetY)
     {
-       Sea sea = turnRecon.GetQueue();
+       Sea targetSea = turnRecon.GetTargetSea();
 
-       Sector targetSector = sea.GetSector(targetX, targetY);
+       Sector targetSector = targetSea.GetSector(targetX, targetY);
 
-       if (sea.IsAttackedSector(targetX, targetY))
+       if (targetSea.IsAttackedSector(targetX, targetY))
             return (false, targetSector);
 
         return (true, targetSector);
@@ -55,7 +55,7 @@ public class PlansOfficer
     public void DeployFleet()
     {
         Fleet fleet = battleController.GetFleetNotDeployed();
-        Sea sea = turnRecon.GetSeaDeploy();
+        Sea deploySea = turnRecon.GetDeploySea();
         Ship[] ships = fleet.GetShips();
 
         Random random = new Random();
@@ -87,7 +87,7 @@ public class PlansOfficer
                         coords.Add((x, y-j));
                 }
 
-                if (TryDeployShip(sea, coords))
+                if (TryDeployShip(deploySea, coords))
                     isWork = false;
             }
         }

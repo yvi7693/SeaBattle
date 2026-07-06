@@ -4,22 +4,29 @@ using System.Collections.Generic;
 public class Ship
 {
     private int durability;
+    private int size;
     private bool deployed;
     private List<Sector> place;
 
-    public Ship(int durability, bool deployed = false)
+    public Ship(int size, bool deployed = false)
     {
-        if (durability <= 0)
+        if (size <= 0)
             throw new Exception("incorrect value");
             
-        this.durability = durability;
         this.deployed = deployed;
+        this.size = size;
+        this.durability = size;
         place = new List<Sector>();
     }
 
     public List<Sector> GetPlace()
     {
         return place;
+    }
+
+    public int GetSize()
+    {
+        return size;
     }
 
     public int GetDurability()

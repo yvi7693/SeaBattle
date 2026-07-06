@@ -36,11 +36,11 @@ public class DeployPresenter : MonoBehaviour
 
   // public void DeployFleet() 
   // {
-  //   Sea sea = staff.GetTurnRecon().GetSeaDeploy();
+  //   Sea deploySea = staff.GetTurnRecon().GetDeploySea();
 
   //   staff.DeployFleet();
 
-  //   Fleet fleet = sea.GetFleet();
+  //   Fleet fleet = deploySea.GetFleet();
   //   Ship[] ships = fleet.GetShips();
 
 

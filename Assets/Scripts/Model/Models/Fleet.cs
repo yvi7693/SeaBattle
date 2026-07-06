@@ -21,6 +21,19 @@ public class Fleet
         ships[9] = new Ship(4);
     }
 
+    public int CalculateCount(int size)
+    {
+        int count = 0;
+
+        for (int i = 0; i < ships.Length; i++)
+        {
+            if (ships[i].GetSize() == size && !ships[i].IsSunken())
+                count += 1;
+        }
+
+        return count;
+    }
+
 
     public Ship GetShip(int durability)
     {

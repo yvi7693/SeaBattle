@@ -25,7 +25,7 @@ public class Commander
 
             else
             {
-                turnRecon.SwitchQueue();
+                turnRecon.SwitchTargetSea();
                 
                 return MissionResult.Miss;
             }

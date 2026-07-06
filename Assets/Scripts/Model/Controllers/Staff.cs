@@ -20,7 +20,7 @@ public class Staff
         attackResolver = new AttackResolver();
         deploymentOfficer = new DeploymentOfficer();
         sinker = new Sinker(deploymentOfficer);
-        turnRecon = new TurnRecon(battleController.GetFleet1(), battleController.GetFleet2());
+        turnRecon = new TurnRecon(battleController.GetRightFleet(), battleController.GetLeftFleet());
         assignee = new Assignee(attackResolver, sinker, turnRecon);
         plansOfficer = new PlansOfficer(turnRecon, assignee, deploymentOfficer, battleController);
         commander = new Commander(plansOfficer, assignee, turnRecon);
@@ -60,8 +60,8 @@ public class Staff
 
     public void DeployDirective( List <(int x, int y)> positions)
     {
-        Sea sea = turnRecon.GetSeaDeploy();
-        plansOfficer.TryDeployShip(sea, positions);
+        Sea deploySea = turnRecon.GetDeploySea();
+        plansOfficer.TryDeployShip(deploySea, positions);
         
     }
 

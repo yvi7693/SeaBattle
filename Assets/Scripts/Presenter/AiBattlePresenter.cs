@@ -19,22 +19,24 @@ public class AiBattlePresenter : BattlePresenter
     {
         base.AttackSector(sectorView, targetX, targetY);
 
-        if (staff.GetTurnRecon().GetQueue() == staff.GetTurnRecon().GetSea1())
+        if (staff.GetTurnRecon().GetTargetSea() == staff.GetTurnRecon().GetRightSea())
             StartCoroutine(MoveDelay());
     }
 
     public void AiMove()
     {
         BoardView activeBoard = GetActiveBoard();
-        Sea activeSea = staff.GetTurnRecon().GetQueue();
+        Sea targetSea = staff.GetTurnRecon().GetTargetSea();
 
-        (int x, int y) = homingWeapon.Guidance(activeSea);
+        (int x, int y) = homingWeapon.Guidance(targetSea);
 
         MissionResult result = staff.TacticalDirective(x, y);
+        UpdateCount();
+        
         SectorView updateSector = activeBoard.GetSector(x, y);
 
         UpdateView(result, updateSector);
-        UpdateMiss(activeSea, activeBoard.GetSectors());
+        UpdateMiss(targetSea, activeBoard.GetSectors());
 
         SwitchMove();
 
@@ -45,28 +47,28 @@ public class AiBattlePresenter : BattlePresenter
 
     protected override void SwitchMove()
     {
-        Sea queue = turnRecon.GetQueue();
+        Sea targetSea = turnRecon.GetTargetSea();
 
-        if (queue == turnRecon.GetSea1())
+        if (targetSea == turnRecon.GetRightSea())
         {
-            RightBoard.SetClicked(false);
-            RightBoard.SetActive(true);
+            rightBoard.SetClicked(false);
+            rightBoard.SetActive(true);
 
-            LeftBoard.SetClicked(false);
-            LeftBoard.SetActive(false);
+            leftBoard.SetClicked(false);
+            leftBoard.SetActive(false);
         }
 
-        else if (queue == turnRecon.GetSea2())
+        else if (targetSea == turnRecon.GetLeftSea())
         {
-            LeftBoard.SetClicked(true);
-            LeftBoard.SetActive(true);
+            leftBoard.SetClicked(true);
+            leftBoard.SetActive(true);
             
-            RightBoard.SetClicked(false);
-            RightBoard.SetActive(false);
+            rightBoard.SetClicked(false);
+            rightBoard.SetActive(false);
         }
             
         else
-            throw new Exception("wrong queue course");
+            throw new Exception("wrong target sea");
     }
 
     private IEnumerator MoveDelay()

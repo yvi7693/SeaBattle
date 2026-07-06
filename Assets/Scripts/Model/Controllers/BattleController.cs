@@ -2,38 +2,38 @@ using System;
 
 public class BattleController
 {
-    private Fleet fleet1;
-    private Fleet fleet2;
-    private int winnerNumber;
+    private Fleet rightFleet;
+    private Fleet leftFleet;
+    private PlayerName winner;
 
     public BattleController()
     {
-        this.fleet1 = new Fleet();
-        this.fleet2 = new Fleet();
+        rightFleet = new Fleet();
+        leftFleet = new Fleet();
     }
 
-    public int GetWinnerNumber()
+    public PlayerName GetWinner()
     {
-        return winnerNumber;
+        return winner;
     }
 
-    public Fleet GetFleet1()
+    public Fleet GetRightFleet()
     {
-        return fleet1;
+        return rightFleet;
     }
 
-    public Fleet GetFleet2()
+    public Fleet GetLeftFleet()
     {
-        return fleet2;
+        return leftFleet;
     }
 
     public Fleet GetFleetNotDeployed()
     {
-        if (!(fleet1.IsDeployed()))
-            return fleet1;
+        if (!(rightFleet.IsDeployed()))
+            return rightFleet;
 
-        else if (!(fleet2.IsDeployed()))
-            return fleet2;
+        else if (!(leftFleet.IsDeployed()))
+            return leftFleet;
         
         else
             throw new Exception("all ships is deployed");
@@ -50,17 +50,17 @@ public class BattleController
     
     public bool IsDeclareWinner()
     {
-        if (!(fleet1.HasSurvivors()))
+        if (!(rightFleet.HasSurvivors()))
             {
-                winnerNumber = 2;
+                winner = PlayerName.Player2;
                 return true;
             }
 
-        if (!(fleet2.HasSurvivors()))
-        {
-            winnerNumber = 1;
-            return true;
-        }
+        if (!(leftFleet.HasSurvivors()))
+            {
+                winner = PlayerName.Player1;
+                return true;
+            }
             
         return false;
     }

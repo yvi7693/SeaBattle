@@ -1,56 +1,85 @@
 using System;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Serialization;
 
 public class BattlePresenter : MonoBehaviour
 {
     protected Staff staff;
-    [SerializeField] protected BoardView RightBoard;
-    [SerializeField] protected BoardView LeftBoard;
-    [SerializeField] protected GameUI gameUi;
+    [FormerlySerializedAs("RightBoard")]
+    [SerializeField] protected BoardView rightBoard;
+    [FormerlySerializedAs("LeftBoard")]
+    [SerializeField] protected BoardView leftBoard;
     [SerializeField] protected TMP_Text player2;
+    [SerializeField] protected GameUI[] leftCount;
+    [SerializeField] protected GameUI[] rightCount;
+
     protected TurnRecon turnRecon;
 
     private void Start()
     {
         staff = GameSession.Instance.staff;
 
-        RightBoard.Init(this);
-        LeftBoard.Init(this);
+        rightBoard.Init(this);
+        leftBoard.Init(this);
 
         Init(staff.GetTurnRecon());
+        UpdateCount();
+    }
+
+    public void UpdateCount()
+    {
+       BattleController battleController = staff.GetBattleController();
+
+       Fleet leftFleet = battleController.GetLeftFleet();
+       SetCount(leftFleet, leftCount);
+
+       Fleet rightFleet = battleController.GetRightFleet();
+       SetCount(rightFleet, rightCount);
+    }
+
+    private void SetCount(Fleet fleet, GameUI[] gameUi)
+    {
+        for(int size = 1; size <= 4; size++)
+        {
+            int count = fleet.CalculateCount(size);
+            GameUI counterUi = GetUiWithSize(size, gameUi);
+
+            counterUi.SetCountShips(count);
+        }
     }
 
 
     public void Init(TurnRecon turnRecon)
     {
         this.turnRecon = turnRecon;
-        SwitchMove();  
+        SwitchMove();
 
         if (GameSession.Instance.GetMode() == Mode.Ai)
-            RightBoard.ShowShips(turnRecon.GetSea1());      
+            rightBoard.ShowShips(turnRecon.GetRightSea());
     }
 
 
     public BoardView GetActiveBoard()
     {
-        if (RightBoard.GetActive())
-            return RightBoard;
+        if (rightBoard.GetActive())
+            return rightBoard;
         
         else
-            return LeftBoard;
+            return leftBoard;
     }
 
 
     public virtual void AttackSector(SectorView sectorView, int targetX, int targetY)
     {
         BoardView activeBoard = GetActiveBoard();
-        Sea activeSea = staff.GetTurnRecon().GetQueue();
+        Sea targetSea = staff.GetTurnRecon().GetTargetSea();
 
         MissionResult result = staff.TacticalDirective(targetX, targetY);
 
+        UpdateCount();
         UpdateView(result, sectorView);
-        UpdateMiss(activeSea, activeBoard.GetSectors());
+        UpdateMiss(targetSea, activeBoard.GetSectors());
 
         SwitchMove();
     }
@@ -73,28 +102,28 @@ public class BattlePresenter : MonoBehaviour
 
     protected virtual void SwitchMove()
     {
-        Sea queue = turnRecon.GetQueue();
+        Sea targetSea = turnRecon.GetTargetSea();
 
-        if (queue == turnRecon.GetSea1())
+        if (targetSea == turnRecon.GetRightSea())
         {
-            RightBoard.SetClicked(true);
-            RightBoard.SetActive(true);
+            rightBoard.SetClicked(true);
+            rightBoard.SetActive(true);
 
-            LeftBoard.SetClicked(false);
-            LeftBoard.SetActive(false);
+            leftBoard.SetClicked(false);
+            leftBoard.SetActive(false);
         }
 
-        else if (queue == turnRecon.GetSea2())
+        else if (targetSea == turnRecon.GetLeftSea())
         {
-            LeftBoard.SetClicked(true);
-            LeftBoard.SetActive(true);
+            leftBoard.SetClicked(true);
+            leftBoard.SetActive(true);
             
-            RightBoard.SetClicked(false);
-            RightBoard.SetActive(false);
+            rightBoard.SetClicked(false);
+            rightBoard.SetActive(false);
         }
             
         else
-            throw new Exception("wrong queue course");
+            throw new Exception("wrong target sea");
         
     }
 
@@ -112,5 +141,18 @@ public class BattlePresenter : MonoBehaviour
             
             GameSession.Instance.End();
     }
-}
 
+
+    private GameUI GetUiWithSize(int size, GameUI[] gameUi)
+    {
+        for (int i = 0; i < gameUi.Length; i++)
+        {
+            if (gameUi[i].GetSize() == size)
+                return gameUi[i];
+        }
+
+        throw new Exception("ship counter UI was not found");
+
+    }
+
+}

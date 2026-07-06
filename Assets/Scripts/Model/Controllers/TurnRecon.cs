@@ -2,63 +2,63 @@ using System;
 
 public class TurnRecon
 {
-    private Sea sea1;
-    private Sea sea2;
-    private Sea queue;
+    private Sea rightSea;
+    private Sea leftSea;
+    private Sea targetSea;
 
-    public TurnRecon(Fleet fleet1, Fleet fleet2)
+    public TurnRecon(Fleet rightFleet, Fleet leftFleet)
     {
-        this.sea1 = new Sea(fleet1);
-        this.sea2 = new Sea(fleet2);
+        rightSea = new Sea(rightFleet);
+        leftSea = new Sea(leftFleet);
 
-        this.queue = sea2;
+        targetSea = leftSea;
     }
 
-    public Sea GetQueue()
+    public Sea GetTargetSea()
     {
-        return queue;
+        return targetSea;
     }
 
-    public Sea GetOutTurn()
+    public Sea GetAttackerSea()
     {
-        if (queue == sea1)
-        return sea2;
+        if (targetSea == rightSea)
+            return leftSea;
 
-    return sea1;
+        return rightSea;
     }
 
-    public Sea GetSea1()
+    public Sea GetRightSea()
     {
-        return sea1;
+        return rightSea;
     }
 
-    public Sea GetSea2()
+    public Sea GetLeftSea()
     {
-        return sea2;
+        return leftSea;
     }
 
-    public Sea GetSeaDeploy()
+    public Sea GetDeploySea()
     {
-        if (sea1.IsShipsDeploy() && sea2.IsShipsDeploy())
+        if (rightSea.IsShipsDeploy() && leftSea.IsShipsDeploy())
             throw new Exception("All ships are stationed");
 
-        if (sea1.IsShipsDeploy())
-            return sea2;
+        if (rightSea.IsShipsDeploy())
+            return leftSea;
 
-        return sea1;
+        return rightSea;
         
     }
 
-    public void SwitchQueue()
+    public void SwitchTargetSea()
     {
-        if (queue == sea1)
+        if (targetSea == rightSea)
         {
-            queue = sea2;
+            targetSea = leftSea;
         }
 
         else
         {
-            queue = sea1;
+            targetSea = rightSea;
         }
     }
 }

@@ -7,6 +7,7 @@ public class HomingWeapon
     private int max;
     private Sector lastAttack;
     private Sector lastHit;
+     private Sector firstHit;
     private DeploymentOfficer deploymentOfficer;
 
     public HomingWeapon(DeploymentOfficer deploymentOfficer, int min = 0, int max = 10)
@@ -26,6 +27,7 @@ public class HomingWeapon
 
         else if (lastAttack.GetStatus() == StatusSector.Hit)
         {
+            firstHit = lastHit;
             lastHit = lastAttack;
             return NearbyAttack(sea);
         }
@@ -49,6 +51,7 @@ public class HomingWeapon
             {
                 lastAttack = null;
                 lastHit = null;
+                firstHit = null;
                 return RandomAttack(sea);
             }
 
@@ -66,6 +69,30 @@ public class HomingWeapon
 
         if (nearbySectors.Count == 0)
             return null;
+
+        if (lastAttack.GetStatus() == StatusSector.Hit && lastHit != null && firstHit != null)
+        {
+            (int x1, int y1) = lastAttack.GetCoord();
+            (int x2, int y2) = lastHit.GetCoord();
+
+            if (x1 != x2)
+            {
+                if (x1 > x2 && sea.ValidateBorder(x1+1, y1))
+                    return sea.GetSector(x1-1, y1);
+
+                if (x1 < x2 && sea.ValidateBorder(x2+1, y1))
+                    return sea.GetSector(x2+1, y1);
+            }
+
+            else
+            {
+                if (y1 > y2 && sea.ValidateBorder(x1, y1+1))
+                    return sea.GetSector(x1, y1-1);
+
+                if (y1 < y2 && sea.ValidateBorder(x1, y2+1))
+                    return sea.GetSector(x1, y2+1);
+            }
+        }
 
         Random random = new Random();
 

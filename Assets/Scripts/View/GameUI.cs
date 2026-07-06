@@ -3,18 +3,19 @@ using TMPro;
 
 public class GameUI : MonoBehaviour
 {
-    [SerializeField] private TMP_Text winnerNumber;
+    [SerializeField] private TMP_Text countShips;
+    [SerializeField] private int size;
 
-    public void ShowWinner(int numberPlayer)
+
+    public int GetSize()
     {
-        winnerNumber.text = $"Player {numberPlayer}";
+        return size;
     }
 
-    private void Start()
-    {
-        BattleController battleController = GameSession.Instance.staff.GetBattleController();
-        int numberWinner = battleController.GetWinnerNumber();
 
-        ShowWinner(numberWinner);
+    public void SetCountShips(int count)
+    {
+        countShips.text = $"x{count}";
     }
+
 }

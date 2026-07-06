@@ -28,7 +28,7 @@ public class Assignee
         if (!(ship.IsSunken()))
             return newStatus;
             
-        sinker.FloodShip(ship, turnRecon.GetQueue());
+        sinker.FloodShip(ship, turnRecon.GetTargetSea());
         return newStatus;
     }
 
