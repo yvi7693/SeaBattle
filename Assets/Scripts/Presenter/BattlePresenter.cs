@@ -34,7 +34,7 @@ public class BattlePresenter : MonoBehaviour
 
     public BoardView GetActiveBoard()
     {
-        if (RightBoard.GetClicked())
+        if (RightBoard.GetActive())
             return RightBoard;
         
         else
@@ -71,20 +71,26 @@ public class BattlePresenter : MonoBehaviour
     }
 
 
-    protected void SwitchMove()
+    protected virtual void SwitchMove()
     {
         Sea queue = turnRecon.GetQueue();
 
         if (queue == turnRecon.GetSea1())
         {
             RightBoard.SetClicked(true);
+            RightBoard.SetActive(true);
+
             LeftBoard.SetClicked(false);
+            LeftBoard.SetActive(false);
         }
 
         else if (queue == turnRecon.GetSea2())
         {
             LeftBoard.SetClicked(true);
+            LeftBoard.SetActive(true);
+            
             RightBoard.SetClicked(false);
+            RightBoard.SetActive(false);
         }
             
         else

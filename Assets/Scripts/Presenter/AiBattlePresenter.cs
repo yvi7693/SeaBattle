@@ -1,5 +1,6 @@
 
 
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -41,10 +42,37 @@ public class AiBattlePresenter : BattlePresenter
             StartCoroutine(MoveDelay());
     }
 
+
+    protected override void SwitchMove()
+    {
+        Sea queue = turnRecon.GetQueue();
+
+        if (queue == turnRecon.GetSea1())
+        {
+            RightBoard.SetClicked(false);
+            RightBoard.SetActive(true);
+
+            LeftBoard.SetClicked(false);
+            LeftBoard.SetActive(false);
+        }
+
+        else if (queue == turnRecon.GetSea2())
+        {
+            LeftBoard.SetClicked(true);
+            LeftBoard.SetActive(true);
+            
+            RightBoard.SetClicked(false);
+            RightBoard.SetActive(false);
+        }
+            
+        else
+            throw new Exception("wrong queue course");
+    }
+
     private IEnumerator MoveDelay()
     {
         yield return new WaitForSeconds(1f);
 
         AiMove();
-     }
+    }
 }

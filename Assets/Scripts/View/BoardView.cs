@@ -9,14 +9,14 @@ public class BoardView : MonoBehaviour
     [SerializeField]private float spacing = 0.5f;
     private BattlePresenter battlePresenter;
     private SectorView [,] sectors;
-    [SerializeField]private bool clicked;
+    [SerializeField]private bool active;
     [SerializeField]private GameObject activeFrame;
 
     public void Init(BattlePresenter battlePresenter, bool clicked = true)
     {
         this.battlePresenter = battlePresenter;
 
-        this.clicked = clicked;
+        this.active = clicked;
 
         sectors = new SectorView[sizeSea, sizeSea];
 
@@ -25,9 +25,9 @@ public class BoardView : MonoBehaviour
         CreateBoard();
     }
 
-    public bool GetClicked()
+    public bool GetActive()
     {
-        return clicked;
+        return active;
     }
 
     public void SetClicked(bool value)
@@ -40,9 +40,13 @@ public class BoardView : MonoBehaviour
             }
         }
 
-        activeFrame.SetActive(value);
-        clicked = value;
     } 
+
+    public void SetActive(bool value)
+    {
+        activeFrame.SetActive(value);
+        active = value;
+    }
 
     public SectorView[,] GetSectors()
     {

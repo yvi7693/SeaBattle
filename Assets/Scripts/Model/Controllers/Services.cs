@@ -66,7 +66,6 @@ public class AttackResolver
 
 public class Sinker
 {
-
     private DeploymentOfficer deploymentOfficer;
 
 

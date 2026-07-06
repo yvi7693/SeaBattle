@@ -66,8 +66,11 @@ public class HomingWeapon
                 Sector sector = sea.GetSector(x, y);
 
                 if (!sector.IsAttacked())
+                {
                     lastAttack = sector;
-                    return (x, y);
+                        return (x, y);
+                }
+                    
             }
     }
 }
