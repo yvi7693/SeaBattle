@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using TMPro;
 
 public class DeployPresenter : MonoBehaviour
 {
     [SerializeField] private DeployBoard deployBoard;
     [SerializeField] private GameObject parentShip;
+    [SerializeField] private TMP_Text playerText;
     private Staff staff;
     private DeploymentOfficer deploymentOfficer;
     private DeployShip[] deployShips;
@@ -15,14 +16,16 @@ public class DeployPresenter : MonoBehaviour
 
   public void Start()
   {
-    
     staff = GameSession.Instance.staff;
     deploymentOfficer = staff.GetDeploymentOfficer();
 
     deployBoard.CreateBoard();
 
     InitShips();
+
+    playerText.text = $"{GameSession.Instance.playerDeploy}";
   }
+
 
   public void Next()
   {
@@ -31,11 +34,34 @@ public class DeployPresenter : MonoBehaviour
   }
 
 
-  public void DeployFleet() 
-  {
-    staff.DeployFleet();
-  }
+  // public void DeployFleet() 
+  // {
+  //   Sea sea = staff.GetTurnRecon().GetSeaDeploy();
+
+  //   staff.DeployFleet();
+
+  //   Fleet fleet = sea.GetFleet();
+  //   Ship[] ships = fleet.GetShips();
+
+
+
+  //   for (int i = 0; i < ships.Length; i++)
+  //   {
+  //     List<(int, int)> coords = new List<(int, int)>(); 
+  //     List<Sector> place = ships[i].GetPlace();
+
+  //     for (int j = 0; j < place.Count; j++)
+  //     {
+  //       (int x, int y) = place[j].GetCoord();
+  //       coords.Add((x, y));
+  //     }
+
+
+  //   }
+    
+  // }
   
+
   private void DeployAllShips()
   {
     for (int i = 0; i < deployShips.Length; i++)
@@ -60,13 +86,6 @@ public class DeployPresenter : MonoBehaviour
     }
 
     staff.DeployDirective(coords);
-
-    // Временный код
-
-    for (int i = 0; i < coords.Count; i++)
-    {
-        Debug.Log($"Позиция {i}: {coords[i]}");
-    }
   }
 
 
@@ -121,16 +140,12 @@ public class DeployPresenter : MonoBehaviour
 
   private void InitShips()
   {
-
     DeployShip[] ships = parentShip.GetComponentsInChildren<DeployShip>();
     deployShips = ships;
 
     for(int i = 0; i < ships.Length; i++)
-    {
       ships[i].Init(this);
-
-      
-    }
+    
   }
 
 

@@ -1,22 +1,27 @@
 using System;
 using UnityEngine;
+using TMPro;
 
 public class BattlePresenter : MonoBehaviour
 {
     protected Staff staff;
-    [SerializeField] private BoardView playerBoard;
-    [SerializeField] private BoardView opponentBoard;
+    [SerializeField] private BoardView RightBoard;
+    [SerializeField] private BoardView LeftBoard;
     [SerializeField] private GameUI gameUi;
+    [SerializeField] private TMP_Text player2;
     private TurnRecon turnRecon;
 
     private void Start()
     {
         staff = GameSession.Instance.staff;
 
-        playerBoard.Init(this);
-        opponentBoard.Init(this);
+        RightBoard.Init(this);
+        LeftBoard.Init(this);
 
         Init(staff.GetTurnRecon());
+
+        if (GameSession.Instance.GetMode() == Mode.Ai)
+            player2.text = "AI";
     }
 
 
@@ -26,18 +31,18 @@ public class BattlePresenter : MonoBehaviour
         SwitchMove();
 
         if (GameSession.Instance.GetMode() == Mode.Ai)
-            playerBoard.ShowShips(turnRecon.GetSea1());
+            RightBoard.ShowShips(turnRecon.GetSea1());
         
     }
 
 
     public BoardView GetActiveBoard()
     {
-        if (playerBoard.GetClicked())
-            return playerBoard;
+        if (RightBoard.GetClicked())
+            return RightBoard;
         
         else
-            return opponentBoard;
+            return LeftBoard;
     }
 
 
@@ -76,14 +81,14 @@ public class BattlePresenter : MonoBehaviour
 
         if (queue == turnRecon.GetSea1())
         {
-            playerBoard.SetClicked(true);
-            opponentBoard.SetClicked(false);
+            RightBoard.SetClicked(true);
+            LeftBoard.SetClicked(false);
         }
 
         else if (queue == turnRecon.GetSea2())
         {
-            opponentBoard.SetClicked(true);
-             playerBoard.SetClicked(false);
+            LeftBoard.SetClicked(true);
+            RightBoard.SetClicked(false);
         }
             
         else

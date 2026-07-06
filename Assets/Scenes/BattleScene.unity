@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: 284501859}
   - component: {fileID: 284501860}
   m_Layer: 0
-  m_Name: PlayerBoard
+  m_Name: RightBoard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -649,7 +649,7 @@ GameObject:
   - component: {fileID: 602759378}
   - component: {fileID: 602759377}
   m_Layer: 0
-  m_Name: OpponentBoard
+  m_Name: LeftBoard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1169,9 +1169,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbb0f31237a034914a338a6d7f9316bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattlePresenter
-  playerBoard: {fileID: 284501860}
-  opponentBoard: {fileID: 602759377}
+  RightBoard: {fileID: 0}
+  LeftBoard: {fileID: 0}
   gameUi: {fileID: 0}
+  player2: {fileID: 0}
 --- !u!114 &1835980835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1184,9 +1185,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faef8a683318a44568a07f9cefb27466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AiBattlePresenter
-  playerBoard: {fileID: 284501860}
-  opponentBoard: {fileID: 602759377}
+  RightBoard: {fileID: 284501860}
+  LeftBoard: {fileID: 602759377}
   gameUi: {fileID: 0}
+  player2: {fileID: 1996103140}
 --- !u!1 &1996103138
 GameObject:
   m_ObjectHideFlags: 0

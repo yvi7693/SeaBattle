@@ -21,10 +21,12 @@ public class DeployShip : MonoBehaviour
         this.deployPresenter = deployPresenter;
     }
 
+
     public int GetDurability()
     {
         return durability;
     }
+
 
     public void Deploy()
     {
@@ -33,17 +35,20 @@ public class DeployShip : MonoBehaviour
         deployPresenter.DeployShip(coord);
     }
 
+
     public void Rotate()
     {
         Vector3 deckPosition = deckPoints[0].position;
         transform.RotateAround(deckPosition, Vector3.forward, 90);
     }
 
+
     private void Start()
     {
         lastValidPosition = transform.position;
         isDeploy = false;
     }
+
 
     private void OnMouseDown()
     {
@@ -55,6 +60,7 @@ public class DeployShip : MonoBehaviour
         if (isDeploy)
             SetStatusPlace(StatusSector.Empty);
     }
+
 
     private void OnMouseDrag()
     {
@@ -72,6 +78,7 @@ public class DeployShip : MonoBehaviour
         DefineValid(targetLeft, targetRight);
     }
 
+
     private void OnMouseUp()
     {
         isClicked = false;
@@ -87,6 +94,7 @@ public class DeployShip : MonoBehaviour
             transform.position = lastValidPosition;     
     }
 
+
     private void OnMouseOver()
     {
         if(Mouse.current.rightButton.wasPressedThisFrame)
@@ -94,11 +102,13 @@ public class DeployShip : MonoBehaviour
 
     }
 
+
     private Vector3 GetMouseWorldPosition()
     {
         Vector3 mousePosition = Mouse.current.position.ReadValue();
         return mainCamera.ScreenToWorldPoint(mousePosition);
     }
+
 
     private  List<DeploySector> SearchSectors()
     {
@@ -116,6 +126,7 @@ public class DeployShip : MonoBehaviour
         return coord;
     }
 
+
     private void SetStatusPlace(StatusSector newStatus)
     {
         List<DeploySector> sectors = SearchSectors();
@@ -126,13 +137,15 @@ public class DeployShip : MonoBehaviour
         }
     }
 
+
     private void Magnet(Collider2D target)
     {
         Vector3 offsetSnap = target.transform.position - deckPoints[0].position;
         offsetSnap.z = 0;
-
+            
         transform.position += offsetSnap;
     }
+
 
     private void DefineValid(Collider2D targetLeft, Collider2D targetRight)
     {
