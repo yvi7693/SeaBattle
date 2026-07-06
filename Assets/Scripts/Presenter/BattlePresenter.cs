@@ -16,7 +16,7 @@ public class BattlePresenter : MonoBehaviour
 
     protected TurnRecon turnRecon;
 
-    private void Start()
+    protected virtual void Start()
     {
         staff = GameSession.Instance.staff;
 

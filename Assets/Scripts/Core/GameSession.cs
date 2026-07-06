@@ -43,8 +43,11 @@ public class GameSession : MonoBehaviour
             SceneManager.LoadScene("BattleScene");
 
         else if (mode == Mode.Ai)
+        {
             staff.DeployFleet();
             SceneManager.LoadScene("BattleScene");
+        }
+            
     }
 
     public void End()

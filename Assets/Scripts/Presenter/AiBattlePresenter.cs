@@ -8,8 +8,10 @@ public class AiBattlePresenter : BattlePresenter
 {
     private HomingWeapon homingWeapon;
 
-    private void Awake()
+    protected override void Start()
     {
+        base.Start();
+
         homingWeapon = GameSession.Instance.staff.GetHomingWeapon();
         player2.text = "AI";
        
@@ -32,7 +34,7 @@ public class AiBattlePresenter : BattlePresenter
 
         MissionResult result = staff.TacticalDirective(x, y);
         UpdateCount();
-        
+
         SectorView updateSector = activeBoard.GetSector(x, y);
 
         UpdateView(result, updateSector);
