@@ -2885,8 +2885,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbb0f31237a034914a338a6d7f9316bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattlePresenter
-  RightBoard: {fileID: 284501860}
-  LeftBoard: {fileID: 602759377}
+  rightBoard: {fileID: 284501860}
+  leftBoard: {fileID: 602759377}
   player2: {fileID: 1996103140}
   leftCount:
   - {fileID: 1705940515}
@@ -2910,8 +2910,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faef8a683318a44568a07f9cefb27466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AiBattlePresenter
-  RightBoard: {fileID: 284501860}
-  LeftBoard: {fileID: 602759377}
+  rightBoard: {fileID: 284501860}
+  leftBoard: {fileID: 602759377}
   player2: {fileID: 1996103140}
   leftCount:
   - {fileID: 1705940515}

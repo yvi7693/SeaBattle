@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 53758725}
   - component: {fileID: 53758724}
   - component: {fileID: 53758723}
+  - component: {fileID: 53758726}
   m_Layer: 5
   m_Name: WinnerNumber
   m_TagString: Untagged
@@ -169,7 +170,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2085d8c97f7d94850baf176d851350df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameUI
-  winnerNumber: {fileID: 53758724}
+  countShips: {fileID: 0}
+  size: 0
 --- !u!114 &53758724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,6 +272,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 53758721}
   m_CullTransparentMesh: 1
+--- !u!114 &53758726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53758721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32438862a8ee74451bae00cfd524e975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WinnerView
+  winnerNumber: {fileID: 53758724}
 --- !u!1 &105069215
 GameObject:
   m_ObjectHideFlags: 0
