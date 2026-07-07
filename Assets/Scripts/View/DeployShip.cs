@@ -35,9 +35,15 @@ public class DeployShip : MonoBehaviour
         deployPresenter.DeployShip(coord);
     }
 
+
     public bool IsDeploy()
     {
         return isDeploy;
+    }
+
+    public void UnDeploy()
+    {
+        isDeploy = false;
     }
 
 

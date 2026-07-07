@@ -69,6 +69,8 @@ public class Sea
         {
             for (int j = 0; j < 10; j++){
                 sectors[i,j].SetStatus(StatusSector.Empty);
+                sectors[i, j].RecallShip();
+
             }
         }
     }

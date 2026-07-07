@@ -57,6 +57,11 @@ public class Sector
         return !(ship is null);
     }
 
+    public void RecallShip()
+    {
+        ship = null;
+    }
+
     public void Occupy(Ship ship)
     {
         if (!(this.ship is null))

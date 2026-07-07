@@ -12,6 +12,7 @@ public class DeployPresenter : MonoBehaviour
     private DeploymentOfficer deploymentOfficer;
     private DeployShip[] deployShips;
     private bool isAutoDeployed = false;
+    private Sea deploySea;
     
 
 
@@ -25,6 +26,8 @@ public class DeployPresenter : MonoBehaviour
     InitShips();
 
     playerText.text = $"{GameSession.Instance.playerDeploy}";
+
+    deploySea = staff.GetTurnRecon().GetDeploySea();
   }
 
 
@@ -39,8 +42,14 @@ public class DeployPresenter : MonoBehaviour
 
   public void DeployFleet() 
   {
-    Sea deploySea = staff.GetTurnRecon().GetDeploySea();
-
+    if (isAutoDeployed)
+    {
+      deploySea.Clear();
+      deploySea.RecallFleet();
+      UnDeployShips();
+    }
+      
+      
     staff.DeployFleet();
 
     Fleet fleet = deploySea.GetFleet();
@@ -218,6 +227,14 @@ public class DeployPresenter : MonoBehaviour
     }
 
     return coords;
+  }
+
+  private void UnDeployShips()
+  {
+    for (int i = 0; i < deployShips.Length; i++)
+    {
+      deployShips[i].UnDeploy();
+    }
   }
 
 }
