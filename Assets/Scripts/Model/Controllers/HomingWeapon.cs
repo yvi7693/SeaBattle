@@ -7,7 +7,7 @@ public class HomingWeapon
     private int max;
     private Sector lastAttack;
     private Sector lastHit;
-     private Sector firstHit;
+     private Sector memoryHit;
     private DeploymentOfficer deploymentOfficer;
 
     public HomingWeapon(DeploymentOfficer deploymentOfficer, int min = 0, int max = 10)
@@ -27,8 +27,9 @@ public class HomingWeapon
 
         else if (lastAttack.GetStatus() == StatusSector.Hit)
         {
-            firstHit = lastHit;
+            memoryHit = lastHit;
             lastHit = lastAttack;
+            
             return NearbyAttack(sea);
         }
 
@@ -45,21 +46,32 @@ public class HomingWeapon
 
     private (int, int) NearbyAttack(Sea sea)
     {
-        Sector sector = NearbySearch(sea, lastAttack);
+        Sector nearbySector = NearbySearch(sea, lastAttack);
 
-            if (sector is null)
+        if (nearbySector is null)
+        {
+            if (!lastHit.GetShip().IsSunken())
             {
-                lastAttack = null;
-                lastHit = null;
-                firstHit = null;
-                return RandomAttack(sea);
+                BackHit();
+
+                Sector sector = NearbySearch(sea, lastHit);
+
+                if (sector != null)
+                {
+                    lastAttack = sector;
+                    return sector.GetCoord();
+                }
             }
 
-            else
-            {
-                lastAttack = sector;
-                return sector.GetCoord();
-            }
+            DropMemory();
+            return RandomAttack(sea);
+        }
+
+        else
+        {
+            lastAttack = nearbySector;
+            return nearbySector.GetCoord();
+        }
     }
 
 
@@ -70,35 +82,62 @@ public class HomingWeapon
         if (nearbySectors.Count == 0)
             return null;
 
-        if (lastAttack.GetStatus() == StatusSector.Hit && lastHit != null && firstHit != null)
-        {
-            (int x1, int y1) = lastAttack.GetCoord();
-            (int x2, int y2) = lastHit.GetCoord();
-
-            if (x1 != x2)
-            {
-                if (x1 > x2 && sea.ValidateBorder(x1+1, y1))
-                    return sea.GetSector(x1-1, y1);
-
-                if (x1 < x2 && sea.ValidateBorder(x2+1, y1))
-                    return sea.GetSector(x2+1, y1);
-            }
-
-            else
-            {
-                if (y1 > y2 && sea.ValidateBorder(x1, y1+1))
-                    return sea.GetSector(x1, y1-1);
-
-                if (y1 < y2 && sea.ValidateBorder(x1, y2+1))
-                    return sea.GetSector(x1, y2+1);
-            }
-        }
+        if (HaveTwoHits())
+            return LinearAttack(sea);
 
         Random random = new Random();
 
         int indexRandom = random.Next(0, nearbySectors.Count);
 
         return nearbySectors[indexRandom];
+    }
+
+
+    private List<Sector> GetPredictTarget(Sea sea, Sector sector)
+    {
+        List<Sector> targets = new List<Sector>();
+
+        (int x, int y) = sector.GetCoord();
+
+        for (int i = -1; i <= 1; i++)
+        {
+            if (i == 0)
+                continue;
+
+            if (IsMayAttack(sea, x+i, y))
+                targets.Add(sea.GetSector(x+i, y));
+
+            if (IsMayAttack(sea, x, y+i))
+                targets.Add(sea.GetSector(x, y+i));
+        }
+
+        return targets;
+    }
+
+    private Sector LinearAttack(Sea sea)
+    {
+        (int x1, int y1) = lastHit.GetCoord();
+        (int x2, int y2) = memoryHit.GetCoord();
+
+        if (x1 != x2 && y1 == y2)
+        {
+            if (x1 > x2)
+                return TryGetTarget(sea, x1+1, y1);
+
+            if (x1 < x2)
+                return TryGetTarget(sea, x1-1, y1);
+        }
+
+        else if (y1 != y2 && x1 == x2)
+        {
+            if (y1 > y2)
+                 return TryGetTarget(sea, x1, y1+1);
+
+            else if (y1 < y2)
+                 return TryGetTarget(sea, x1, y1-1);
+        }
+
+        throw new Exception("The coordinates are not on the same line");  
     }
 
 
@@ -121,24 +160,39 @@ public class HomingWeapon
     }
 
 
-    private List<Sector> GetPredictTarget(Sea sea, Sector sector)
+    private void DropMemory()
     {
-        List<Sector> targets = new List<Sector>();
+        lastAttack = null;
+        lastHit = null;
+        memoryHit = null;
+    }
 
-        (int x, int y) = sector.GetCoord();
 
-        for (int i = -1; i <= 1; i++)
-        {
-            if (i == 0)
-                continue;
+    private bool HaveTwoHits()
+    {
+        return lastAttack.GetStatus() == StatusSector.Hit && lastHit != null && memoryHit != null;
+    }
 
-            if (sea.ValidateBorder(x+i, y) && !sea.GetSector(x+i, y).IsAttacked())
-                targets.Add(sea.GetSector(x+i, y));
 
-            if (sea.ValidateBorder(x, y+i) && !sea.GetSector(x, y+i).IsAttacked())
-                targets.Add(sea.GetSector(x, y+i));
-        }
+    private Sector TryGetTarget(Sea sea, int x, int y)
+    {
+        if (IsMayAttack(sea, x, y))
+             return sea.GetSector(x, y);
 
-        return targets;
+        return null;
+    }
+
+
+    private bool IsMayAttack(Sea sea, int x, int y)
+    {
+        return sea.ValidateBorder(x, y) && !sea.GetSector(x, y).IsAttacked();
+    }
+
+    private void BackHit()
+    {
+        Sector buff = memoryHit;
+
+        memoryHit = lastHit;
+        lastHit = buff;
     }
 }
