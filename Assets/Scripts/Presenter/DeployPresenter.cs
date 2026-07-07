@@ -34,32 +34,83 @@ public class DeployPresenter : MonoBehaviour
   }
 
 
-  // public void DeployFleet() 
-  // {
-  //   Sea deploySea = staff.GetTurnRecon().GetDeploySea();
+  public void DeployFleet() 
+  {
+    Sea deploySea = staff.GetTurnRecon().GetDeploySea();
 
-  //   staff.DeployFleet();
+    staff.DeployFleet();
 
-  //   Fleet fleet = deploySea.GetFleet();
-  //   Ship[] ships = fleet.GetShips();
+    Fleet fleet = deploySea.GetFleet();
+    Ship[] shipsModel = fleet.GetShips();
 
+    EnumerationShip(shipsModel);
 
-
-  //   for (int i = 0; i < ships.Length; i++)
-  //   {
-  //     List<(int, int)> coords = new List<(int, int)>(); 
-  //     List<Sector> place = ships[i].GetPlace();
-
-  //     for (int j = 0; j < place.Count; j++)
-  //     {
-  //       (int x, int y) = place[j].GetCoord();
-  //       coords.Add((x, y));
-  //     }
+  }
 
 
-  //   }
-    
-  // }
+  private void EnumerationShip(Ship[] shipsModel)
+  {
+    for (int i = 0; i < shipsModel.Length; i++)
+    {
+      List<(int x, int y)> coords = new List<(int, int)>(); 
+      List<Sector> placeModel = shipsModel[i].GetPlace();
+
+      for (int j = 0; j < placeModel.Count; j++)
+      {
+        (int x, int y) = placeModel[j].GetCoord();
+        coords.Add((x, y));
+      }
+
+      List<(int , int)> sortCoords = NormalizeCoords(coords);
+
+      (int xFirst, int yFirst) = sortCoords[0];
+
+      DeploySector deploySector = deployBoard.GetSector(xFirst, yFirst);
+      Collider2D colliderTarget = deploySector.GetComponent<Collider2D>();
+
+      SyncPlaceShip(sortCoords, colliderTarget);
+    }
+  }
+
+  
+  private List<(int , int)> NormalizeCoords(List<(int x, int y)> coords)
+  {
+    coords.Sort((coord1, coord2) =>
+    {
+      if (coord1.x != coord2.x)
+        return coord1.x.CompareTo(coord2.x);
+
+      return coord1.y.CompareTo(coord2.y);
+
+    });
+
+    return coords;
+  }
+
+
+  private void SyncPlaceShip(List<(int, int)> coords, Collider2D target)
+  {
+    for (int i = 0; i < deployShips.Length; i++)
+    {
+      if (deployShips[i].GetDurability() == coords.Count && !deployShips[i].IsDeploy())
+      {
+        bool isVertical = false;
+
+        if (coords.Count > 1)
+        {
+          (int x1, int y1) = coords[0];
+          (int x2, int y2) = coords[1];
+
+          isVertical = (x1 == x2);
+        }
+
+        deployShips[i].SyncPlace(target, isVertical);
+        break;
+      }
+
+      throw new Exception("not wanted ships");  
+    }
+  }
   
 
   private void DeployAllShips()
@@ -164,6 +215,4 @@ public class DeployPresenter : MonoBehaviour
     return coords;
   }
 
-
- 
 }

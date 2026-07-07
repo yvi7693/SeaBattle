@@ -188,6 +188,7 @@ public class HomingWeapon
         return sea.ValidateBorder(x, y) && !sea.GetSector(x, y).IsAttacked();
     }
 
+
     private void BackHit()
     {
         Sector buff = memoryHit;

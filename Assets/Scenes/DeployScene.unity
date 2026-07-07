@@ -369,7 +369,7 @@ MonoBehaviour:
     m_Bits: 0
   deckPoints:
   - {fileID: 2041792359}
-  durability: 0
+  durability: 1
 --- !u!212 &237951570
 SpriteRenderer:
   serializedVersion: 2
@@ -1265,7 +1265,7 @@ MonoBehaviour:
   deckPoints:
   - {fileID: 698759009}
   - {fileID: 1062579276}
-  durability: 0
+  durability: 2
 --- !u!212 &917469049
 SpriteRenderer:
   serializedVersion: 2
@@ -1617,7 +1617,7 @@ MonoBehaviour:
   deckPoints:
   - {fileID: 1484816269}
   - {fileID: 1252369768}
-  durability: 0
+  durability: 2
 --- !u!212 &1074089679
 SpriteRenderer:
   serializedVersion: 2
@@ -1750,7 +1750,7 @@ MonoBehaviour:
   - {fileID: 267632400}
   - {fileID: 1605345415}
   - {fileID: 1106809023}
-  durability: 0
+  durability: 3
 --- !u!212 &1123758567
 SpriteRenderer:
   serializedVersion: 2
@@ -2268,7 +2268,7 @@ MonoBehaviour:
     m_Bits: 0
   deckPoints:
   - {fileID: 1654429545}
-  durability: 0
+  durability: 1
 --- !u!212 &1442713196
 SpriteRenderer:
   serializedVersion: 2
@@ -2430,7 +2430,7 @@ MonoBehaviour:
     m_Bits: 0
   deckPoints:
   - {fileID: 2093412158}
-  durability: 0
+  durability: 1
 --- !u!212 &1470638508
 SpriteRenderer:
   serializedVersion: 2
@@ -2627,7 +2627,7 @@ MonoBehaviour:
   - {fileID: 831709670}
   - {fileID: 1781899057}
   - {fileID: 224169314}
-  durability: 0
+  durability: 3
 --- !u!212 &1535869454
 SpriteRenderer:
   serializedVersion: 2
@@ -3095,7 +3095,7 @@ MonoBehaviour:
   deckPoints:
   - {fileID: 166124239}
   - {fileID: 1848311561}
-  durability: 0
+  durability: 2
 --- !u!212 &1688946626
 SpriteRenderer:
   serializedVersion: 2
@@ -3667,7 +3667,7 @@ MonoBehaviour:
     m_Bits: 0
   deckPoints:
   - {fileID: 1359598563}
-  durability: 0
+  durability: 1
 --- !u!212 &1956711145
 SpriteRenderer:
   serializedVersion: 2

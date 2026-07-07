@@ -35,6 +35,11 @@ public class DeployShip : MonoBehaviour
         deployPresenter.DeployShip(coord);
     }
 
+    public bool IsDeploy()
+    {
+        return isDeploy;
+    }
+
 
     public void Rotate()
     {
@@ -47,6 +52,26 @@ public class DeployShip : MonoBehaviour
     {
         lastValidPosition = transform.position;
         isDeploy = false;
+    }
+
+    
+    public void SyncPlace(Collider2D target, bool isVertical)
+    {
+        if (isVertical)
+            Rotate();
+
+        Magnet(target);
+
+        lastValidPosition = transform.position;
+        isDeploy = true;
+    }
+
+     public void Magnet(Collider2D target)
+    {
+        Vector3 offsetSnap = target.transform.position - deckPoints[0].position;
+        offsetSnap.z = 0;
+            
+        transform.position += offsetSnap;
     }
 
 
@@ -135,15 +160,6 @@ public class DeployShip : MonoBehaviour
         {
             sectors[i].SetStatus(newStatus);
         }
-    }
-
-
-    private void Magnet(Collider2D target)
-    {
-        Vector3 offsetSnap = target.transform.position - deckPoints[0].position;
-        offsetSnap.z = 0;
-            
-        transform.position += offsetSnap;
     }
 
 
