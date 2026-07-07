@@ -12,6 +12,7 @@ public class DeployShip : MonoBehaviour
     private Vector3 lastValidPosition;
     private bool hasValidPosition;
     private bool isDeploy;
+    private bool isVertical = false;
     private Vector3 offset;
     private bool isClicked;
     private DeployPresenter deployPresenter;
@@ -41,16 +42,49 @@ public class DeployShip : MonoBehaviour
         return isDeploy;
     }
 
+
     public void UnDeploy()
     {
         isDeploy = false;
+        AcceptHorizontal();
+    }
+
+    public void SetVertical(bool vertical)
+    {
+        if (vertical == isVertical)
+            return;
+        
+        Rotate();
     }
 
 
     public void Rotate()
-    {
+    {   
         Vector3 deckPosition = deckPoints[0].position;
-        transform.RotateAround(deckPosition, Vector3.forward, 90);
+
+        if (!isVertical)
+        {
+            isVertical = true;
+            transform.RotateAround(deckPosition, Vector3.forward, 90);
+        }
+
+        else
+        {
+            isVertical = false;
+            transform.RotateAround(deckPosition, Vector3.forward, -90);
+        }        
+    }
+
+    public void AcceptHorizontal()
+    {
+        if (isVertical)
+        {
+            Vector3 deckPosition = deckPoints[0].position;
+            transform.RotateAround(deckPosition, Vector3.forward, -90);
+
+            isVertical = false;
+        }
+            
     }
 
 
@@ -61,11 +95,10 @@ public class DeployShip : MonoBehaviour
     }
 
     
-    public void SyncPlace(Collider2D target, bool isVertical)
+    public void SyncPlace(Collider2D target, bool vertical)
     {
-        if (isVertical)
-            Rotate();
-
+        SetVertical(vertical);
+  
         Magnet(target);
 
         lastValidPosition = transform.position;

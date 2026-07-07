@@ -7,6 +7,7 @@ public class Sea
     private Fleet fleet;
     private Sector[,] sectors;
 
+
     public Sea(Fleet fleet, int size = 10)
     {
         if (size < 10)
@@ -19,10 +20,12 @@ public class Sea
         SetUp();
     }
 
+
     public Fleet GetFleet()
     {
         return fleet;
     }
+
 
     public Sector GetSector(int x, int y)
     {
@@ -33,10 +36,12 @@ public class Sea
             
     }
 
+
     public bool ValidateBorder(int x, int y)
     {
         return x >= 0 && x < size && y >= 0 && y < size;
     }
+
 
     public bool IsShipsDeploy()
     {
@@ -58,10 +63,12 @@ public class Sea
         return sectors;
     }
 
+
     public bool IsAttackedSector(int targetX, int targetY)
     {
         return sectors[targetX, targetY].IsAttacked();
     }
+
 
     public void Clear()
     {
@@ -74,6 +81,7 @@ public class Sea
             }
         }
     }
+
 
     public void RecallFleet()
     {
