@@ -63,6 +63,21 @@ public class Sea
         return sectors[targetX, targetY].IsAttacked();
     }
 
+    public void Clear()
+    {
+        for(int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j < 10; j++){
+                sectors[i,j].SetStatus(StatusSector.Empty);
+            }
+        }
+    }
+
+    public void RecallFleet()
+    {
+        fleet.Recall();
+    }
+
     private void SetUp()
     {
         for (int x = 0; x < size; x++)

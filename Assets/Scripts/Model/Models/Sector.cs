@@ -30,6 +30,8 @@ public class Sector
 
     public StatusSector GetStatus() {return status;}
 
+    public void SetStatus(StatusSector newStatus) { status = newStatus;}
+
     public void Attack(StatusSector newStatus)
     {
         this.status = newStatus;

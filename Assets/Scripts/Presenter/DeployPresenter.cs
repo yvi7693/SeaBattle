@@ -11,6 +11,7 @@ public class DeployPresenter : MonoBehaviour
     private Staff staff;
     private DeploymentOfficer deploymentOfficer;
     private DeployShip[] deployShips;
+    private bool isAutoDeployed = false;
     
 
 
@@ -29,7 +30,9 @@ public class DeployPresenter : MonoBehaviour
 
   public void Next()
   {
-    DeployAllShips();
+    if (!isAutoDeployed)
+      DeployAllShips();
+
     GameSession.Instance.Next();
   }
 
@@ -44,6 +47,8 @@ public class DeployPresenter : MonoBehaviour
     Ship[] shipsModel = fleet.GetShips();
 
     EnumerationShip(shipsModel);
+
+    isAutoDeployed = true;
 
   }
 
@@ -108,7 +113,7 @@ public class DeployPresenter : MonoBehaviour
         break;
       }
 
-      throw new Exception("not wanted ships");  
+      
     }
   }
   

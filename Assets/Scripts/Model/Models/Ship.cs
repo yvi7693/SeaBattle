@@ -57,4 +57,10 @@ public class Ship
     {
         return durability == 0;
     }
+
+    public void Recall()
+    {
+        place = new List<Sector>();
+        deployed = false;
+    }
 }

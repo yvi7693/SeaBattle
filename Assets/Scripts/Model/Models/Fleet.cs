@@ -72,4 +72,12 @@ public class Fleet
 
         return false;
     }
+
+    public void Recall()
+    {
+        for (int i = 0; i < ships.Length; i++)
+        {
+            ships[i].Recall();
+        }
+    }
 }
