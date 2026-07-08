@@ -23,7 +23,7 @@ public class Staff
         turnRecon = new TurnRecon(battleController.GetRightFleet(), battleController.GetLeftFleet());
         assignee = new Assignee(attackResolver, sinker, turnRecon);
         plansOfficer = new PlansOfficer(turnRecon, assignee, deploymentOfficer, battleController);
-        commander = new Commander(plansOfficer, assignee, turnRecon);
+        commander = new Commander(plansOfficer, assignee, turnRecon, battleController);
         homingWeapon = new HomingWeapon(deploymentOfficer);
     }
 
@@ -49,10 +49,8 @@ public class Staff
 
     public MissionResult TacticalDirective(int targetX, int targetY)
     {
-        if (targetX < 0 || targetY < 0) throw new ArgumentException("incorrect value");
-
-        if (battleController.IsDeclareWinner())
-            return MissionResult.HaveWinner;
+        if (targetX < 0 || targetY < 0) 
+            throw new ArgumentException("incorrect value");
 
         return commander.AssignMission(targetX, targetY);
 

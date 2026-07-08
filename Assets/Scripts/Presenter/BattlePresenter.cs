@@ -27,6 +27,17 @@ public class BattlePresenter : MonoBehaviour
         UpdateCount();
     }
 
+
+    public void Init(TurnRecon turnRecon)
+    {
+        this.turnRecon = turnRecon;
+        SwitchMove();
+
+        if (GameSession.Instance.GetMode() == Mode.Ai)
+            rightBoard.ShowShips(turnRecon.GetRightSea());
+    }
+
+
     public void UpdateCount()
     {
        BattleController battleController = staff.GetBattleController();
@@ -50,16 +61,6 @@ public class BattlePresenter : MonoBehaviour
     }
 
 
-    public void Init(TurnRecon turnRecon)
-    {
-        this.turnRecon = turnRecon;
-        SwitchMove();
-
-        if (GameSession.Instance.GetMode() == Mode.Ai)
-            rightBoard.ShowShips(turnRecon.GetRightSea());
-    }
-
-
     public BoardView GetActiveBoard()
     {
         if (rightBoard.GetActive())
@@ -79,8 +80,11 @@ public class BattlePresenter : MonoBehaviour
 
         UpdateCount();
         UpdateView(result, sectorView);
-        UpdateMiss(targetSea, activeBoard.GetSectors());
 
+        if (TryEnd(result))
+            return;
+
+        UpdateMiss(targetSea, activeBoard.GetSectors());
         SwitchMove();
     }
 
@@ -136,10 +140,18 @@ public class BattlePresenter : MonoBehaviour
 
         else if(result == MissionResult.Hit)
             sectorView.DisplayHit();
+    }
 
-        else if(result == MissionResult.HaveWinner)
-            
+
+    private bool TryEnd(MissionResult result)
+    {
+        if(result == MissionResult.HaveWinner)
+        {
             GameSession.Instance.End();
+            return true;
+        }
+            
+        return false;
     }
 
 
