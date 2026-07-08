@@ -58,38 +58,63 @@ public class PlansOfficer
         Sea deploySea = turnRecon.GetDeploySea();
         Ship[] ships = fleet.GetShips();
 
-        Random random = new Random();
-
-        for (int i = 0; i < ships.Length; i++)
+        for (int restart = 0; restart < 1000; restart++)
         {
-            bool isWork = true;
+            Random random = new Random();
 
-            while (isWork)
+            bool isFleetDeployed = true;
+
+            for (int i = 0; i < ships.Length; i++)
             {
-                List<(int, int)> coords = new List<(int, int)>();
+                bool isWork = true;
+                
+                int attempts = 0;
 
-                int durability = ships[i].GetDurability();
-
-                int x = random.Next(0, 10);
-                int y = random.Next(0, 10);
-
-                for (int j = 0; j < durability; j++)
+                while (isWork && attempts < 1000)
                 {
-                    if (x + durability < 10)   
-                        coords.Add((x+j, y));
-                    else if (y + durability < 10)
-                        coords.Add((x, y+j));
+                    attempts ++;
 
-                    else if (x - durability > 0)
-                        coords.Add((x-j, y));
-                    
-                    else if (y - durability > 0)
-                        coords.Add((x, y-j));
+                    List<(int, int)> coords = new List<(int, int)>();
+
+                    int durability = ships[i].GetDurability();
+
+                    int x = random.Next(0, 10);
+                    int y = random.Next(0, 10);
+
+                    for (int j = 0; j < durability; j++)
+                    {
+                        if (x + durability < 10)   
+                            coords.Add((x+j, y));
+                        else if (y + durability < 10)
+                            coords.Add((x, y+j));
+
+                        else if (x - durability > 0)
+                            coords.Add((x-j, y));
+                        
+                        else if (y - durability > 0)
+                            coords.Add((x, y-j));
+                    }
+
+                    if (TryDeployShip(deploySea, coords))
+                        isWork = false;
                 }
 
-                if (TryDeployShip(deploySea, coords))
-                    isWork = false;
+                if (isWork)
+                {
+                    isFleetDeployed = false;
+                    deploySea.Clear();
+                    deploySea.RecallFleet();
+                    break;
+                }
+
             }
+
+            if (isFleetDeployed)
+                return;
+
         }
+
+        throw new Exception("restarts limits have expired");
+        
     }  
 }
