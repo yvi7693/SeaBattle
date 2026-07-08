@@ -14,7 +14,7 @@ public class WinnerAnimation : MonoBehaviour
 
         DOTween.Sequence()
             .Append(winnerText.DOFade(1f, 1f))
-            .SetDelay(1f)
+            .AppendInterval(3f)
             .Append(winnerName.DOFade(1f, 2f));
     }
 }

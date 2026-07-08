@@ -4,7 +4,6 @@ using TMPro;
 
 public class StartAnimate : MonoBehaviour
 {
-    
     [SerializeField] private TMP_Text mainText;
     [SerializeField] private RectTransform mainTransform;
     [SerializeField] private CanvasGroup groupButton;

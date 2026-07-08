@@ -143,7 +143,7 @@ public class BattlePresenter : MonoBehaviour
     }
 
 
-    private bool TryEnd(MissionResult result)
+    protected bool TryEnd(MissionResult result)
     {
         if(result == MissionResult.HaveWinner)
         {

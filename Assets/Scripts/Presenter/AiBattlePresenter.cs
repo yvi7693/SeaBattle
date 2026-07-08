@@ -78,6 +78,10 @@ public class AiBattlePresenter : BattlePresenter
         SectorView updateSector = activeBoard.GetSector(x, y);
 
         UpdateView(result, updateSector);
+
+        if (TryEnd(result))
+            return;
+
         UpdateMiss(targetSea, activeBoard.GetSectors());
 
         SwitchMove();
