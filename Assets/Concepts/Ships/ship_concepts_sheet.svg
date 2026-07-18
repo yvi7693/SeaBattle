@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1200" viewBox="0 0 1800 1200">
+  <rect width="1800" height="1200" fill="#edf1f2"/>
+  <style>
+    .label { font-family: Inter, Arial, sans-serif; font-size: 24px; fill: #1d2730; font-weight: 700; letter-spacing: 0; }
+    .note { font-family: Inter, Arial, sans-serif; font-size: 14px; fill: #64717a; letter-spacing: 0; }
+  </style>
+  <text x="70" y="78" class="label">Minimal Modern Naval Ship Concepts</text>
+  <text x="70" y="108" class="note">Clean silhouettes for 3D blockout: angular hulls, simple decks, restrained accent colors.</text>
+  <g transform="translate(40 145) scale(.38)">
+    <rect width="1400" height="900" fill="#f7f9f9"/>
+    <path d="M168 556 L1004 501 L1260 562 L1188 637 L309 669 Z" fill="#19222b"/>
+    <path d="M353 515 L998 483 L1126 527 L398 569 Z" fill="#dce4e7"/>
+    <path d="M441 448 L719 393 L934 461 L663 504 Z" fill="#cfd8dc"/>
+    <path d="M571 370 L737 328 L839 444 L656 487 Z" fill="#bfc9ce"/>
+    <path d="M643 336 L728 315 L772 388 L675 410 Z" fill="#18232b"/>
+    <path d="M741 304 L781 293 L835 445 L797 453 Z" fill="#202c34"/>
+    <path d="M229 554 L360 544 L407 568 L301 575 Z" fill="#00a7b5"/>
+    <path d="M958 508 L1135 548" stroke="#00a7b5" stroke-width="12" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(630 145) scale(.38)">
+    <rect width="1400" height="900" fill="#f7f9f9"/>
+    <path d="M131 569 L949 514 L1283 565 L1210 636 L253 690 Z" fill="#242b33"/>
+    <path d="M269 528 L904 492 L1163 536 L351 580 Z" fill="#cfd6d8"/>
+    <path d="M410 465 L676 401 L940 478 L642 526 Z" fill="#e7ebec"/>
+    <path d="M551 391 L718 345 L805 473 L617 515 Z" fill="#bec8cd"/>
+    <path d="M646 338 L732 317 L770 392 L674 413 Z" fill="#1b252e"/>
+    <path d="M800 287 L858 270 L922 482 L871 486 Z" fill="#38454e"/>
+    <path d="M219 566 L361 553 L416 579 L291 590 Z" fill="#ffb23f"/>
+    <path d="M995 532 L1193 562" stroke="#ffb23f" stroke-width="12" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(1220 145) scale(.38)">
+    <rect width="1400" height="900" fill="#f7f9f9"/>
+    <path d="M212 594 L962 536 L1232 583 L1145 632 L291 674 Z" fill="#14242c"/>
+    <path d="M272 682 L540 666 L496 720 L317 731 Z" fill="#080c10"/>
+    <path d="M838 653 L1138 630 L1054 693 L885 704 Z" fill="#080c10"/>
+    <path d="M317 546 L935 510 L1119 550 L390 594 Z" fill="#d8e1e2"/>
+    <path d="M489 479 L750 412 L943 493 L657 543 Z" fill="#f4f6f6"/>
+    <path d="M615 407 L748 371 L824 501 L677 535 Z" fill="#bfcacf"/>
+    <path d="M678 373 L742 356 L781 428 L706 446 Z" fill="#11232b"/>
+    <path d="M249 594 L448 581 L490 604 L322 616 Z" fill="#46d8c8"/>
+    <path d="M975 556 L1165 586" stroke="#46d8c8" stroke-width="13" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(335 630) scale(.38)">
+    <rect width="1400" height="900" fill="#f7f9f9"/>
+    <path d="M122 558 L973 492 L1290 545 L1197 626 L238 691 Z" fill="#222b33"/>
+    <path d="M206 509 L970 463 L1225 506 L329 577 Z" fill="#dfe5e5"/>
+    <path d="M280 502 L948 463 L1142 495 L358 551 Z" fill="#f8f9f8"/>
+    <path d="M792 406 L921 377 L1007 499 L865 530 Z" fill="#c4ced2"/>
+    <path d="M856 374 L932 354 L981 431 L895 453 Z" fill="#18232b"/>
+    <path d="M940 342 L1004 328 L1056 491 L997 503 Z" fill="#3e4d56"/>
+    <path d="M168 557 L358 543 L422 570 L250 585 Z" fill="#e95f4d"/>
+    <path d="M1017 499 L1214 529" stroke="#e95f4d" stroke-width="12" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(925 630) scale(.38)">
+    <rect width="1400" height="900" fill="#f7f9f9"/>
+    <path d="M145 579 L823 511 L1257 554 L1162 636 L259 697 Z" fill="#1e2429"/>
+    <path d="M292 541 L813 495 L1110 525 L393 596 Z" fill="#cad3d5"/>
+    <path d="M421 491 L675 419 L906 489 L634 550 Z" fill="#e9eded"/>
+    <path d="M524 426 L654 380 L773 502 L623 542 Z" fill="#b9c4c8"/>
+    <path d="M633 379 L709 355 L758 423 L675 448 Z" fill="#121b22"/>
+    <path d="M745 330 L806 306 L869 470 L810 485 Z" fill="#34414a"/>
+    <path d="M216 576 L369 559 L431 589 L286 604 Z" fill="#8f7cff"/>
+    <path d="M918 513 L1135 544" stroke="#8f7cff" stroke-width="12" stroke-linecap="round"/>
+  </g>
+  <text x="70" y="520" class="label">01 Corvette</text>
+  <text x="660" y="520" class="label">02 Destroyer</text>
+  <text x="1250" y="520" class="label">03 Trimaran Drone</text>
+  <text x="365" y="1005" class="label">04 Compact Carrier</text>
+  <text x="955" y="1005" class="label">05 Stealth Railship</text>
+</svg>

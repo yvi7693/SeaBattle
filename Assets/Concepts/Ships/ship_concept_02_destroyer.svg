@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <defs>
+    <linearGradient id="destroyerHull" x1="130" y1="540" x2="1260" y2="660" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#171b22"/>
+      <stop offset="0.42" stop-color="#3b424b"/>
+      <stop offset="1" stop-color="#11151b"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="24" stdDeviation="26" flood-color="#061019" flood-opacity="0.24"/>
+    </filter>
+  </defs>
+  <rect width="1400" height="900" fill="#f2f4f3"/>
+  <g filter="url(#shadow)">
+    <path d="M131 569 L949 514 L1283 565 L1210 636 L253 690 Z" fill="url(#destroyerHull)"/>
+    <path d="M253 690 L1210 636 L1146 686 L338 727 Z" fill="#080c11" opacity="0.84"/>
+    <path d="M269 528 L904 492 L1163 536 L351 580 Z" fill="#cfd6d8"/>
+    <path d="M410 465 L676 401 L940 478 L642 526 Z" fill="#e7ebec"/>
+    <path d="M551 391 L718 345 L805 473 L617 515 Z" fill="#bec8cd"/>
+    <path d="M646 338 L732 317 L770 392 L674 413 Z" fill="#1b252e"/>
+    <path d="M774 325 L837 348 L890 473 L809 452 Z" fill="#d6dde0"/>
+    <path d="M800 287 L828 280 L899 479 L871 486 Z" fill="#2f3b44"/>
+    <path d="M839 275 L858 270 L922 482 L902 486 Z" fill="#5b6870"/>
+    <path d="M363 543 L542 528 L526 552 L335 569 Z" fill="#101820" opacity="0.26"/>
+    <path d="M901 514 L1115 540 L1080 562 L862 536 Z" fill="#101820" opacity="0.22"/>
+    <path d="M219 566 L361 553 L416 579 L291 590 Z" fill="#ffb23f"/>
+    <path d="M464 500 L664 455" stroke="#ffffff" stroke-width="10" stroke-linecap="round" opacity="0.72"/>
+    <path d="M713 361 L781 346" stroke="#ffffff" stroke-width="8" stroke-linecap="round" opacity="0.62"/>
+    <path d="M995 532 L1193 562" stroke="#ffb23f" stroke-width="12" stroke-linecap="round"/>
+    <path d="M160 568 L945 517 L1260 566" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.38"/>
+  </g>
+</svg>

@@ -40,12 +40,12 @@ public class GameSession : MonoBehaviour
         }
 
         else if (mode == Mode.Classic && playerDeploy == PlayerName.Player2)
-            SceneManager.LoadScene("BattleScene");
+            SceneManager.LoadScene("BattleScene 1");
 
         else if (mode == Mode.Ai)
         {
             staff.DeployFleet();
-            SceneManager.LoadScene("BattleScene");
+            SceneManager.LoadScene("BattleScene 1");
         }
             
     }
