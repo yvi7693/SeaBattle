@@ -680,6 +680,11 @@ MonoBehaviour:
   spacing: 0.5
   active: 0
   activeFrame: {fileID: 153822080}
+  shipPrefabs:
+  - {fileID: 4134825080362219602, guid: e1b05109ebead480e8cb9a51a9a766d9, type: 3}
+  - {fileID: 5536682340182871836, guid: b69bfad9335a246878bc561cb69200f4, type: 3}
+  - {fileID: 4324293464295297518, guid: 9154fd9572a364c64933aa3fbb79475e, type: 3}
+  - {fileID: 2243618720087844388, guid: 6e4371357130c4b7692573548653b759, type: 3}
 --- !u!1 &308733054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1422,6 +1427,11 @@ MonoBehaviour:
   spacing: 0.5
   active: 0
   activeFrame: {fileID: 632049104}
+  shipPrefabs:
+  - {fileID: 4134825080362219602, guid: e1b05109ebead480e8cb9a51a9a766d9, type: 3}
+  - {fileID: 5536682340182871836, guid: b69bfad9335a246878bc561cb69200f4, type: 3}
+  - {fileID: 4324293464295297518, guid: 9154fd9572a364c64933aa3fbb79475e, type: 3}
+  - {fileID: 2243618720087844388, guid: 6e4371357130c4b7692573548653b759, type: 3}
 --- !u!4 &602759378
 Transform:
   m_ObjectHideFlags: 0

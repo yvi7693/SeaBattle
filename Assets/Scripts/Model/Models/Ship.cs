@@ -24,26 +24,31 @@ public class Ship
         return place;
     }
 
+
     public int GetSize()
     {
         return size;
     }
+
 
     public int GetDurability()
     {
         return durability;
     }
 
+
     public bool IsDeploy()
     {
         return deployed;
     }
+
 
     public void Deploy(List<Sector> place)
     {
         this.place = place;
         deployed = true;
     }
+
 
     public void Damage()
     {
@@ -53,10 +58,12 @@ public class Ship
         durability -= 1;
     }
 
+
     public bool IsSunken()
     {
         return durability == 0;
     }
+
 
     public void Recall()
     {

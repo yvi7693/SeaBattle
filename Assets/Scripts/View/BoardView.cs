@@ -11,6 +11,7 @@ public class BoardView : MonoBehaviour
     private SectorView [,] sectors;
     [SerializeField]private bool active;
     [SerializeField]private GameObject activeFrame;
+    [SerializeField] private GameObject[] shipPrefabs;
 
     public void Init(BattlePresenter battlePresenter, bool clicked = true)
     {
@@ -81,14 +82,21 @@ public class BoardView : MonoBehaviour
         }
     }
 
-    public void ShowShips(Sea sea){
-        for (int i = 0; i < sizeSea; i++)
-        {
-            for (int j = 0; j < sizeSea; j++)
-            {
-                if (sea.GetSector(i, j).GetStatus() == StatusSector.Ship)
-                    sectors[i, j].ShowShip();
-            }
-        }
+    public void PlaceShip(SectorView sector, int size, bool isVertical)
+    {
+        int numberPrefab = size - 1;
+
+        GameObject shipObject = Instantiate(shipPrefabs[numberPrefab], transform);
+
+        shipObject.transform.localRotation = (isVertical) ? Quaternion.Euler(0,0,90) : Quaternion.identity;
+
+        Vector3 sectorPosition = sector.transform.position;
+
+        ShipBattle shipBattle = shipObject.GetComponent<ShipBattle>();
+
+        shipBattle.Magnet(sectorPosition);
+               
     }
+
+    
 }

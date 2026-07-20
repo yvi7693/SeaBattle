@@ -1,14 +1,12 @@
 using System;
 using UnityEngine;
 using TMPro;
-using UnityEngine.Serialization;
+using System.Collections.Generic;
 
 public class BattlePresenter : MonoBehaviour
 {
     protected Staff staff;
-    [FormerlySerializedAs("RightBoard")]
     [SerializeField] protected BoardView rightBoard;
-    [FormerlySerializedAs("LeftBoard")]
     [SerializeField] protected BoardView leftBoard;
     [SerializeField] protected TMP_Text player2;
     [SerializeField] protected GameUI[] leftCount;
@@ -34,7 +32,68 @@ public class BattlePresenter : MonoBehaviour
         SwitchMove();
 
         if (GameSession.Instance.GetMode() == Mode.Ai)
-            rightBoard.ShowShips(turnRecon.GetRightSea());
+            ShowShips(turnRecon.GetRightSea(), rightBoard);
+    }
+
+
+    public void ShowShips(Sea sea, BoardView board){
+        Fleet fleet = sea.GetFleet();
+        Ship[] ships = fleet.GetShips();
+
+        for (int i = 0; i < 10; i++)
+        {
+            List<Sector> sectors = ships[i].GetPlace();
+            List<(int, int)> coords = new List<(int, int)>();
+
+            for (int j = 0; j < sectors.Count; j++)
+            {
+                coords.Add(sectors[j].GetCoord());
+            }
+
+            List<(int, int)> sortedCoords = NormalizeCoords(coords);
+
+            (int x, int y) = sortedCoords[0];
+
+            SectorView sector = board.GetSector(x, y);
+            int size = ships[i].GetDurability();
+            bool isVertical = IsVertical(sortedCoords);
+
+           board.PlaceShip(sector, size, isVertical);
+
+        }
+    }
+
+    private List<(int , int)> NormalizeCoords(List<(int x, int y)> coords)
+    {
+        coords.Sort((coord1, coord2) =>
+        {
+        if (coord1.x != coord2.x)
+            return coord1.x.CompareTo(coord2.x);
+
+        return coord1.y.CompareTo(coord2.y);
+
+        });
+
+        return coords;
+    }
+
+
+    private bool IsVertical(List<(int, int)> coords)
+    {
+        if (coords.Count < 2)
+            return false;
+
+       (int x1, int y1) = coords[0];
+       (int x2, int y2) = coords[1];
+
+       if (x1 != x2)
+            return false;
+        
+        else if (y1 != y2)
+            return true;
+        
+        else
+            throw new Exception("incorrect coords");
     }
 
 
