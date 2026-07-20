@@ -30,7 +30,8 @@ public class SectorView : MonoBehaviour
 
     public void FireOn()
     {
-        fire.Play();
+        if (fire != null)
+            fire.Play();
     }
 
     public void DisplayMiss()
@@ -41,6 +42,7 @@ public class SectorView : MonoBehaviour
     public void DisplayHit()
     {
         spriteRenderer.color = Color.red;
+        FireOn();
     }
 
     public void ShowShip()

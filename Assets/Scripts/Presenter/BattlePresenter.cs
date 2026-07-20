@@ -14,6 +14,7 @@ public class BattlePresenter : MonoBehaviour
 
     protected TurnRecon turnRecon;
 
+
     protected virtual void Start()
     {
         staff = GameSession.Instance.staff;
@@ -200,10 +201,7 @@ public class BattlePresenter : MonoBehaviour
         else if(result == MissionResult.Hit)
             sectorView.DisplayHit();
 
-
     }
-
-
 
 
     protected bool TryEnd(MissionResult result)
@@ -228,11 +226,6 @@ public class BattlePresenter : MonoBehaviour
 
         throw new Exception("ship counter UI was not found");
 
-    }
-
-    private void BlowUpShip(SectorView sectorView)
-    {
-        
     }
 
 }
