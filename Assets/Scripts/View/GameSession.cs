@@ -26,6 +26,11 @@ public class GameSession : MonoBehaviour
         return mode;
     }
 
+    public bool IsAiMode()
+    {
+        return mode == Mode.Ai;
+    }
+
     public void SetMode(Mode mode)
     {
         this.mode = mode;

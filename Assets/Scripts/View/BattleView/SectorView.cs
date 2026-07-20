@@ -5,15 +5,32 @@ public class SectorView : MonoBehaviour
     private int x;
     private int y;
     private BattlePresenter battlePresenter;
+    private ParticleSystem fire;
     private SpriteRenderer spriteRenderer;
     private BoxCollider boxCollider;
 
-    public void Init(int x, int y, BattlePresenter battlePresenter)
+    public void Init(int x, int y, BattlePresenter battlePresenter, ParticleSystem fire = null)
     {
         this.x = x;
         this.y = y;
         this.battlePresenter = battlePresenter;
+        this.fire = fire;
         
+    }
+
+    public (int, int) GetCoord()
+    {
+        return (x,y);
+    }
+
+    public void SetFire(ParticleSystem fire)
+    {
+        this.fire = fire;
+    }
+
+    public void FireOn()
+    {
+        fire.Play();
     }
 
     public void DisplayMiss()

@@ -26,10 +26,12 @@ public class BoardView : MonoBehaviour
         CreateBoard();
     }
 
+
     public bool GetActive()
     {
         return active;
     }
+
 
     public void SetClicked(bool value)
     {
@@ -43,16 +45,19 @@ public class BoardView : MonoBehaviour
 
     } 
 
+
     public void SetActive(bool value)
     {
         activeFrame.SetActive(value);
         active = value;
     }
 
+
     public SectorView[,] GetSectors()
     {
         return sectors;
     }
+
 
     public SectorView GetSector(int x, int y)
     {
@@ -95,8 +100,44 @@ public class BoardView : MonoBehaviour
         ShipBattle shipBattle = shipObject.GetComponent<ShipBattle>();
 
         shipBattle.Magnet(sectorPosition);
-               
+
+        Transform[] deckPoints = shipBattle.GetDeckPoints();
+        List<SectorView> sectorShip = SearchSectorShip(sector, size, isVertical);
+
+        SetFireSectors(sectorShip, deckPoints);        
     }
+
+
+    private List<SectorView> SearchSectorShip(SectorView sector, int size, bool isVertical)
+    {
+         List<SectorView> sectorShip = new List<SectorView>();
+
+        (int x, int y) = sector.GetCoord();
+
+        for(int i = 0; i < size; i++)
+        {
+            if (isVertical)
+                sectorShip.Add(sectors[x, y+i]);
+
+            else
+                sectorShip.Add(sectors[x+i, y]);
+
+        }
+
+        return sectorShip;
+    }
+
+
+    private void SetFireSectors(List<SectorView> sectors, Transform[] deckPoints)
+    {
+        for(int i = 0; i < sectors.Count; i++)
+        {
+            ParticleSystem fire = deckPoints[i].GetComponentInChildren<ParticleSystem>();
+            sectors[i].SetFire(fire);
+        }
+    }
+
+    
 
     
 }
