@@ -249,11 +249,11 @@ public class BattlePresenter : MonoBehaviour
         (int firstX, int firstY) = normCoords[0];
 
         board.PlaceShip(board.GetSector(firstX, firstY), normCoords.Count, IsVertical(normCoords));
-        FireOn(normCoords);
+        BlowUp(normCoords);
     }
 
 
-    private void FireOn(List<(int, int)> coords)
+    private void BlowUp(List<(int, int)> coords)
     {
         BoardView board = GetActiveBoard();
 
@@ -262,8 +262,9 @@ public class BattlePresenter : MonoBehaviour
             (int x, int y) = coords[i];
 
             SectorView sectorView = board.GetSector(x, y);
-            sectorView.FireOn();
+            sectorView.BlowUp();
         }
-    }
 
+
+    }
 }

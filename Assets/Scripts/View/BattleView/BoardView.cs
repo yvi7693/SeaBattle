@@ -104,7 +104,7 @@ public class BoardView : MonoBehaviour
         Transform[] deckPoints = shipBattle.GetDeckPoints();
         List<SectorView> sectorShip = SearchSectorShip(sector, size, isVertical);
 
-        SetFireSectors(sectorShip, deckPoints);        
+        SetFireExplosion(sectorShip, deckPoints);        
     }
 
 
@@ -128,12 +128,15 @@ public class BoardView : MonoBehaviour
     }
 
 
-    private void SetFireSectors(List<SectorView> sectors, Transform[] deckPoints)
+    private void SetFireExplosion(List<SectorView> sectors, Transform[] deckPoints)
     {
         for(int i = 0; i < sectors.Count; i++)
         {
-            ParticleSystem fire = deckPoints[i].GetComponentInChildren<ParticleSystem>();
+            ParticleSystem fire = deckPoints[i].Find("Fire").GetComponentInChildren<ParticleSystem>();
+            ParticleSystem explosion = deckPoints[i].Find("Explosion").GetComponentInChildren<ParticleSystem>();
+
             sectors[i].SetFire(fire);
+            sectors[i].SetExplosion(explosion);
         }
     }
 
