@@ -62,8 +62,9 @@ public class SectorView : MonoBehaviour
     public void DisplayHit()
     {
         spriteRenderer.color = Color.red;
-        FireOn();
+        BlowUp();
     }
+        
 
     public void ShowShip()
     {
