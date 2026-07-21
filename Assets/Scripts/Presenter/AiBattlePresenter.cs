@@ -77,7 +77,7 @@ public class AiBattlePresenter : BattlePresenter
 
         SectorView updateSector = activeBoard.GetSector(x, y);
 
-        UpdateView(result, updateSector);
+        UpdateView(result, updateSector, false, targetSea);
 
         if (TryEnd(result))
             return;

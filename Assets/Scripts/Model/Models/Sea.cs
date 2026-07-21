@@ -37,6 +37,20 @@ public class Sea
     }
 
 
+    public bool IsSunken(int x, int y)
+    {
+        if (! ValidateBorder(x, y))
+            throw new Exception("incorrect coords");
+
+        Ship ship = sectors[x,y].GetShip();
+
+        if(ship is null)
+            return false;
+        
+        return ship.IsSunken();
+    }
+
+
     public bool ValidateBorder(int x, int y)
     {
         return x >= 0 && x < size && y >= 0 && y < size;

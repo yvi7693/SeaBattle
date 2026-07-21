@@ -138,8 +138,10 @@ public class BattlePresenter : MonoBehaviour
 
         MissionResult result = staff.TacticalDirective(targetX, targetY);
 
+        bool isSunken = true ? targetSea.IsSunken(targetX, targetY) : false;
+
         UpdateCount();
-        UpdateView(result, sectorView);
+        UpdateView(result, sectorView, isSunken, targetSea);
 
         if (TryEnd(result))
             return;
@@ -192,15 +194,16 @@ public class BattlePresenter : MonoBehaviour
     }
 
 
-    protected void UpdateView(MissionResult result, SectorView sectorView)
+    protected void UpdateView(MissionResult result, SectorView sectorView, bool isSunken, Sea sea)
     {
         if (result == MissionResult.Miss)
-
             sectorView.DisplayMiss();
 
         else if(result == MissionResult.Hit)
             sectorView.DisplayHit();
 
+            if (isSunken)
+                ShowShip(sectorView, sea);
     }
 
 
@@ -226,6 +229,41 @@ public class BattlePresenter : MonoBehaviour
 
         throw new Exception("ship counter UI was not found");
 
+    }
+
+
+    private void ShowShip(SectorView sectorView, Sea sea)
+    {
+        (int x, int y) = sectorView.GetCoord();
+        List<Sector> sectorShip = sea.GetSector(x, y).GetShip().GetPlace();
+
+        List<(int, int)> coords = new List<(int, int)>();
+
+        for(int i = 0; i < sectorShip.Count; i++) 
+            coords.Add(sectorShip[i].GetCoord());
+        
+        List<(int, int)> normCoords = NormalizeCoords(coords);
+
+        BoardView board = GetActiveBoard();
+
+        (int firstX, int firstY) = normCoords[0];
+
+        board.PlaceShip(board.GetSector(firstX, firstY), normCoords.Count, IsVertical(normCoords));
+        FireOn(normCoords);
+    }
+
+
+    private void FireOn(List<(int, int)> coords)
+    {
+        BoardView board = GetActiveBoard();
+
+        for(int i = 0; i < coords.Count; i++)
+        {
+            (int x, int y) = coords[i];
+
+            SectorView sectorView = board.GetSector(x, y);
+            sectorView.FireOn();
+        }
     }
 
 }
