@@ -9,6 +9,7 @@ public class SectorView : MonoBehaviour
     private ParticleSystem explosion;
     private SpriteRenderer spriteRenderer;
     private BoxCollider boxCollider;
+    private bool setActiveResolved;
 
     public void Init(int x, int y, BattlePresenter battlePresenter, ParticleSystem fire = null)
     {
@@ -16,12 +17,18 @@ public class SectorView : MonoBehaviour
         this.y = y;
         this.battlePresenter = battlePresenter;
         this.fire = fire;
+        setActiveResolved = true;
         
     }
 
     public (int, int) GetCoord()
     {
         return (x,y);
+    }
+
+    public bool IsSetActiveResolved()
+    {
+        return setActiveResolved;
     }
 
     public void SetFire(ParticleSystem fire)
@@ -56,11 +63,15 @@ public class SectorView : MonoBehaviour
 
     public void DisplayMiss()
     {
+        setActiveResolved = false;
+        SetClicked(false);
         spriteRenderer.color = Color.white;
     }
 
     public void DisplayHit()
-    {
+    {   
+        setActiveResolved = false;
+        SetClicked(false);
         spriteRenderer.color = Color.red;
         BlowUp();
     }
@@ -84,7 +95,7 @@ public class SectorView : MonoBehaviour
 
     private void OnMouseDown()
     {   
-        battlePresenter.AttackSector(this, x, y);
+        battlePresenter.AttackSector(x, y);
     }
 
     

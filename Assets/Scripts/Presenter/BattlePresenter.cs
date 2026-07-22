@@ -132,9 +132,12 @@ public class BattlePresenter : MonoBehaviour
     }
 
 
-    public virtual void AttackSector(SectorView sectorView, int targetX, int targetY)
+    public virtual MissionResult AttackSector(int targetX, int targetY)
     {
         BoardView activeBoard = GetActiveBoard();
+
+        activeBoard.SetClicked(false);
+
         Sea targetSea = staff.GetTurnRecon().GetTargetSea();
 
         MissionResult result = staff.TacticalDirective(targetX, targetY);
@@ -147,6 +150,8 @@ public class BattlePresenter : MonoBehaviour
         GameObject missile = Instantiate(missilePrefab);
         MissileAnimate missileAnimate = missile.GetComponent<MissileAnimate>();
 
+        SectorView sectorView = activeBoard.GetSector(targetX, targetY);
+
         missileAnimate.Launch(startPosition, sectorView.transform.position, () =>
         {
             UpdateCount();
@@ -157,8 +162,14 @@ public class BattlePresenter : MonoBehaviour
                 return;
 
             SwitchMove();
-        });   
+            AttackResolved(result);
+        }); 
+
+        return result;  
     }
+
+
+    protected virtual void AttackResolved(MissionResult result){}
 
 
     protected void UpdateMiss(Sea sea, SectorView[,] sectors)

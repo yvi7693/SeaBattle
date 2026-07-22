@@ -13,8 +13,8 @@ public class MissileAnimate : MonoBehaviour
         transform.position = from;
 
         transform
-            .DOJump(to, 2f, 1, 3f)
-            .SetEase(Ease.InOutSine)
+            .DOJump(to, 2f, 1, 1.5f)
+            .SetEase(Ease.InQuad)
             .OnComplete(() => {
                                 OnLanded();
                                 Destroy(gameObject);

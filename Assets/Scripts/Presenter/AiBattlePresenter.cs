@@ -19,74 +19,28 @@ public class AiBattlePresenter : BattlePresenter
     }
 
 
-    public override void AttackSector(SectorView sectorView, int targetX, int targetY)
+    protected override void AttackResolved(MissionResult result)
     {
-        base.AttackSector(sectorView, targetX, targetY);
-
-        BattleController battleController = staff.GetBattleController();
-
-        if ((staff.GetTurnRecon().GetTargetSea() == staff.GetTurnRecon().GetRightSea()) && !battleController.IsDeclareWinner())
-            StartCoroutine(MoveDelay());
+        if (IsAiMove())
+            MoveAi();
     }
 
 
-    protected override void SwitchMove()
+    private void MoveAi()
     {
-        Sea targetSea = turnRecon.GetTargetSea();
 
-        if (targetSea == turnRecon.GetRightSea())
-        {
-            rightBoard.SetClicked(false);
-            rightBoard.SetActive(true);
+        rightBoard.SetClicked(false);
 
-            leftBoard.SetClicked(false);
-            leftBoard.SetActive(false);
-        }
-
-        else if (targetSea == turnRecon.GetLeftSea())
-        {
-            leftBoard.SetClicked(true);
-            leftBoard.SetActive(true);
-            
-            rightBoard.SetClicked(false);
-            rightBoard.SetActive(false);
-        }
-            
-        else
-            throw new Exception("wrong target sea");
-    }
-
-
-    private IEnumerator MoveDelay()
-    {
-        yield return new WaitForSeconds(1f);
-
-        AiMove();
-    }
-
-
-    private void AiMove()
-    {
-        BoardView activeBoard = GetActiveBoard();
         Sea targetSea = staff.GetTurnRecon().GetTargetSea();
-
         (int x, int y) = homingWeapon.Guidance(targetSea);
 
-        MissionResult result = staff.TacticalDirective(x, y);
-        UpdateCount();
+        base.AttackSector(x, y);
+    }
 
-        SectorView updateSector = activeBoard.GetSector(x, y);
 
-        UpdateView(result, updateSector, false, targetSea);
-
-        if (TryEnd(result))
-            return;
-
-        UpdateMiss(targetSea, activeBoard.GetSectors());
-
-        SwitchMove();
-
-        if (result == MissionResult.Hit)
-            StartCoroutine(MoveDelay());
+    private bool IsAiMove()
+    {
+        BattleController battleController = staff.GetBattleController();
+        return (staff.GetTurnRecon().GetTargetSea() == staff.GetTurnRecon().GetRightSea()) && !battleController.IsDeclareWinner();
     }
 }

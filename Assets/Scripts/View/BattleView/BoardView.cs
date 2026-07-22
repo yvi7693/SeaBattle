@@ -46,10 +46,10 @@ public class BoardView : MonoBehaviour
         {
             for (int y = 0; y < sizeSea; y++)
             {
-                sectors[x,y].SetClicked(value);
+                if (sectors[x,y].IsSetActiveResolved())
+                    sectors[x,y].SetClicked(value);
             }
         }
-
     } 
 
 
