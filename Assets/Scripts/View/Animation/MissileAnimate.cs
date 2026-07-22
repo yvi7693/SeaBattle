@@ -13,7 +13,7 @@ public class MissileAnimate : MonoBehaviour
         transform.position = from;
 
         transform
-            .DOJump(to, 2f, 1, 1.5f)
+            .DOJump(to, 2f, 1, 2f)
             .SetEase(Ease.InQuad)
             .OnComplete(() => {
                                 OnLanded();

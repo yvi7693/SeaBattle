@@ -7,6 +7,7 @@ public class SectorView : MonoBehaviour
     private BattlePresenter battlePresenter;
     private ParticleSystem fire;
     private ParticleSystem explosion;
+    private ParticleSystem splash;
     private SpriteRenderer spriteRenderer;
     private BoxCollider boxCollider;
     private bool setActiveResolved;
@@ -18,6 +19,9 @@ public class SectorView : MonoBehaviour
         this.battlePresenter = battlePresenter;
         this.fire = fire;
         setActiveResolved = true;
+
+        splash = this.transform.Find("Splash").GetComponentInChildren<ParticleSystem>();
+        explosion = this.transform.Find("Explosion").GetComponentInChildren<ParticleSystem>();
         
     }
 
@@ -29,11 +33,6 @@ public class SectorView : MonoBehaviour
     public bool IsSetActiveResolved()
     {
         return setActiveResolved;
-    }
-
-    public void SetFire(ParticleSystem fire)
-    {
-        this.fire = fire;
     }
 
 
@@ -50,16 +49,38 @@ public class SectorView : MonoBehaviour
             fire.Play();
     }
 
-    public void SetExplosion(ParticleSystem explosion)
-    {
-        this.explosion = explosion;
-    }
 
     public void ExplosionOn()
     {
         if(explosion != null)
             explosion.Play();
     }
+
+
+    public void SplashOn()
+    {
+        if(splash != null)
+            splash.Play();
+    }
+
+
+    public void SetExplosion(ParticleSystem explosion)
+    {
+        this.explosion = explosion;
+    }
+
+
+    public void SetFire(ParticleSystem fire)
+    {
+        this.fire = fire;
+    }
+
+
+    public void SetSplash(ParticleSystem splash)
+    {
+        this.splash = splash;
+    }
+
 
     public void DisplayMiss()
     {
@@ -73,7 +94,7 @@ public class SectorView : MonoBehaviour
         setActiveResolved = false;
         SetClicked(false);
         spriteRenderer.color = Color.red;
-        BlowUp();
+        FireOn();
     }
         
 

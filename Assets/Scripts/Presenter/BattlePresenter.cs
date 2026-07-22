@@ -20,8 +20,8 @@ public class BattlePresenter : MonoBehaviour
     {
         staff = GameSession.Instance.staff;
 
-        rightBoard.Init(this, new Vector3(-5,0,0));
-        leftBoard.Init(this,  new Vector3(5,0,0));
+        rightBoard.Init(this, new Vector3(-3.5f, -0.25f, 0));
+        leftBoard.Init(this,  new Vector3(8, -0.25f, 0));
 
         Init(staff.GetTurnRecon());
         UpdateCount();
@@ -218,13 +218,21 @@ public class BattlePresenter : MonoBehaviour
     protected void UpdateView(MissionResult result, SectorView sectorView, bool isSunken, Sea sea)
     {
         if (result == MissionResult.Miss)
+        {
             sectorView.DisplayMiss();
+            sectorView.SplashOn();
+        }
+            
 
         else if(result == MissionResult.Hit)
+        {
             sectorView.DisplayHit();
+            sectorView.ExplosionOn();
 
             if (isSunken)
                 ShowShip(sectorView, sea);
+        }
+            
     }
 
 
@@ -270,11 +278,11 @@ public class BattlePresenter : MonoBehaviour
         (int firstX, int firstY) = normCoords[0];
 
         board.PlaceShip(board.GetSector(firstX, firstY), normCoords.Count, IsVertical(normCoords));
-        BlowUp(normCoords);
+        FireOn(normCoords);
     }
 
 
-    private void BlowUp(List<(int, int)> coords)
+    private void FireOn(List<(int, int)> coords)
     {
         BoardView board = GetActiveBoard();
 
@@ -283,7 +291,7 @@ public class BattlePresenter : MonoBehaviour
             (int x, int y) = coords[i];
 
             SectorView sectorView = board.GetSector(x, y);
-            sectorView.BlowUp();
+            sectorView.FireOn();
         }
 
 
