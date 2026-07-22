@@ -2770,6 +2770,7 @@ MonoBehaviour:
   - {fileID: 765068381}
   - {fileID: 1173498701}
   - {fileID: 2067189644}
+  missilePrefab: {fileID: 7359408783580186134, guid: 662cb8d14363249969f6a48276b8e42c, type: 3}
 --- !u!114 &1835980835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2795,6 +2796,7 @@ MonoBehaviour:
   - {fileID: 765068381}
   - {fileID: 1173498701}
   - {fileID: 2067189644}
+  missilePrefab: {fileID: 7359408783580186134, guid: 662cb8d14363249969f6a48276b8e42c, type: 3}
 --- !u!1 &1896277272
 GameObject:
   m_ObjectHideFlags: 0

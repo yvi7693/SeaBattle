@@ -5,13 +5,14 @@ using System.Collections.Generic;
 
 public class BattlePresenter : MonoBehaviour
 {
-    protected Staff staff;
     [SerializeField] protected BoardView rightBoard;
     [SerializeField] protected BoardView leftBoard;
     [SerializeField] protected TMP_Text player2;
     [SerializeField] protected GameUI[] leftCount;
     [SerializeField] protected GameUI[] rightCount;
+    [SerializeField] protected GameObject missilePrefab;
 
+    protected Staff staff;
     protected TurnRecon turnRecon;
 
 
@@ -19,8 +20,8 @@ public class BattlePresenter : MonoBehaviour
     {
         staff = GameSession.Instance.staff;
 
-        rightBoard.Init(this);
-        leftBoard.Init(this);
+        rightBoard.Init(this, new Vector3(-5,0,0));
+        leftBoard.Init(this,  new Vector3(5,0,0));
 
         Init(staff.GetTurnRecon());
         UpdateCount();
@@ -140,14 +141,23 @@ public class BattlePresenter : MonoBehaviour
 
         bool isSunken = true ? targetSea.IsSunken(targetX, targetY) : false;
 
-        UpdateCount();
-        UpdateView(result, sectorView, isSunken, targetSea);
+        BoardView board = GetActiveBoard();
+        Vector3 startPosition = board.GetMissilePosition();
 
-        if (TryEnd(result))
-            return;
+        GameObject missile = Instantiate(missilePrefab);
+        MissileAnimate missileAnimate = missile.GetComponent<MissileAnimate>();
 
-        UpdateMiss(targetSea, activeBoard.GetSectors());
-        SwitchMove();
+        missileAnimate.Launch(startPosition, sectorView.transform.position, () =>
+        {
+            UpdateCount();
+            UpdateView(result, sectorView, isSunken, targetSea);
+            UpdateMiss(targetSea, activeBoard.GetSectors());
+
+            if (TryEnd(result))
+                return;
+
+            SwitchMove();
+        });   
     }
 
 

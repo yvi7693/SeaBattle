@@ -7,23 +7,30 @@ public class BoardView : MonoBehaviour
     [SerializeField]private GameObject sectorPrefab;
     [SerializeField]private int sizeSea = 10;
     [SerializeField]private float spacing = 0.5f;
-    private BattlePresenter battlePresenter;
-    private SectorView [,] sectors;
     [SerializeField]private bool active;
     [SerializeField]private GameObject activeFrame;
     [SerializeField] private GameObject[] shipPrefabs;
+    private BattlePresenter battlePresenter;
+    private SectorView [,] sectors;
+    private Vector3 missilePosition;
 
-    public void Init(BattlePresenter battlePresenter, bool clicked = true)
+    public void Init(BattlePresenter battlePresenter, Vector3 missilePosition, bool clicked = true)
     {
         this.battlePresenter = battlePresenter;
-
         this.active = clicked;
+        this.missilePosition = missilePosition;
 
         sectors = new SectorView[sizeSea, sizeSea];
 
         activeFrame.SetActive(false);
         
         CreateBoard();
+    }
+
+
+    public Vector3 GetMissilePosition()
+    {
+        return missilePosition;
     }
 
 
