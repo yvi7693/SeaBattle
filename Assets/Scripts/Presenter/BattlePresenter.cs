@@ -11,6 +11,8 @@ public class BattlePresenter : MonoBehaviour
     [SerializeField] protected GameUI[] leftCount;
     [SerializeField] protected GameUI[] rightCount;
     [SerializeField] protected GameObject missilePrefab;
+    [SerializeField] protected AudioSource hitSound;
+    [SerializeField] protected AudioSource missSound;
 
     protected Staff staff;
     protected TurnRecon turnRecon;
@@ -221,6 +223,7 @@ public class BattlePresenter : MonoBehaviour
         {
             sectorView.DisplayMiss();
             sectorView.SplashOn();
+            missSound.Play();
         }
             
 
@@ -228,6 +231,7 @@ public class BattlePresenter : MonoBehaviour
         {
             sectorView.DisplayHit();
             sectorView.ExplosionOn();
+            hitSound.Play();
 
             if (isSunken)
                 ShowShip(sectorView, sea);
