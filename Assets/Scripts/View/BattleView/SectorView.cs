@@ -86,22 +86,17 @@ public class SectorView : MonoBehaviour
     {
         setActiveResolved = false;
         SetClicked(false);
-        spriteRenderer.color = Color.white;
+        spriteRenderer.color = new Color(0.749f, 0.914f, 0.937f); // #BFE9EF пенно-голубой
     }
 
     public void DisplayHit()
     {   
         setActiveResolved = false;
         SetClicked(false);
-        spriteRenderer.color = Color.red;
+        spriteRenderer.color = new Color(0.847f, 0.357f, 0.286f); // #D85B49 коралл
         FireOn();
     }
         
-
-    public void ShowShip()
-    {
-        spriteRenderer.color = Color.gray;
-    }
 
     public void SetClicked(bool value)
     {
