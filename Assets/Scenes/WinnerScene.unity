@@ -624,7 +624,6 @@ GameObject:
   - component: {fileID: 839420588}
   - component: {fileID: 839420587}
   - component: {fileID: 839420590}
-  - component: {fileID: 839420591}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -695,7 +694,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 839420588}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1999549227}
+        m_TargetAssemblyTypeName: Restart, Assembly-CSharp
+        m_MethodName: NewGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &839420588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,19 +759,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonTween
   hoverScale: 1.08
   duration: 0.12
---- !u!114 &839420591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 839420585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b9a7a0f0d5144ee9ff9df1a07a1e956, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RestartMessagePopup
-  message: "\u0425\u0432\u0430\u0442\u0438\u0442 \u0432\u0430\u043C"
 --- !u!1 &869810116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1219,6 +1217,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1999549226
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1999549228}
+  - component: {fileID: 1999549227}
+  m_Layer: 0
+  m_Name: Restart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1999549227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999549226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ea37b847b1c0455fb3f2ee3dbc1bf11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Restart
+--- !u!4 &1999549228
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999549226}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.01836, y: -2.90282, z: -2.65679}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2096408193
 GameObject:
   m_ObjectHideFlags: 0
@@ -1475,3 +1517,4 @@ SceneRoots:
   - {fileID: 293174895}
   - {fileID: 370070744}
   - {fileID: 2096408195}
+  - {fileID: 1999549228}
