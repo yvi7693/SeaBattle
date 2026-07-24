@@ -22,8 +22,8 @@ public class BattlePresenter : MonoBehaviour
     {
         staff = GameSession.Instance.staff;
 
-        rightBoard.Init(this, new Vector3(-3.5f, -0.25f, 0));
-        leftBoard.Init(this,  new Vector3(8, -0.25f, 0));
+        rightBoard.Init(this, new Vector3(-5f, -0.25f, 0));
+        leftBoard.Init(this,  new Vector3(9.5f, -0.25f, 0));
 
         Init(staff.GetTurnRecon());
         UpdateCount();
@@ -110,17 +110,6 @@ public class BattlePresenter : MonoBehaviour
 
        Fleet rightFleet = battleController.GetRightFleet();
        SetCount(rightFleet, rightCount);
-    }
-
-    private void SetCount(Fleet fleet, GameUI[] gameUi)
-    {
-        for(int size = 1; size <= 4; size++)
-        {
-            int count = fleet.CalculateCount(size);
-            GameUI counterUi = GetUiWithSize(size, gameUi);
-
-            counterUi.SetCountShips(count);
-        }
     }
 
 
@@ -297,7 +286,17 @@ public class BattlePresenter : MonoBehaviour
             SectorView sectorView = board.GetSector(x, y);
             sectorView.FireOn();
         }
+    }
 
 
+     private void SetCount(Fleet fleet, GameUI[] gameUi)
+    {
+        for(int size = 1; size <= 4; size++)
+        {
+            int count = fleet.CalculateCount(size);
+            GameUI counterUi = GetUiWithSize(size, gameUi);
+
+            counterUi.SetCountShips(count);
+        }
     }
 }
