@@ -12,6 +12,7 @@ public class DeployPresenter : MonoBehaviour
     private DeploymentOfficer deploymentOfficer;
     private DeployShip[] deployShips;
     private bool isAutoDeployed = false;
+    private bool hasDeployShips = false;
     private Sea deploySea;
     
 
@@ -34,7 +35,7 @@ public class DeployPresenter : MonoBehaviour
   public void Next()
   {
     if (!isAutoDeployed)
-      DeployAllShips();
+      PushShips();
 
     GameSession.Instance.Next();
   }
@@ -42,7 +43,7 @@ public class DeployPresenter : MonoBehaviour
 
   public void DeployFleet() 
   {
-    if (isAutoDeployed)
+    if (isAutoDeployed || deployBoard.HasShip())
     {
       deploySea.Clear();
       deploySea.RecallFleet();
@@ -127,7 +128,7 @@ public class DeployPresenter : MonoBehaviour
   }
   
 
-  private void DeployAllShips()
+  private void PushShips()
   {
     for (int i = 0; i < deployShips.Length; i++)
     {
@@ -151,6 +152,8 @@ public class DeployPresenter : MonoBehaviour
     }
 
     staff.DeployDirective(coords);
+
+    hasDeployShips = true;
   }
 
 

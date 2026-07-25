@@ -46,5 +46,20 @@ public class DeployBoard : MonoBehaviour
         return x >= 0 && x < sizeSea && y >= 0 && y < sizeSea;
     }
 
+
+    public bool HasShip()
+    {
+        for (int i = 0; i < sectors.GetLength(0); i++)
+        {
+            for (int j = 0; j < sectors.GetLength(1); j++)
+            {
+                if (sectors[i,j].GetStatus() == StatusSector.Ship)
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
     
 }

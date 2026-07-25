@@ -101,7 +101,6 @@ public class DeployShip : MonoBehaviour
   
         Magnet(target);
 
-        lastValidPosition = transform.position;
         isDeploy = true;
     }
 
@@ -111,6 +110,8 @@ public class DeployShip : MonoBehaviour
         offsetSnap.z = 0;
             
         transform.position += offsetSnap;
+
+        lastValidPosition = transform.position;
     }
 
 
