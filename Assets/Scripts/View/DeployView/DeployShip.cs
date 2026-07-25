@@ -183,8 +183,13 @@ public class DeployShip : MonoBehaviour
         {
             Collider2D cell = Physics2D.OverlapPoint(deckPoints[i].position, cellLayer);
 
+            if (cell == null)
+            {
+                deployPresenter.GetPanel().PanelOn();
+                break;
+            }
+                
             DeploySector deploySector = cell.GetComponent<DeploySector>();
-
             coord.Add(deploySector);
         }
 

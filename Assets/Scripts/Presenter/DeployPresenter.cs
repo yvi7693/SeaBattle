@@ -8,11 +8,11 @@ public class DeployPresenter : MonoBehaviour
     [SerializeField] private DeployBoard deployBoard;
     [SerializeField] private GameObject parentShip;
     [SerializeField] private TMP_Text playerText;
+    [SerializeField] private MessagePanel panel;
     private Staff staff;
-    private DeploymentOfficer deploymentOfficer;
     private DeployShip[] deployShips;
     private bool isAutoDeployed = false;
-    private bool hasDeployShips = false;
+
     private Sea deploySea;
     
 
@@ -20,7 +20,6 @@ public class DeployPresenter : MonoBehaviour
   public void Start()
   {
     staff = GameSession.Instance.staff;
-    deploymentOfficer = staff.GetDeploymentOfficer();
 
     deployBoard.CreateBoard();
 
@@ -38,6 +37,12 @@ public class DeployPresenter : MonoBehaviour
       PushShips();
 
     GameSession.Instance.Next();
+  }
+
+
+  public MessagePanel GetPanel()
+  {
+    return panel;
   }
 
 
@@ -153,7 +158,6 @@ public class DeployPresenter : MonoBehaviour
 
     staff.DeployDirective(coords);
 
-    hasDeployShips = true;
   }
 
 
