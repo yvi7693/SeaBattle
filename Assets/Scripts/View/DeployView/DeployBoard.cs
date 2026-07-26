@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DeployBoard : MonoBehaviour
@@ -7,7 +8,6 @@ public class DeployBoard : MonoBehaviour
     [SerializeField]private int sizeSea = 10;
     [SerializeField]private float spacing = 0.5f;
     private DeploySector [,] sectors;
-    private DeployPresenter deployPresenter;
 
     public DeploySector GetSector(int x, int y)
     {
@@ -15,6 +15,19 @@ public class DeployBoard : MonoBehaviour
             throw new ArgumentException("incorrect value");
         
         return sectors[x,y];
+    }
+
+    public List<DeploySector> GetSector(List<(int, int)> coords)
+    {
+        List<DeploySector> sectors = new List<DeploySector>();
+
+        for (int i = 0; i < coords.Count; i++)
+        {
+            (int x , int y) = coords[i];
+            sectors.Add(GetSector(x, y));
+        }
+
+        return sectors;
     }
 
     public void CreateBoard()

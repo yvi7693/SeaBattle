@@ -46,6 +46,13 @@ public class DeployPresenter : MonoBehaviour
   }
 
 
+  public void SetStatusSector(StatusSector newStatus, List<DeploySector> sectors)
+    {
+        for(int i = 0; i < sectors.Count; i++)
+            sectors[i].SetStatus(newStatus);
+    }
+
+
   public void DeployFleet() 
   {
     if (isAutoDeployed || deployBoard.HasShip())
@@ -55,60 +62,40 @@ public class DeployPresenter : MonoBehaviour
       UnDeployShips();
     }
       
-      
     staff.DeployFleet();
 
     Fleet fleet = deploySea.GetFleet();
     Ship[] shipsModel = fleet.GetShips();
 
-    EnumerationShip(shipsModel);
+    SyncPlaceShips(shipsModel);
 
     isAutoDeployed = true;
 
   }
 
 
-  private void EnumerationShip(Ship[] shipsModel)
+  private void SyncPlaceShips(Ship[] shipsModel) 
   {
     for (int i = 0; i < shipsModel.Length; i++)
     {
-      List<(int x, int y)> coords = new List<(int, int)>(); 
       List<Sector> placeModel = shipsModel[i].GetPlace();
 
-      for (int j = 0; j < placeModel.Count; j++)
-      {
-        (int x, int y) = placeModel[j].GetCoord();
-        coords.Add((x, y));
-      }
-
+      List<(int,int)> coords = GetCoords(placeModel);
       List<(int , int)> sortCoords = NormalizeCoords(coords);
+
+      SetStatusSector(StatusSector.Ship, deployBoard.GetSector(coords));
 
       (int xFirst, int yFirst) = sortCoords[0];
 
-      DeploySector deploySector = deployBoard.GetSector(xFirst, yFirst);
-      Collider2D colliderTarget = deploySector.GetComponent<Collider2D>();
+      DeploySector firstDeploySector = deployBoard.GetSector(xFirst, yFirst);
+      Collider2D colliderTarget = firstDeploySector.GetComponent<Collider2D>();
 
-      SyncPlaceShip(sortCoords, colliderTarget);
+      SetPlaceShip(sortCoords, colliderTarget);
     }
   }
 
-  
-  private List<(int , int)> NormalizeCoords(List<(int x, int y)> coords)
-  {
-    coords.Sort((coord1, coord2) =>
-    {
-      if (coord1.x != coord2.x)
-        return coord1.x.CompareTo(coord2.x);
 
-      return coord1.y.CompareTo(coord2.y);
-
-    });
-
-    return coords;
-  }
-
-
-  private void SyncPlaceShip(List<(int, int)> coords, Collider2D target)
+  private void SetPlaceShip(List<(int, int)> coords, Collider2D target)
   {
     for (int i = 0; i < deployShips.Length; i++)
     {
@@ -124,7 +111,7 @@ public class DeployPresenter : MonoBehaviour
           isVertical = (x1 == x2);
         }
 
-        deployShips[i].SyncPlace(target, isVertical);
+        deployShips[i].SetPlace(target, isVertical);
         break;
       }  
     }
@@ -135,7 +122,8 @@ public class DeployPresenter : MonoBehaviour
   {
     for (int i = 0; i < deployShips.Length; i++)
     {
-      deployShips[i].Deploy();
+       List<DeploySector> coord = deployShips[i].SearchSectors();
+        DeployShip(coord);
     }
   }
 
@@ -161,19 +149,14 @@ public class DeployPresenter : MonoBehaviour
 
   public bool ValidateDeploy(List<DeploySector> sectors)
   {
-    List<(int, int)> positions = ConvertSectors(sectors);
+   
 
-     for (int i = 0; i < positions.Count; i++)
+     for (int i = 0; i < sectors.Count; i++)
         {
-            (int x, int y) = positions[i];
-
-            DeploySector sector = deployBoard.GetSector(x, y);
-
-            if (!(sector.IsEmpty()))
+            if (!(sectors[i].IsEmpty()))
               return false;
-                
-
-            List<DeploySector> nearbySectors = GetNearbySector(sector);
+              
+            List<DeploySector> nearbySectors = GetNearbySector(sectors[i]);
 
             for (int j = 0; j < nearbySectors.Count; j++)
             {
@@ -219,21 +202,6 @@ public class DeployPresenter : MonoBehaviour
   }
 
 
-  private List<(int, int)> ConvertSectors(List<DeploySector> sectors)
-  {
-    List<(int, int)> coords = new List<(int, int)>();
-
-    for (int i = 0; i < sectors.Count; i++)
-    {
-      int x = sectors[i].GetX();
-      int y = sectors[i].GetY();
-
-      coords.Add((x,y));
-    }
-
-    return coords;
-  }
-
   private void UnDeployShips()
   {
     for (int i = 0; i < deployShips.Length; i++)
@@ -241,5 +209,38 @@ public class DeployPresenter : MonoBehaviour
       deployShips[i].UnDeploy();
     }
   }
+
+
+  private List<(int , int)> NormalizeCoords(List<(int x, int y)> coords)
+  {
+    coords.Sort((coord1, coord2) =>
+    {
+      if (coord1.x != coord2.x)
+        return coord1.x.CompareTo(coord2.x);
+
+      return coord1.y.CompareTo(coord2.y);
+
+    });
+
+    return coords;
+  }
+
+
+  private List<(int, int)> GetCoords(List<Sector> placeModel)
+  {
+
+    List<(int x, int y)> coords = new List<(int, int)>(); 
+
+    for (int j = 0; j < placeModel.Count; j++)
+      {
+        (int x, int y) = placeModel[j].GetCoord();
+        coords.Add((x, y));
+      }
+
+    return coords;
+  }
+
+
+  
 
 }

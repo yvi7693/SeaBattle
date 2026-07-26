@@ -29,14 +29,6 @@ public class DeployShip : MonoBehaviour
     }
 
 
-    public void Deploy()
-    {
-        List<DeploySector> coord = SearchSectors();
-
-        deployPresenter.DeployShip(coord);
-    }
-
-
     public bool IsDeploy()
     {
         return isDeploy;
@@ -87,15 +79,8 @@ public class DeployShip : MonoBehaviour
             
     }
 
-
-    private void Start()
-    {
-        lastValidPosition = transform.position;
-        isDeploy = false;
-    }
-
     
-    public void SyncPlace(Collider2D target, bool vertical)
+    public void SetPlace(Collider2D target, bool vertical)
     {
         SetVertical(vertical);
   
@@ -106,12 +91,49 @@ public class DeployShip : MonoBehaviour
         isDeploy = true;
     }
 
+
+    public  List<DeploySector> SearchSectors()
+    {
+        List<DeploySector> coord = new List<DeploySector>();
+
+        for (int i = 0; i < deckPoints.Length; i++)
+        {
+            Collider2D cell = Physics2D.OverlapPoint(deckPoints[i].position, cellLayer);
+
+            if (cell == null)
+            {
+                deployPresenter.GetPanel().PanelOn();
+                break;
+            }
+                
+            DeploySector deploySector = cell.GetComponent<DeploySector>();
+            coord.Add(deploySector);
+        }
+
+        return coord;
+    }
+
+
      public void Magnet(Collider2D target)
     {
         Vector3 offsetSnap = target.transform.position - deckPoints[0].position;
         offsetSnap.z = 0;
             
         transform.position += offsetSnap;
+    }
+
+
+    private void Start()
+    {
+        lastValidPosition = transform.position;
+        isDeploy = false;
+    }
+
+
+    private void SetStatusSector(StatusSector newStatus)
+    {
+        List<DeploySector> sectors = SearchSectors();
+        deployPresenter.SetStatusSector(newStatus, sectors);
     }
 
 
@@ -123,7 +145,8 @@ public class DeployShip : MonoBehaviour
         offset = transform.position - mousePosition;
 
         if (isDeploy)
-            SetStatusPlace(StatusSector.Empty);
+            SetStatusSector(StatusSector.Empty);
+            
     }
 
 
@@ -153,12 +176,18 @@ public class DeployShip : MonoBehaviour
         if (hasValidPosition)
         {
             lastValidPosition = transform.position;
-            SetStatusPlace(StatusSector.Ship); 
+
+            SetStatusSector(StatusSector.Ship);
+
             isDeploy = true;
         }
-        
+
         else
+        {
             transform.position = lastValidPosition;     
+            SetStatusSector(StatusSector.Ship);
+        }
+            
     }
 
 
@@ -177,39 +206,6 @@ public class DeployShip : MonoBehaviour
     }
 
 
-    private  List<DeploySector> SearchSectors()
-    {
-        List<DeploySector> coord = new List<DeploySector>();
-
-        for (int i = 0; i < deckPoints.Length; i++)
-        {
-            Collider2D cell = Physics2D.OverlapPoint(deckPoints[i].position, cellLayer);
-
-            if (cell == null)
-            {
-                deployPresenter.GetPanel().PanelOn();
-                break;
-            }
-                
-            DeploySector deploySector = cell.GetComponent<DeploySector>();
-            coord.Add(deploySector);
-        }
-
-        return coord;
-    }
-
-
-    private void SetStatusPlace(StatusSector newStatus)
-    {
-        List<DeploySector> sectors = SearchSectors();
-
-        for(int i = 0; i < sectors.Count; i++)
-        {
-            sectors[i].SetStatus(newStatus);
-        }
-    }
-
-
     private void DefineValid(Collider2D targetLeft, Collider2D targetRight)
     {
         if (targetLeft != null && targetRight != null)
@@ -217,8 +213,6 @@ public class DeployShip : MonoBehaviour
             Magnet(targetLeft);
 
             List<DeploySector> sectors = SearchSectors();
-
-            // Debug.Log(deployPresenter.ValidateDeploy(sectors));
 
             if (deployPresenter.ValidateDeploy(sectors))
                 hasValidPosition = true;
