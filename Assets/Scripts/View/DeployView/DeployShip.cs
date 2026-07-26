@@ -101,6 +101,8 @@ public class DeployShip : MonoBehaviour
   
         Magnet(target);
 
+        lastValidPosition = transform.position;
+
         isDeploy = true;
     }
 
@@ -110,8 +112,6 @@ public class DeployShip : MonoBehaviour
         offsetSnap.z = 0;
             
         transform.position += offsetSnap;
-
-        lastValidPosition = transform.position;
     }
 
 
@@ -147,6 +147,8 @@ public class DeployShip : MonoBehaviour
     private void OnMouseUp()
     {
         isClicked = false;
+
+        Debug.Log(hasValidPosition);
 
         if (hasValidPosition)
         {
@@ -216,7 +218,7 @@ public class DeployShip : MonoBehaviour
 
             List<DeploySector> sectors = SearchSectors();
 
-            Debug.Log(deployPresenter.ValidateDeploy(sectors));
+            // Debug.Log(deployPresenter.ValidateDeploy(sectors));
 
             if (deployPresenter.ValidateDeploy(sectors))
                 hasValidPosition = true;

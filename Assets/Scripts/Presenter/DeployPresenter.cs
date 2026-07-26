@@ -126,9 +126,7 @@ public class DeployPresenter : MonoBehaviour
 
         deployShips[i].SyncPlace(target, isVertical);
         break;
-      }
-
-      
+      }  
     }
   }
   
