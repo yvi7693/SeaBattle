@@ -60,7 +60,7 @@ public class DeployBoard : MonoBehaviour
     }
 
 
-    public bool HasShip()
+    public bool HasShipForDeploy()
     {
         for (int i = 0; i < sectors.GetLength(0); i++)
         {
@@ -72,6 +72,18 @@ public class DeployBoard : MonoBehaviour
         }
 
         return false;
+    }
+
+
+    public void UnDeploySectors()
+    {
+        for (int i = 0 ; i < sectors.GetLength(0); i++)
+        {
+            for (int j = 0; j < sectors.GetLength(1); j++)
+            {
+                sectors[i,j].SetStatus(StatusSector.Empty);
+            }
+        }
     }
 
     

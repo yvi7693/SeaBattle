@@ -21,6 +21,7 @@ public class Fleet
         ships[9] = new Ship(4);
     }
 
+
     public int CalculateCount(int size)
     {
         int count = 0;

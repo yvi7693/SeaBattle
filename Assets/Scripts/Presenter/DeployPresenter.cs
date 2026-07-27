@@ -11,7 +11,6 @@ public class DeployPresenter : MonoBehaviour
     [SerializeField] private MessagePanel panel;
     private Staff staff;
     private DeployShip[] deployShips;
-    private bool isAutoDeployed = false;
 
     private Sea deploySea;
     
@@ -33,10 +32,18 @@ public class DeployPresenter : MonoBehaviour
 
   public void Next()
   {
-    if (!isAutoDeployed)
-      PushShips();
+    
+    PushShips();
 
     GameSession.Instance.Next();
+  }
+
+
+  public void RandomPlace()
+  {
+    UnDeployShips();
+    deployBoard.UnDeploySectors();
+    PlaceAllShips();
   }
 
 
@@ -47,84 +54,9 @@ public class DeployPresenter : MonoBehaviour
 
 
   public void SetStatusSector(StatusSector newStatus, List<DeploySector> sectors)
-    {
-        for(int i = 0; i < sectors.Count; i++)
-            sectors[i].SetStatus(newStatus);
-    }
-
-
-  public void DeployFleet() 
   {
-    if (isAutoDeployed || deployBoard.HasShip())
-    {
-      deploySea.Clear();
-      deploySea.RecallFleet();
-      UnDeployShips();
-    }
-      
-    staff.DeployFleet();
-
-    Fleet fleet = deploySea.GetFleet();
-    Ship[] shipsModel = fleet.GetShips();
-
-    SyncPlaceShips(shipsModel);
-
-    isAutoDeployed = true;
-
-  }
-
-
-  private void SyncPlaceShips(Ship[] shipsModel) 
-  {
-    for (int i = 0; i < shipsModel.Length; i++)
-    {
-      List<Sector> placeModel = shipsModel[i].GetPlace();
-
-      List<(int,int)> coords = GetCoords(placeModel);
-      List<(int , int)> sortCoords = NormalizeCoords(coords);
-
-      SetStatusSector(StatusSector.Ship, deployBoard.GetSector(coords));
-
-      (int xFirst, int yFirst) = sortCoords[0];
-
-      DeploySector firstDeploySector = deployBoard.GetSector(xFirst, yFirst);
-      Collider2D colliderTarget = firstDeploySector.GetComponent<Collider2D>();
-
-      SetPlaceShip(sortCoords, colliderTarget);
-    }
-  }
-
-
-  private void SetPlaceShip(List<(int, int)> coords, Collider2D target)
-  {
-    for (int i = 0; i < deployShips.Length; i++)
-    {
-      if (deployShips[i].GetDurability() == coords.Count && !deployShips[i].IsDeploy())
-      {
-        bool isVertical = false;
-
-        if (coords.Count > 1)
-        {
-          (int x1, int y1) = coords[0];
-          (int x2, int y2) = coords[1];
-
-          isVertical = (x1 == x2);
-        }
-
-        deployShips[i].SetPlace(target, isVertical);
-        break;
-      }  
-    }
-  }
-  
-
-  private void PushShips()
-  {
-    for (int i = 0; i < deployShips.Length; i++)
-    {
-       List<DeploySector> coord = deployShips[i].SearchSectors();
-        DeployShip(coord);
-    }
+      for(int i = 0; i < sectors.Count; i++)
+          sectors[i].SetStatus(newStatus);
   }
 
 
@@ -149,8 +81,7 @@ public class DeployPresenter : MonoBehaviour
 
   public bool ValidateDeploy(List<DeploySector> sectors)
   {
-   
-
+  
      for (int i = 0; i < sectors.Count; i++)
         {
             if (!(sectors[i].IsEmpty()))
@@ -226,21 +157,125 @@ public class DeployPresenter : MonoBehaviour
   }
 
 
-  private List<(int, int)> GetCoords(List<Sector> placeModel)
+  private void PlaceAllShips()
+    {
+
+        for (int restart = 0; restart < 1000; restart++)
+        {
+            System.Random random = new System.Random();
+
+            bool isFleetDeployed = true;
+
+            for (int i = 0; i < deployShips.Length; i++)
+            {
+                bool isWork = true;
+                
+                int attempts = 0;
+
+                while (isWork && attempts < 1000)
+                {
+                    attempts ++;
+
+                    List<(int, int)> coords = new List<(int, int)>();
+
+                    int durability = deployShips[i].GetDurability();
+
+                    int x = random.Next(0, 10);
+                    int y = random.Next(0, 10);
+
+                    for (int j = 0; j < durability; j++)
+                    {
+                        if (x + durability < 10)   
+                            coords.Add((x+j, y));
+                        else if (y + durability < 10)
+                            coords.Add((x, y+j));
+
+                        else if (x - durability > 0)
+                            coords.Add((x-j, y));
+                        
+                        else if (y - durability > 0)
+                            coords.Add((x, y-j));
+                    }
+
+                    if (ValidateDeploy(deployBoard.GetSector(coords)))
+                    {
+                      isWork = false;
+                      SyncPlaceShip(coords);
+                    }
+                }
+
+                if (isWork)
+                {
+                    isFleetDeployed = false;
+                    UnDeployShips();
+                    break;
+                }
+
+            }
+
+            if (isFleetDeployed)
+                return;
+
+        }
+
+        throw new Exception("restarts limits have expired");
+        
+    }
+
+
+    private void SetPlaceShip(List<(int, int)> coords, Collider2D target)
   {
-
-    List<(int x, int y)> coords = new List<(int, int)>(); 
-
-    for (int j = 0; j < placeModel.Count; j++)
+    for (int i = 0; i < deployShips.Length; i++)
+    {
+      if (deployShips[i].GetDurability() == coords.Count && !deployShips[i].IsDeploy())
       {
-        (int x, int y) = placeModel[j].GetCoord();
-        coords.Add((x, y));
-      }
+        bool isVertical = false;
 
-    return coords;
+        if (coords.Count > 1)
+        {
+          (int x1, int y1) = coords[0];
+          (int x2, int y2) = coords[1];
+
+          isVertical = (x1 == x2);
+        }
+
+        deployShips[i].SetPlace(target, isVertical);
+        break;
+      }  
+    }
+  }
+  
+
+  private void PushShips()
+  {
+    for (int i = 0; i < deployShips.Length; i++)
+    {
+       List<DeploySector> coord = deployShips[i].SearchSectors();
+        DeployShip(coord);
+    }
   }
 
 
-  
+  private Collider2D SearchTargetCollider(List<(int,int)> coords) // отсортированные координаты слева - на право или всерху - вниз
+  {
+      (int xFirst, int yFirst) = coords[0];
 
+      DeploySector firstDeploySector = deployBoard.GetSector(xFirst, yFirst);
+      Collider2D colliderTarget = firstDeploySector.GetComponent<Collider2D>();
+
+      return colliderTarget;
+  }
+
+
+  private void SyncPlaceShip(List<(int, int)> coords) 
+  {
+    List<(int , int)> sortCoords = NormalizeCoords(coords);
+
+    SetStatusSector(StatusSector.Ship, deployBoard.GetSector(coords));
+
+    Collider2D colliderTarget = SearchTargetCollider(sortCoords);
+    
+    SetPlaceShip(sortCoords, colliderTarget);
+    
+  }
 }
