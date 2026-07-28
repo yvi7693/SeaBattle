@@ -40,7 +40,7 @@ public class Fleet
     {
         for (int i = 0; i < 10; i++)
         {
-            if (ships[i].GetDurability() == durability && !(ships[i].IsDeploy())) 
+            if (ships[i].GetDurability() == durability && !(ships[i].IsDeploy()) && !(ships[i].IsSunken())) 
                 return ships[i];
         }
 

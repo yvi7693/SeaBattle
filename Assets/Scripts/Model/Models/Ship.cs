@@ -66,6 +66,9 @@ public class Ship
     {
         if (IsSunken())
             throw new Exception("The ship has already been destroyed");
+        
+        if (!IsDeploy())
+            throw new Exception("ship is not deployed");
 
         durability -= 1;
     }

@@ -123,7 +123,9 @@ public class SeaTests
     public void TestIsSunkenReflectsShipState()
     {
         Ship ship = new Ship(1);
-        sea.GetSector(0, 0).Occupy(ship);
+        Sector sector = sea.GetSector(0, 0);
+        ship.Deploy(new List<Sector> { sector });
+        sector.Occupy(ship);
 
         Assert.IsFalse(sea.IsSunken(0, 0));
 
@@ -307,19 +309,8 @@ public class SeaTests
 
 
     [Test]
-    public void TestIsShipsDeployThrowsWhenFleetIsNull()
+    public void TestConstructorNullFleetThrows()
     {
-        Sea nullFleetSea = new Sea(null);
-
-        Assert.Throws<NullReferenceException>(() => nullFleetSea.IsShipsDeploy());
-    }
-
-
-    [Test]
-    public void TestRecallFleetThrowsWhenFleetIsNull()
-    {
-        Sea nullFleetSea = new Sea(null);
-
-        Assert.Throws<NullReferenceException>(() => nullFleetSea.RecallFleet());
+        Assert.Throws<ArgumentException>(() => new Sea(null));
     }
 }

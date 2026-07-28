@@ -93,6 +93,7 @@ public class ShipTests
     [Test]
     public void TestDamagePositive()
     {
+        ship.Deploy(GetSectors(4));
         Assert.AreEqual(4, ship.GetDurability());
 
         ship.Damage();
@@ -104,6 +105,8 @@ public class ShipTests
     [Test]
     public void TestDamageMultipleTimesDecrementsCorrectly()
     {
+        ship.Deploy(GetSectors(4));
+
         ship.Damage();
         ship.Damage();
         ship.Damage();
@@ -116,10 +119,12 @@ public class ShipTests
     [Test]
     public void TestDamageDoesNotChangeSizeOrDeployedFlag()
     {
+        ship.Deploy(GetSectors(4));
+
         ship.Damage();
 
         Assert.AreEqual(4, ship.GetSize());
-        Assert.IsFalse(ship.IsDeploy());
+        Assert.IsTrue(ship.IsDeploy());
     }
 
 
@@ -206,6 +211,7 @@ public class ShipTests
     public void TestDamageShipDestroy()
     {
         Ship ship = new Ship(1);
+        ship.Deploy(GetSectors(1));
 
         ship.Damage();
 
@@ -217,6 +223,8 @@ public class ShipTests
     [Test]
     public void TestDamageStepBeforeSunkIsNotYetSunken()
     {
+        ship.Deploy(GetSectors(4));
+
         ship.Damage();
         ship.Damage();
         ship.Damage();
@@ -229,6 +237,8 @@ public class ShipTests
     [Test]
     public void TestDamageLastHitSinksShipWithoutThrowing()
     {
+        ship.Deploy(GetSectors(4));
+
         Assert.DoesNotThrow(() =>
         {
             for (int i = 0; i < ship.GetSize(); i++)
@@ -264,8 +274,8 @@ public class ShipTests
     [Test]
     public void TestRecallDoesNotResetDurability()
     {
-        ship.Damage();
         ship.Deploy(GetSectors(4));
+        ship.Damage();
 
         ship.Recall();
 
@@ -333,6 +343,8 @@ public class ShipTests
     [Test]
     public void TestDeployOnSunkShipShouldBeRejected()
     {
+        ship.Deploy(GetSectors(4));
+
         for (int i = 0; i < ship.GetSize(); i++)
             ship.Damage();
 
@@ -345,6 +357,7 @@ public class ShipTests
     public void TestDamageWithSunkenShip()
     {
         Ship ship = new Ship(1);
+        ship.Deploy(GetSectors(1));
 
         ship.Damage();
 
@@ -356,6 +369,7 @@ public class ShipTests
     public void TestDamageThrowsOnEverySubsequentCallAfterSunk()
     {
         Ship ship = new Ship(1);
+        ship.Deploy(GetSectors(1));
         ship.Damage();
 
         Assert.Throws<Exception>(() => ship.Damage());
@@ -367,6 +381,8 @@ public class ShipTests
     [Test]
     public void TestDamageAfterFullyDamagingLargerShipThrows()
     {
+        ship.Deploy(GetSectors(4));
+
         for (int i = 0; i < ship.GetSize(); i++)
             ship.Damage();
 

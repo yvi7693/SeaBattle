@@ -13,6 +13,9 @@ public class Sea
         if (size < 10)
             throw new ArgumentException("incorrect value");
 
+        if (fleet is null)
+            throw new ArgumentException("incorrect value");
+
         this.size = size;
         this.fleet = fleet;
         sectors = new Sector[size, size];
