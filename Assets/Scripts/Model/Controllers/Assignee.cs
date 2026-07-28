@@ -17,7 +17,7 @@ public class Assignee
     public StatusSector AttackOrder(Sector target)
     {
         StatusSector newStatus = attackResolver.Resolve(target);
-        target.Attack(newStatus);
+        target.SetStatus(newStatus);
 
         if (!(target.HaveShip()))
             return newStatus;

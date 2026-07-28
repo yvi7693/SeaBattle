@@ -176,7 +176,7 @@ public class Sinker
             for (int j = 0; j < nearbySectors.Count; j++)
             {
                 if (nearbySectors[j].GetStatus() == StatusSector.Empty)
-                    nearbySectors[j].Attack(StatusSector.Miss);
+                    nearbySectors[j].SetStatus(StatusSector.Miss);
             }
         }
     }

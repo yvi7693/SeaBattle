@@ -32,11 +32,6 @@ public class Sector
 
     public void SetStatus(StatusSector newStatus) { status = newStatus;}
 
-    public void Attack(StatusSector newStatus)
-    {
-        this.status = newStatus;
-    }
-
     public bool IsAttacked()
     {
         return status == StatusSector.Hit || status == StatusSector.Miss;
