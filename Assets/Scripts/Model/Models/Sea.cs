@@ -37,10 +37,16 @@ public class Sea
     }
 
 
+    public int GetSize()
+    {
+        return size;
+    }
+
+
     public bool IsSunken(int x, int y)
     {
         if (! ValidateBorder(x, y))
-            throw new Exception("incorrect coords");
+            throw new ArgumentException("incorrect coords");
 
         Ship ship = sectors[x,y].GetShip();
 
@@ -80,6 +86,9 @@ public class Sea
 
     public bool IsAttackedSector(int targetX, int targetY)
     {
+        if (!ValidateBorder(targetX, targetY))
+            throw new ArgumentException("incorrect coords");
+
         return sectors[targetX, targetY].IsAttacked();
     }
 
