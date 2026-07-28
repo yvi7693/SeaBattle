@@ -79,7 +79,11 @@ public class StaffTests
     [Test]
     public void TestTacticalDirectiveReturnsHitForDeployedShipSector()
     {
+        // DeployDirective расставляет на GetDeploySea() (rightSea, пока право не занято),
+        // а TacticalDirective по умолчанию бьёт по GetTargetSea() (leftSea) - нужно
+        // переключить цель на то же море, куда только что расставились
         staff.DeployDirective(new List<(int x, int y)> { (0, 0) });
+        staff.GetTurnRecon().SwitchTargetSea();
 
         MissionResult result = staff.TacticalDirective(0, 0);
 
