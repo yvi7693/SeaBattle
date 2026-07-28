@@ -1,0 +1,6 @@
+{
+	"name": "DOTweenModules",
+	"references": [
+		"UnityEngine.UI"
+	]
+}

@@ -158,12 +158,10 @@ public class DeployShip : MonoBehaviour
         Vector3 shipPosition = GetMouseWorldPosition() + offset;
         shipPosition.z = transform.position.z;
 
-        transform.position = shipPosition;
+        transform.position = shipPosition;   
 
-        Collider2D targetLeft = Physics2D.OverlapPoint(deckPoints[0].position, cellLayer);
-        Collider2D targetRight = Physics2D.OverlapPoint(deckPoints[deckPoints.Length-1].position, cellLayer);       
-
-        DefineValid(targetLeft, targetRight);
+        DefineValid();
+             
     }
 
 
@@ -193,9 +191,14 @@ public class DeployShip : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if(Mouse.current.rightButton.wasPressedThisFrame)
+        if (Mouse.current.rightButton.wasPressedThisFrame)
+        {
             Rotate();
-
+            DefineValid();
+        }
+            
+        if (!hasValidPosition)
+            transform.position = lastValidPosition;
     }
 
 
@@ -206,17 +209,20 @@ public class DeployShip : MonoBehaviour
     }
 
 
-    private void DefineValid(Collider2D targetLeft, Collider2D targetRight)
+    private void DefineValid()
     {
+        Collider2D targetLeft = Physics2D.OverlapPoint(deckPoints[0].position, cellLayer);
+        Collider2D targetRight = Physics2D.OverlapPoint(deckPoints[deckPoints.Length-1].position, cellLayer);  
+
         if (targetLeft != null && targetRight != null)
         {
-            Magnet(targetLeft);
-
             List<DeploySector> sectors = SearchSectors();
-
+            
+            Magnet(targetLeft);
+            
             if (deployPresenter.ValidateDeploy(sectors))
                 hasValidPosition = true;
-        
+
             else
                 hasValidPosition = false;
         }

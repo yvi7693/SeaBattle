@@ -6,6 +6,7 @@ public class Ship
     private int durability;
     private int size;
     private bool deployed;
+    private DeploymentOfficer deploymentOfficer;
     private List<Sector> place;
 
     public Ship(int size, bool deployed = false)
@@ -17,6 +18,8 @@ public class Ship
         this.size = size;
         this.durability = size;
         place = new List<Sector>();
+
+        deploymentOfficer = new DeploymentOfficer();
     }
 
     public List<Sector> GetPlace()
@@ -45,6 +48,15 @@ public class Ship
 
     public void Deploy(List<Sector> place)
     {
+        if (place.Count != size)
+            throw new Exception("size mismatch");
+
+        if (IsSunken())
+            throw new Exception("ships is sunken");
+
+        if (!deploymentOfficer.ValidatePlace(place))
+            throw new Exception("incorrect sectors");
+
         this.place = place;
         deployed = true;
     }
@@ -52,7 +64,7 @@ public class Ship
 
     public void Damage()
     {
-        if (durability == 0)
+        if (IsSunken())
             throw new Exception("The ship has already been destroyed");
 
         durability -= 1;
@@ -70,4 +82,8 @@ public class Ship
         place = new List<Sector>();
         deployed = false;
     }
+
+
+    
+    
 }

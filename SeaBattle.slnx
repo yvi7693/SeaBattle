@@ -1,4 +1,6 @@
 ﻿<Solution>
   <Project Path="Assembly-CSharp.csproj" />
-  <Project Path="Assembly-CSharp-firstpass.csproj" />
+  <Project Path="GameAssembly.csproj" />
+  <Project Path="DOTweenModules.csproj" />
+  <Project Path="Tests.csproj" />
 </Solution>
