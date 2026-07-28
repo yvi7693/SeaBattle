@@ -116,6 +116,12 @@ public class StaffTests
     [Test]
     public void TestTacticalDirectiveOnAlreadyAttackedSectorReturnsUnsucessfulShot()
     {
+        // Первый выстрел должен быть попаданием - при промахе целевое море
+        // переключается, и повторный выстрел по тем же координатам попал бы
+        // уже в другое, ещё не атакованное море
+        Sea targetSea = staff.GetTurnRecon().GetTargetSea();
+        DeployAndOccupy(new Ship(1), targetSea, 3, 3);
+
         staff.TacticalDirective(3, 3);
 
         MissionResult result = staff.TacticalDirective(3, 3);

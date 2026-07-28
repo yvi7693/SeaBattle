@@ -116,6 +116,12 @@ public class CommanderTests
     [Test]
     public void TestAssignMissionReturnsUnsucessfulShotForAlreadyAttackedSector()
     {
+        // Атака должна быть попаданием (Hit) - при промахе SwitchTargetSea()
+        // переключит targetSea, и повторный выстрел по тем же координатам
+        // попадёт уже в другое, ещё не атакованное море
+        Sea targetSea = turnRecon.GetTargetSea();
+        DeployAndOccupy(new Ship(1), targetSea, 3, 3);
+
         commander.AssignMission(3, 3);
 
         MissionResult result = commander.AssignMission(3, 3);
@@ -127,12 +133,15 @@ public class CommanderTests
     [Test]
     public void TestAssignMissionUnsucessfulShotDoesNotSwitchTargetSea()
     {
+        Sea targetSea = turnRecon.GetTargetSea();
+        DeployAndOccupy(new Ship(1), targetSea, 3, 3);
+
         commander.AssignMission(3, 3);
-        Sea targetSeaAfterMiss = turnRecon.GetTargetSea();
+        Sea targetSeaAfterHit = turnRecon.GetTargetSea();
 
         commander.AssignMission(3, 3);
 
-        Assert.AreSame(targetSeaAfterMiss, turnRecon.GetTargetSea());
+        Assert.AreSame(targetSeaAfterHit, turnRecon.GetTargetSea());
     }
 
 
