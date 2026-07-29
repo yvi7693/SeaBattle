@@ -114,7 +114,7 @@ public class DeployShip : MonoBehaviour
     }
 
 
-     public void Magnet(Collider2D target)
+    public void Magnet(Collider2D target)
     {
         Vector3 offsetSnap = target.transform.position - deckPoints[0].position;
         offsetSnap.z = 0;
@@ -167,8 +167,6 @@ public class DeployShip : MonoBehaviour
     private void OnMouseUp()
     {
         isClicked = false;
-
-        Debug.Log(hasValidPosition);
 
         if (hasValidPosition)
         {

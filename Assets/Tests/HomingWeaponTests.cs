@@ -14,7 +14,7 @@ public class HomingWeaponTests
     {
         deploymentOfficer = new DeploymentOfficer();
         sea = new Sea(new Fleet());
-        homingWeapon = new HomingWeapon(deploymentOfficer);
+        homingWeapon = new HomingWeapon();
     }
 
 

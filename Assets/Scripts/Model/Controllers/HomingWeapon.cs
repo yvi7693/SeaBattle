@@ -7,14 +7,13 @@ public class HomingWeapon
     private int max;
     private Sector lastAttack;
     private Sector lastHit;
-     private Sector memoryHit;
-    private DeploymentOfficer deploymentOfficer;
+    private Sector memoryHit;
 
-    public HomingWeapon(DeploymentOfficer deploymentOfficer, int min = 0, int max = 10)
+
+    public HomingWeapon(int min = 0, int max = 10)
     {
         this.min = min;
         this.max = max;
-        this.deploymentOfficer = deploymentOfficer;
         lastAttack = null;
         lastHit = null;
     }
@@ -61,6 +60,13 @@ public class HomingWeapon
                     lastAttack = sector;
                     return sector.GetCoord();
                 }
+
+                else
+                {
+                    Sector target = LinearAttack(sea, 2);
+                    return target.GetCoord();
+                }
+                    
             }
 
             DropMemory();
@@ -83,7 +89,7 @@ public class HomingWeapon
             return null;
 
         if (HaveTwoHits())
-            return LinearAttack(sea);
+            return LinearAttack(sea, 1);
 
         Random random = new Random();
 
@@ -114,7 +120,7 @@ public class HomingWeapon
         return targets;
     }
 
-    private Sector LinearAttack(Sea sea)
+    private Sector LinearAttack(Sea sea, int step)
     {
         (int x1, int y1) = lastHit.GetCoord();
         (int x2, int y2) = memoryHit.GetCoord();
@@ -122,19 +128,20 @@ public class HomingWeapon
         if (x1 != x2 && y1 == y2)
         {
             if (x1 > x2)
-                return TryGetTarget(sea, x1+1, y1);
+                return TryGetTarget(sea, x1+step, y1);
 
             if (x1 < x2)
-                return TryGetTarget(sea, x1-1, y1);
+                return TryGetTarget(sea, x1-step, y1);
+
         }
 
         else if (y1 != y2 && x1 == x2)
         {
             if (y1 > y2)
-                 return TryGetTarget(sea, x1, y1+1);
+                 return TryGetTarget(sea, x1, y1+step);
 
             else if (y1 < y2)
-                 return TryGetTarget(sea, x1, y1-1);
+                 return TryGetTarget(sea, x1, y1-step);
         }
 
         throw new Exception("The coordinates are not on the same line");  
