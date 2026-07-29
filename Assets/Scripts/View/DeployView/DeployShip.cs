@@ -161,7 +161,6 @@ public class DeployShip : MonoBehaviour
         transform.position = shipPosition;   
 
         DefineValid();
-             
     }
 
 
@@ -193,12 +192,15 @@ public class DeployShip : MonoBehaviour
     {
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
+            SetStatusSector(StatusSector.Empty);
             Rotate();
             DefineValid();
-        }
+
+            if (!hasValidPosition)
+                Rotate();
             
-        if (!hasValidPosition)
-            transform.position = lastValidPosition;
+            SetStatusSector(StatusSector.Ship);
+        }
     }
 
 
@@ -216,10 +218,10 @@ public class DeployShip : MonoBehaviour
 
         if (targetLeft != null && targetRight != null)
         {
-            List<DeploySector> sectors = SearchSectors();
-            
             Magnet(targetLeft);
-            
+
+            List<DeploySector> sectors = SearchSectors();
+
             if (deployPresenter.ValidateDeploy(sectors))
                 hasValidPosition = true;
 
