@@ -18,6 +18,26 @@ public class CommentaryView : MonoBehaviour
     [SerializeField] private TMP_Text textLeft;
     [SerializeField] private TMP_Text textRight;
 
+    private bool queue = true;
+
+
+    public void SwitchPerson(bool mood)
+    {
+        if (queue)
+        {
+            ShowLeftPerson(mood);
+            queue = false;
+        }
+
+
+        else
+        {
+            ShowRightPerson(mood);
+            queue = true;
+        }
+            
+    }
+
 
     public void ShowLeftPerson(bool mood)
     {
@@ -32,7 +52,7 @@ public class CommentaryView : MonoBehaviour
     public void ShowRightPerson(bool mood)
     {
         
-        imageRight.sprite = personLeft.GetIcon();
+        imageRight.sprite = personRight.GetIcon();
         textRight.text = RandomMessage(personRight, mood);
 
         leftGroup.gameObject.SetActive(false);

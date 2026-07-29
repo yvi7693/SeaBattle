@@ -13,6 +13,7 @@ public class BattlePresenter : MonoBehaviour
     [SerializeField] protected GameObject missilePrefab;
     [SerializeField] protected AudioSource hitSound;
     [SerializeField] protected AudioSource missSound;
+    [SerializeField] protected CommentaryView commentaryView;
 
     protected Staff staff;
     protected TurnRecon turnRecon;
@@ -213,6 +214,8 @@ public class BattlePresenter : MonoBehaviour
             sectorView.DisplayMiss();
             sectorView.SplashOn();
             missSound.Play();
+
+            commentaryView.SwitchPerson(false);
         }
             
 
@@ -224,6 +227,8 @@ public class BattlePresenter : MonoBehaviour
 
             if (isSunken)
                 ShowShip(sectorView, sea);
+
+            commentaryView.SwitchPerson(true);
         }
             
     }
