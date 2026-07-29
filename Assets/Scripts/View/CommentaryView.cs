@@ -18,26 +18,6 @@ public class CommentaryView : MonoBehaviour
     [SerializeField] private TMP_Text textLeft;
     [SerializeField] private TMP_Text textRight;
 
-    private bool queue = true;
-
-
-    public void SwitchPerson(bool mood)
-    {
-        if (queue)
-        {
-            ShowLeftPerson(mood);
-            queue = false;
-        }
-
-
-        else
-        {
-            ShowRightPerson(mood);
-            queue = true;
-        }
-            
-    }
-
 
     public void ShowLeftPerson(bool mood)
     {

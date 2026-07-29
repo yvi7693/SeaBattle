@@ -215,7 +215,7 @@ public class BattlePresenter : MonoBehaviour
             sectorView.SplashOn();
             missSound.Play();
 
-            commentaryView.SwitchPerson(false);
+            SwitchPerson(false);
         }
             
 
@@ -228,7 +228,7 @@ public class BattlePresenter : MonoBehaviour
             if (isSunken)
                 ShowShip(sectorView, sea);
 
-            commentaryView.SwitchPerson(true);
+            SwitchPerson(true);
         }
             
     }
@@ -294,7 +294,7 @@ public class BattlePresenter : MonoBehaviour
     }
 
 
-     private void SetCount(Fleet fleet, GameUI[] gameUi)
+    private void SetCount(Fleet fleet, GameUI[] gameUi)
     {
         for(int size = 1; size <= 4; size++)
         {
@@ -303,5 +303,17 @@ public class BattlePresenter : MonoBehaviour
 
             counterUi.SetCountShips(count);
         }
+    }
+
+
+    private void SwitchPerson(bool mood)
+    {
+        BoardView board = GetActiveBoard();
+
+        if (board == leftBoard)
+            commentaryView.ShowLeftPerson(mood);
+        
+        else
+            commentaryView.ShowRightPerson(mood);
     }
 }
