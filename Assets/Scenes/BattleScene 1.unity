@@ -2401,7 +2401,7 @@ GameObject:
   - component: {fileID: 814074838}
   - component: {fileID: 814074837}
   m_Layer: 0
-  m_Name: PersonManager
+  m_Name: PersonManagerAi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2792,6 +2792,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1013514504}
   m_CullTransparentMesh: 1
+--- !u!1 &1117665485
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1117665487}
+  - component: {fileID: 1117665486}
+  m_Layer: 0
+  m_Name: PersonManagerFriends
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1117665486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117665485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85c1ab5cd9003413eb04b4d9d0236bae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameAssembly::CommentaryView
+  leftGroup: {fileID: 1303886723}
+  rightGroup: {fileID: 1913885452}
+  personLeft: {fileID: 11400000, guid: 1a7b80d84e05c40be9fc305da64a4920, type: 2}
+  personRight: {fileID: 11400000, guid: 8bd1eaa57e0a44a22820b451751384b7, type: 2}
+  imageLeft: {fileID: 982310225}
+  imageRight: {fileID: 644635700}
+  textLeft: {fileID: 527699429}
+  textRight: {fileID: 1994866074}
+--- !u!4 &1117665487
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117665485}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.61526, y: -5, z: 10.0074}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1135725489
 GameObject:
   m_ObjectHideFlags: 0
@@ -3834,7 +3886,7 @@ MonoBehaviour:
   missilePrefab: {fileID: 191936282571816472, guid: 662cb8d14363249969f6a48276b8e42c, type: 3}
   hitSound: {fileID: 187499306}
   missSound: {fileID: 279989309}
-  commentaryView: {fileID: 814074837}
+  commentaryView: {fileID: 1117665486}
 --- !u!114 &1835980835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4614,3 +4666,4 @@ SceneRoots:
   - {fileID: 1303886722}
   - {fileID: 1913885451}
   - {fileID: 814074838}
+  - {fileID: 1117665487}

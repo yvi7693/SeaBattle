@@ -1,5 +1,3 @@
-
-
 using System;
 using System.Collections;
 using UnityEngine;
@@ -22,7 +20,14 @@ public class AiBattlePresenter : BattlePresenter
     protected override void AttackResolved(MissionResult result)
     {
         if (IsAiMove())
-            MoveAi();
+            StartCoroutine(MoveAiDelay());
+    }
+
+
+    private IEnumerator MoveAiDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        MoveAi();
     }
 
 

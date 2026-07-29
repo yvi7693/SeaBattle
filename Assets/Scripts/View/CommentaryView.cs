@@ -50,7 +50,7 @@ public class CommentaryView : MonoBehaviour
 
         Sequence sequence = DOTween.Sequence();
         sequence.Append(group.DOFade(1f, 0.5f).SetEase(Ease.InOutSine));
-        sequence.AppendInterval(1f);
+        sequence.AppendInterval(1.5f);
         sequence.Append(group.DOFade(0f, 0.5f).SetEase(Ease.InOutSine));
         sequence.OnComplete(() =>
             group.gameObject.SetActive(false));
