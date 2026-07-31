@@ -147,6 +147,8 @@ public class BattlePresenter : MonoBehaviour
 
         SectorView sectorView = activeBoard.GetSector(targetX, targetY);
 
+        sectorView.AttackBorder();
+
         missileAnimate.Launch(startPosition, sectorView.transform.position, () =>
         {
             UpdateCount();

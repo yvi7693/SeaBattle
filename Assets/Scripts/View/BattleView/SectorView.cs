@@ -11,6 +11,9 @@ public class SectorView : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private BoxCollider boxCollider;
     private bool setActiveResolved;
+    private bool isFired;
+
+    [SerializeField] private SpriteRenderer border;
 
     public void Init(int x, int y, BattlePresenter battlePresenter, ParticleSystem fire = null)
     {
@@ -24,6 +27,41 @@ public class SectorView : MonoBehaviour
         explosion = this.transform.Find("Explosion").GetComponentInChildren<ParticleSystem>();
         
     }
+
+
+    private void OnMouseEnter()
+    {
+        OnBorder();
+    }
+
+
+    private void OnMouseExit()
+    {
+        OffBorder();
+    }
+
+
+    public void OnBorder()
+    {
+        border.gameObject.SetActive(true);
+    }
+
+
+    public void OffBorder()
+    {
+        if (isFired)
+            return;
+        border.gameObject.SetActive(false);
+    }
+
+
+    public void AttackBorder()
+    {
+        isFired = true;
+        border.color = Color.red;
+        OnBorder();
+    }
+
 
     public (int, int) GetCoord()
     {
@@ -87,6 +125,10 @@ public class SectorView : MonoBehaviour
         setActiveResolved = false;
         SetClicked(false);
         spriteRenderer.color = new Color(0.749f, 0.914f, 0.937f); // #BFE9EF пенно-голубой
+
+        isFired = false;
+        OffBorder();
+
     }
 
     public void DisplayHit()
@@ -95,6 +137,9 @@ public class SectorView : MonoBehaviour
         SetClicked(false);
         spriteRenderer.color = new Color(0.847f, 0.357f, 0.286f); // #D85B49 коралл
         FireOn();
+
+        isFired = false;
+        OffBorder();
     }
         
 
