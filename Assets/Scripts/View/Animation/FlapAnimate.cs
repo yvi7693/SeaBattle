@@ -23,7 +23,8 @@ public class FlapAnimate : MonoBehaviour
         DOTween.Sequence()
             .Append(flap.DOFade(1f, 1.2f))
             .Join(MusicPlayer.Instance.GetMusic().DOFade(0f, 1.2f))
-            .OnComplete(SceneAnimateStart);
+            .OnComplete(SceneAnimateStart)
+            .SetLink(gameObject);
     }
 
     public void SceneAnimateStart()

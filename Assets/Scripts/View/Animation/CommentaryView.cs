@@ -54,6 +54,7 @@ public class CommentaryView : MonoBehaviour
         sequence.Append(group.DOFade(0f, 0.5f).SetEase(Ease.InOutSine));
         sequence.OnComplete(() =>
             group.gameObject.SetActive(false));
+        sequence.SetLink(group.gameObject);
 
     }
 

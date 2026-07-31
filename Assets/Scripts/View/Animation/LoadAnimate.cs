@@ -35,7 +35,8 @@ public class LoadAnimate : MonoBehaviour
                     text.Length,
                     2f)
                     .SetEase(Ease.InOutQuad)
-                    .OnComplete(AnimateSlider);
+                    .OnComplete(AnimateSlider)
+                    .SetLink(gameObject);
 
     }
 
@@ -46,7 +47,7 @@ public class LoadAnimate : MonoBehaviour
         StartCoroutine(LoadSceneAsync());
 
         slider.gameObject.SetActive(true);
-        slider.DOValue(1f, 2f);
+        slider.DOValue(1f, 2f).SetLink(gameObject);
         
     }
 

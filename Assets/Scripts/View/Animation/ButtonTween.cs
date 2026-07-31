@@ -15,11 +15,13 @@ public class ButtonTween : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        transform.DOScale(defoultScale * hoverScale, duration).SetEase(Ease.OutBack);
+        transform.DOScale(defoultScale * hoverScale, duration)
+                .SetEase(Ease.OutBack).
+                SetLink(gameObject);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        transform.DOScale(defoultScale, duration).SetEase(Ease.OutQuad);
+        transform.DOScale(defoultScale, duration).SetEase(Ease.OutQuad).SetLink(gameObject);
     }
 }

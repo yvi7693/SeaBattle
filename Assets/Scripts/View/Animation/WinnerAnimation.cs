@@ -25,6 +25,7 @@ public class WinnerAnimation : MonoBehaviour
             .Append(winnerName.DOFade(1f, 2f))
             .AppendInterval(1.5f)
             .Append(buttonTransform.DOAnchorPosY(-300, 2f))
-            .Join(buttonCanvas.DOFade(1f, 1f));
+            .Join(buttonCanvas.DOFade(1f, 1f))
+            .SetLink(gameObject);
     }
 }

@@ -24,8 +24,9 @@ public class StartAnimate : MonoBehaviour
             .Append(buttonLeft.DOAnchorPosY(-300, 2f))
             .Join(buttonRight.DOAnchorPosY(-300, 2f))
             .Join(groupButton.DOFade(1f, 2f))
-            .SetEase(Ease.OutBack);
-            
-    } 
+            .SetEase(Ease.OutBack)
+            .SetLink(gameObject);
+
+    }
 
 }

@@ -24,7 +24,8 @@ public class PulseAnimate : MonoBehaviour
             .Append(animateText.DOColor(dimColor, duration))
             .Append(animateText.DOColor(brightColor, duration))
             .SetEase(Ease.InOutSine)
-            .SetLoops(-1);
+            .SetLoops(-1)
+            .SetLink(gameObject);
     }
 
 

@@ -18,7 +18,8 @@ public class MissileAnimate : MonoBehaviour
             .OnComplete(() => {
                                 OnLanded();
                                 Destroy(gameObject);
-                                });
+                                })
+            .SetLink(gameObject);
     }
 
 }

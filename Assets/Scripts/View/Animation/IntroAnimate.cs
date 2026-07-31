@@ -30,6 +30,7 @@ public class IntroAnimate : MonoBehaviour
             .OnComplete(() =>
             {
                 SceneManager.LoadScene("StartScene");
-            });
+            })
+            .SetLink(gameObject);
     }
 }
