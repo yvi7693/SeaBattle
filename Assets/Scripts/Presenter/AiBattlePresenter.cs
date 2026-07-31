@@ -24,6 +24,15 @@ public class AiBattlePresenter : BattlePresenter
     }
 
 
+    protected override void SwitchMove()
+    {
+        base.SwitchMove();
+
+        if(IsAiMove())
+            rightBoard.SetClicked(false);
+    }
+
+
     private IEnumerator MoveAiDelay()
     {
         yield return new WaitForSeconds(1f);
