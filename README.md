@@ -89,11 +89,11 @@
 </tr>
 <tr>
 <td width="50%"><img src="docs/screenshots/05_battle_miss.png" width="100%"><br><sub>Промах — снаряд уходит в воду</sub></td>
-<td width="50%"><img src="docs/screenshots/06_battle_endgame.png" width="100%"><br><sub>Концовка партии против ИИ — снаряд в полёте</sub></td>
+<td width="50%"><img src="docs/screenshots/06_battle_commentary.png" width="100%"><br><sub>Реплика персонажа после промаха + подсветка сектора</sub></td>
 </tr>
 <tr>
-<td width="50%"><img src="docs/screenshots/07_winner.png" width="100%"><br><sub>Экран победителя</sub></td>
-<td width="50%"></td>
+<td width="50%"><img src="docs/screenshots/07_battle_endgame.png" width="100%"><br><sub>Концовка партии против ИИ — снаряд в полёте</sub></td>
+<td width="50%"><img src="docs/screenshots/08_winner.png" width="100%"><br><sub>Экран победителя</sub></td>
 </tr>
 </table>
 
