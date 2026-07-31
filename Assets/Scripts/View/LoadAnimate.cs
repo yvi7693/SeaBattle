@@ -7,24 +7,19 @@ using System.Collections;
 
 public class LoadAnimate : MonoBehaviour
 {
-    [SerializeField] private CanvasGroup flap;
     [SerializeField] private TMP_Text generalText;
     [SerializeField] private Slider slider;
 
+
     private void Awake()
     {
-        flap.alpha = 0;
+        generalText.maxVisibleCharacters = 0;
+        slider.gameObject.SetActive(false);
     }
 
-    public void FlapOn()
-    {
-        flap.DOFade(1f, 2f)
-            .OnComplete(SceneAnimateStart);
-    }
 
-    public void SceneAnimateStart()
+    private void Start()
     {
-        SceneManager.LoadScene("LoadScene");
         AnimateText();
     }
 
@@ -34,8 +29,7 @@ public class LoadAnimate : MonoBehaviour
           string text = "SEABATTLE";
 
           generalText.text = text;
-          generalText.maxVisibleCharacters = 0;
-
+         
           DOTween.To(() => generalText.maxVisibleCharacters,
                     x => generalText.maxVisibleCharacters = x,
                     text.Length,
@@ -45,10 +39,13 @@ public class LoadAnimate : MonoBehaviour
 
     }
 
+
     public void AnimateSlider()
     {   
         
         StartCoroutine(LoadSceneAsync());
+
+        slider.gameObject.SetActive(true);
         slider.DOValue(1f, 2f);
         
     }
@@ -60,8 +57,8 @@ public class LoadAnimate : MonoBehaviour
 
         battleScene.allowSceneActivation = false;
 
-        yield return new WaitUntil(() => slider.value == 1 && battleScene.progress >= 0.9);
+        yield return new WaitUntil(() => slider.value == 1f && battleScene.progress >= 0.9f);
 
-         battleScene.allowSceneActivation = false;
+         battleScene.allowSceneActivation = true;
     }
 }

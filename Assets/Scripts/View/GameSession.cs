@@ -45,15 +45,16 @@ public class GameSession : MonoBehaviour
         }
 
         else if (mode == Mode.Classic && playerDeploy == PlayerName.Player2)
-            SceneManager.LoadScene("BattleScene 1");
+            FlapAnimate.Instance.FlapOn();
 
         else if (mode == Mode.Ai)
         {
             staff.DeployFleet();
-            SceneManager.LoadScene("BattleScene 1");
+            FlapAnimate.Instance.FlapOn();
         }
             
     }
+
 
     public void End()
     {
