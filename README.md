@@ -9,6 +9,7 @@
 <img src="https://img.shields.io/badge/C%23-.NET%20Standard%202.1-512BD4?style=flat-square&logo=csharp&logoColor=white" alt="C#">
 <img src="https://img.shields.io/badge/render-URP%2017.4-2496ED?style=flat-square" alt="URP">
 <img src="https://img.shields.io/badge/tests-234%20passing-2ea043?style=flat-square" alt="Tests">
+<img src="https://img.shields.io/badge/coverage-93.7%25%20lines-2ea043?style=flat-square" alt="Coverage">
 <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="License">
 <img src="https://img.shields.io/badge/status-%D0%B7%D0%B0%D0%B2%D0%B5%D1%80%D1%88%D1%91%D0%BD-2ea043?style=flat-square" alt="Status">
 
@@ -33,8 +34,9 @@
 
 | | |
 |:---|:---|
-| **Строк игровой логики** | ~40 C#-классов в 4 слоях |
+| **Игровая логика** | ~40 C#-классов, ядро отделено от Unity |
 | **Модульных тестов** | 234 (NUnit, без Unity-зависимостей) |
+| **Покрытие ядра** | 93.7% строк, 97.8% методов |
 | **Unity-зависимостей в модели** | 0 |
 | **Сцен** | 6, полный игровой цикл с рестартом |
 
@@ -84,16 +86,12 @@
 <td width="50%"><img src="docs/screenshots/02_deploy_ships.png" width="100%"><br><sub>Расстановка флота</sub></td>
 </tr>
 <tr>
-<td width="50%"><img src="docs/screenshots/03_battle_scene.png" width="100%"><br><sub>Морской бой</sub></td>
-<td width="50%"><img src="docs/screenshots/04_battle_hit.png" width="100%"><br><sub>Прямое попадание</sub></td>
+<td width="50%"><img src="docs/screenshots/03_battle_hit.png" width="100%"><br><sub>Бой: попадание горит на отсеке, промахи помечены светлым</sub></td>
+<td width="50%"><img src="docs/screenshots/04_battle_commentary.png" width="100%"><br><sub>Реплика персонажа после промаха + подсветка сектора</sub></td>
 </tr>
 <tr>
-<td width="50%"><img src="docs/screenshots/05_battle_miss.png" width="100%"><br><sub>Промах — снаряд уходит в воду</sub></td>
-<td width="50%"><img src="docs/screenshots/06_battle_commentary.png" width="100%"><br><sub>Реплика персонажа после промаха + подсветка сектора</sub></td>
-</tr>
-<tr>
-<td width="50%"><img src="docs/screenshots/07_battle_endgame.png" width="100%"><br><sub>Концовка партии против ИИ — снаряд в полёте</sub></td>
-<td width="50%"><img src="docs/screenshots/08_winner.png" width="100%"><br><sub>Экран победителя</sub></td>
+<td width="50%"><img src="docs/screenshots/05_battle_endgame.png" width="100%"><br><sub>Концовка партии против ИИ — снаряд в полёте</sub></td>
+<td width="50%"><img src="docs/screenshots/06_winner.png" width="100%"><br><sub>Экран победителя</sub></td>
 </tr>
 </table>
 
@@ -103,32 +101,37 @@
 
 ## 🗺️ Архитектура
 
-Проект построен по схеме **Model → Controller → Presenter → View**. Ключевое правило: `Assets/Scripts/Model` не знает про Unity вообще — там нет ни `using UnityEngine`, ни наследования от `MonoBehaviour`. Благодаря этому правила боя запускаются и тестируются без Editor и Play Mode.
+Настоящая граница в проекте одна — между **Unity-слоем** и **чистым игровым ядром**. Ядро (`Assets/Scripts/Model`) не знает про Unity вообще: ни одного `using UnityEngine`, ни одного наследника `MonoBehaviour`. Благодаря этому правила боя запускаются и тестируются без Editor и Play Mode.
 
 ```
 ┌──────────────────────────────────────────────────────────┐
-│  View          MonoBehaviour: клики, 3D-сетки, анимации  │
-│                BoardView · SectorView · DeployBoard      │
-└────────────────────────┬─────────────────────────────────┘
-                         │  события ввода / команды отрисовки
-┌────────────────────────┴─────────────────────────────────┐
-│  Presenter     мост Unity ⇄ модель                       │
-│                BattlePresenter · AiBattlePresenter       │
-│                DeployPresenter · SwitchPresenter         │
+│  UNITY-СЛОЙ                                              │
+│                                                          │
+│  View        MonoBehaviour: клики, 3D-сетки, анимации    │
+│              BoardView · SectorView · DeployBoard        │
+│                            ↕                             │
+│  Presenter   мост Unity ⇄ ядро                           │
+│              BattlePresenter · AiBattlePresenter         │
+│              DeployPresenter · SwitchPresenter           │
 └────────────────────────┬─────────────────────────────────┘
                          │  TacticalDirective(x, y) → MissionResult
+                         │  единственный вход в ядро
 ┌────────────────────────┴─────────────────────────────────┐
-│  Controller    правила боя, чистый C#                    │
-│                Staff → Commander → PlansOfficer          │
-│                     → Assignee → TurnRecon               │
-│                BattleController · HomingWeapon           │
-└────────────────────────┬─────────────────────────────────┘
-                         │
-┌────────────────────────┴─────────────────────────────────┐
-│  Model         данные, чистый C#                         │
-│                Sea · Sector · Ship · Fleet               │
+│  ЯДРО — чистый C#, ноль ссылок на UnityEngine            │
+│                                                          │
+│  Controllers правила боя и наведение ИИ                  │
+│              Staff → Commander → PlansOfficer            │
+│                    → Assignee → TurnRecon                │
+│              BattleController · HomingWeapon             │
+│                            ↕                             │
+│  Models      данные и их инварианты                      │
+│              Sea · Sector · Ship · Fleet                 │
 └──────────────────────────────────────────────────────────┘
 ```
+
+> **Про Model и Controller.** Это не два независимых слоя, а две папки внутри одного ядра: общая сборка `GameAssembly.asmdef`, компилятор между ними ничего не запрещает. Разделение здесь по ответственности — «данные» и «правила», — а не по границе зависимостей. Зависимость даже течёт в обе стороны: [`Ship.cs:22`](Assets/Scripts/Model/Models/Ship.cs#L22) сам создаёт `DeploymentOfficer` из `Controllers/`.
+>
+> Разносить их по разным сборкам ради чистоты диаграммы смысла нет: ядро небольшое, а главное свойство — тестируемость без Unity — оно и так даёт. Если возвращаться к этому, то предметно: убрать `DeploymentOfficer` из `Ship` и передавать проверку снаружи, чтобы модель осталась только данными.
 
 ### Как проходит один выстрел
 
@@ -216,7 +219,35 @@ flowchart LR
 
 ## 🧪 Тестирование
 
-**234 теста** на Unity Test Framework (NUnit), Edit Mode — покрыта вся модель и все контроллеры.
+**234 теста** на Unity Test Framework (NUnit), Edit Mode — покрыто игровое ядро `Assets/Scripts/Model`.
+
+<div align="center">
+
+| | |
+|:---|:---|
+| **Тестов** | 234 · все проходят |
+| **Покрытие строк** | **93.7%** (402 из 429) |
+| **Покрытие методов** | **97.8%** (89 из 91) |
+| **Время прогона** | 0.14 с |
+
+</div>
+
+Цифры — из отчёта Unity Code Coverage, а не из ручного подсчёта. Полный отчёт по классам и разбор непокрытых строк: [`docs/coverage/Summary.md`](docs/coverage/Summary.md).
+
+**100% строк и методов** — `Sector`, `Ship`, `Fleet`, `BattleController`, `TurnRecon`, `Staff`, `Commander`, `Assignee`, `AttackResolver`, `Sinker` (10 из 14 классов).
+
+Остальные четыре:
+
+| Класс | Строки | Методы |
+|---|---:|---:|
+| `DeploymentOfficer` | 98.1% | 100% |
+| `Sea` | 97.6% | 91.6% |
+| `PlansOfficer` | 86.7% | 100% |
+| `HomingWeapon` | 77.5% | 91.6% |
+
+Непокрытыми остались 27 строк — редкие ветки ИИ-наведения в `HomingWeapon` и откат неудачной расстановки в `PlansOfficer`. Причина в том, что `HomingWeapon` использует несидированный `System.Random`: детерминированно загнать алгоритм в конкретную ветку добивания из теста нельзя. Это ограничение дизайна, а не забытые тесты.
+
+**Прогнать самому**
 
 ```bash
 # Через Unity Editor
@@ -224,11 +255,15 @@ Window → General → Test Runner → EditMode → Run All
 ```
 
 ```bash
-# Из командной строки (macOS)
+# Из командной строки (macOS) — тесты + отчёт о покрытии
 /Applications/Unity/Hub/Editor/6000.4.11f1/Unity.app/Contents/MacOS/Unity \
-  -runTests -batchmode -projectPath . -testPlatform EditMode \
-  -testResults ./TestResults.xml
+  -batchmode -nographics -projectPath . \
+  -runTests -testPlatform EditMode -testResults ./TestResults.xml \
+  -enableCodeCoverage -coverageResultsPath ./CodeCoverage \
+  -coverageOptions "generateHtmlReport;assemblyFilters:+GameAssembly;pathFilters:+**/Assets/Scripts/Model/**"
 ```
+
+> HTML-отчёт появится в `CodeCoverage/Report/index.html`. Флаг `-quit` добавлять нельзя — Unity выйдет до старта тестов.
 
 | Файл | Что проверяет |
 |---|---|
@@ -252,9 +287,9 @@ Window → General → Test Runner → EditMode → Run All
 | **DOTween** | Анимации интерфейса, снарядов, персонажей, переходов |
 | **TextMesh Pro** | Весь текст интерфейса |
 | **Unity Test Framework** `1.6` | NUnit-тесты игровой логики |
+| **Unity Code Coverage** `1.2` | Замер покрытия ядра тестами |
 | Кастомный шейдер моря | Анимированный океан на фоне (`Assets/Shader`) |
 | Particle System | Огонь, дым, искры, всплески |
-| Python-скрипты в `Tools/` | Генерация спрайтов кнопок, обводок секторов и минимальных моделей кораблей |
 
 <br>
 
@@ -305,8 +340,8 @@ SeaBattle/
 │   ├── FireAssets/      частицы огня, дыма, всплесков
 │   ├── Audio/           музыка и звуковой микшер
 │   └── Plugins/         DOTween
-├── Tools/               вспомогательные Python-скрипты для генерации ассетов
 ├── docs/screenshots/    скриншоты для README
+├── docs/coverage/       отчёт о покрытии тестами
 ├── Packages/            манифест пакетов Unity
 └── ProjectSettings/     настройки проекта и Build Settings
 ```
@@ -318,6 +353,20 @@ SeaBattle/
 [MIT](LICENSE) — можно свободно использовать, изменять и распространять.
 
 Музыка в `Assets/Audio` используется в учебных целях и права на неё принадлежат их авторам.
+
+<br>
+
+## 👨‍💻 Авторы
+
+<p align="center">
+  <b>Product by</b><br>
+  <a href="https://github.com/yvi7693">Yaroslav Volkov</a>
+</p>
+
+<p align="center">
+  <b>Under the leadership of</b><br>
+  <a href="https://github.com/dante-pol">Dmitry Rak</a>
+</p>
 
 <br>
 
