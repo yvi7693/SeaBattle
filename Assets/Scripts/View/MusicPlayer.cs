@@ -27,10 +27,12 @@ public class MusicPlayer : MonoBehaviour
 
     public void Switch(AudioSource newMusic)
     {
-        Instance.music.Stop();
+        if (music != null)
+            music.Stop();
 
         music = newMusic;
-        Instance.music.Play();
-        
+
+        if (music != null)
+            music.Play();
     }
 }
