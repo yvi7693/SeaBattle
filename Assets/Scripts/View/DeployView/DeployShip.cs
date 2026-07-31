@@ -102,7 +102,6 @@ public class DeployShip : MonoBehaviour
 
             if (cell == null)
             {
-                deployPresenter.GetPanel().PanelOn();
                 break;
             }
                 
@@ -111,6 +110,18 @@ public class DeployShip : MonoBehaviour
         }
 
         return coord;
+    }
+
+
+    public bool IsOnBoard()
+    {
+        for (int i = 0; i < deckPoints.Length; i++)
+        {
+            if (Physics2D.OverlapPoint(deckPoints[i].position, cellLayer) == null)
+                return false;
+        }
+
+        return true;
     }
 
 

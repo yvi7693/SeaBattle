@@ -32,10 +32,27 @@ public class DeployPresenter : MonoBehaviour
 
   public void Next()
   {
-    
+    if (!IsOnBoard())
+    {
+      GetPanel().PanelOn();
+      return;
+    }
+      
     PushShips();
 
     GameSession.Instance.Next();
+  }
+
+
+  public bool IsOnBoard()
+  {
+    for (int i = 0; i < deployShips.Length; i++)
+    {
+      if (!deployShips[i].IsOnBoard())
+        return false;
+    }
+
+    return true;
   }
 
 
