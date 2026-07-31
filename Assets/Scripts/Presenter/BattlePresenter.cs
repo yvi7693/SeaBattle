@@ -14,6 +14,7 @@ public class BattlePresenter : MonoBehaviour
     [SerializeField] protected AudioSource hitSound;
     [SerializeField] protected AudioSource missSound;
     [SerializeField] protected CommentaryView commentaryView;
+    [SerializeField] protected AudioSource music;
 
     protected Staff staff;
     protected TurnRecon turnRecon;
@@ -28,6 +29,8 @@ public class BattlePresenter : MonoBehaviour
 
         Init(staff.GetTurnRecon());
         UpdateCount();
+
+        MusicPlayer.Instance.Switch(music);
     }
 
 

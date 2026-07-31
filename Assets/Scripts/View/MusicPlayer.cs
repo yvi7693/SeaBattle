@@ -20,6 +20,11 @@ public class MusicPlayer : MonoBehaviour
         DontDestroyOnLoad(gameObject);  
     }
 
+    public AudioSource GetMusic()
+    {
+        return music;
+    }
+
     public void Switch(AudioSource newMusic)
     {
         Instance.music.Stop();
